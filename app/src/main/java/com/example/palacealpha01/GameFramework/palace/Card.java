@@ -3,6 +3,7 @@ package com.example.palacealpha01.GameFramework.palace;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 //import android.graphics.drawable.BitmapDrawable;
+import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.Log;
 
@@ -35,9 +36,9 @@ public class Card
 		this.image = that.image;
 	}//END: Card() copy constructor
 
-	public void draw(Canvas c)
+	public void draw(Canvas c, float x, float y, Paint p)
 	{
-		// TODO: Draw the Card's BitmapDrawable
+		c.drawBitmap(this.image, x, y, p);
 	}//END: draw() method
 
 	public Rank get_rank()
@@ -90,8 +91,9 @@ public class Card
 			case TEN:
 				return_str += "Ten";
 				break;
+
 			default:
-				Log.d("Card.java:61", "ERROR: (rank) variable corrupted");
+				Log.d("Card.java|toString", "ERROR: (rank) variable corrupted");
 				return null;
 		}
 		return_str += " of ";
@@ -109,8 +111,9 @@ public class Card
 			case HEARTS:
 				return_str += "Hearts";
 				break;
+
 			default:
-				Log.d("Card.java:74", "ERROR: (suit) variable corrupted");
+				Log.d("Card.java|toString", "ERROR: (suit) variable corrupted");
 				return null;
 		}
 		return(return_str);

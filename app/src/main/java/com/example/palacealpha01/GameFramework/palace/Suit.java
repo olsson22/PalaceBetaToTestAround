@@ -42,7 +42,7 @@ public enum Suit
 			case HEARTS_INT:   return HEARTS;
 
 			default:
-				Log.d("Suit.java:34", "ERROR: Incorrect integer passed to the 'int_to_suit()' function");
+				Log.d("Suit.java|int_to_suit", "ERROR: Incorrect integer passed to the 'int_to_suit()' function");
 				return null;
 		}
 	}//END: int_to_suit() function

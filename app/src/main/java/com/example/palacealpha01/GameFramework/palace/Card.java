@@ -91,7 +91,7 @@ public class Card
 				return_str += "Ten";
 				break;
 			default:
-				Log.d("Card.java:61", "ERROR: (rank) variable corrupted");
+				Log.d("Card.java|toString", "ERROR: (rank) variable corrupted");
 				return null;
 		}
 		return_str += " of ";
@@ -110,7 +110,7 @@ public class Card
 				return_str += "Hearts";
 				break;
 			default:
-				Log.d("Card.java:74", "ERROR: (suit) variable corrupted");
+				Log.d("Card.java|toString", "ERROR: (suit) variable corrupted");
 				return null;
 		}
 		return(return_str);

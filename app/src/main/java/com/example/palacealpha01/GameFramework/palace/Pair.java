@@ -83,7 +83,7 @@ public class Pair
 				return_str += "Draw pile";
 				break;
 			default:
-				Log.d("Pair.java", "ERROR: invalid location");
+				Log.d("Pair.java|toString", "ERROR: invalid location");
 				return null;
 		}
 

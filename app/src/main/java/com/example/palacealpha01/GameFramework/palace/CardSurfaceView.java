@@ -8,45 +8,49 @@ import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
 
-public class CardSurfaceView extends SurfaceView implements View.OnTouchListener {
+public class CardSurfaceView extends SurfaceView implements View.OnTouchListener
+{
 
-    private PalaceGameState pgs;
-    private Paint bitmapPaint = new Paint();
-    float x;
-    float y;
+	private PalaceGameState pgs;
+	private Paint bitmapPaint = new Paint();
+	float x;
+	float y;
 
-    public CardSurfaceView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        setWillNotDraw(false);
+	public CardSurfaceView(Context context, AttributeSet attrs)
+	{
+		super(context, attrs);
+		setWillNotDraw(false);
 
-    }
+	}
 
-    public void onDraw(Canvas canvas) {
+	public void onDraw(Canvas canvas)
+	{
+		x = 10f;
+		y = 100f;
+		pgs.shuffleTheDeck();
+		for (Pair p : pgs.the_deck)
+		{
+			p.get_card().draw(canvas, x, y, bitmapPaint);
+//			canvas.drawBitmap(p.get_card().getImage(), x, y, bitmapPaint);
 
-        x = 10;
-        y = 100;
-        pgs.shuffleTheDeck();
-        for (Pair p : pgs.the_deck) {
+			x += 110f;
+			if (x + 100f > getWidth())
+			{
+				x = 10f;
+				y += 200f;
+			}
+		}
+	}
 
-            canvas.drawBitmap(p.get_card().getImage(), x, y, bitmapPaint);
+	public void setPgs(PalaceGameState pgs)
+	{
+		this.pgs = pgs;
+	}
 
-            x+=110;
-            if (x + 100 > getWidth()) {
-                x = 10;
-                y += 200;
-            }
+	@Override
+	public boolean onTouch(View v, MotionEvent event)
+	{
 
-        }
-
-    }
-
-    public void setPgs(PalaceGameState pgs) {
-        this.pgs = pgs;
-    }
-
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-
-        return false;
-    }
+		return false;
+	}
 }

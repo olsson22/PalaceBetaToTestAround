@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.palacealpha01.GameFramework.GameMainActivity;
+import com.example.palacealpha01.GameFramework.LocalGame;
 import com.example.palacealpha01.GameFramework.gameConfiguration.GameConfig;
 import com.example.palacealpha01.R;
 
@@ -25,6 +26,11 @@ public class PalaceMainActivity extends GameMainActivity implements View.OnClick
     @Override
     public GameConfig createDefaultConfig() {
 
+    }
+
+    @Override
+    public LocalGame createLocalGame() {
+        return new PalaceLocalGame();
     }
 
     /*private CardSurfaceView tableView;

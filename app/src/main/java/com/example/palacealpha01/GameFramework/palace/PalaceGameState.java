@@ -20,7 +20,7 @@ public class PalaceGameState
 	public ArrayList<Pair> the_deck;
 	private ArrayList<Pair> selectedCards;
 	private ArrayList<Pair> discardPile;
-	private Resources resources;
+	//private Resources resources;
 
 
 	private int turn;
@@ -31,9 +31,9 @@ public class PalaceGameState
 	 *
 	 * Creates a deck of cards, shuffles it and deals it
 	 */
-	public PalaceGameState(Resources resources)
+	public PalaceGameState(/*Resources resources*/)
 	{
-		this.resources = resources;
+		//this.resources = resources;
 		the_deck = new ArrayList<>();
 		selectedCards = new ArrayList<>();
 		discardPile = new ArrayList<>();

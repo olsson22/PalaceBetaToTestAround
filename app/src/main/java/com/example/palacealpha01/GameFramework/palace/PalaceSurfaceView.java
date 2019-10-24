@@ -8,14 +8,14 @@ import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
 
-public class CardSurfaceView extends SurfaceView implements View.OnTouchListener {
+public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListener {
 
     private PalaceGameState pgs;
     private Paint bitmapPaint = new Paint();
     float x;
     float y;
 
-    public CardSurfaceView(Context context, AttributeSet attrs) {
+    public PalaceSurfaceView(Context context, AttributeSet attrs) {
         super(context, attrs);
         setWillNotDraw(false);
 

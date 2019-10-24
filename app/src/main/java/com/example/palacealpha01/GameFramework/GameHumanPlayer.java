@@ -8,18 +8,19 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 
-import edu.up.cs301.game.GameFramework.actionMessage.GameOverAckAction;
-import edu.up.cs301.game.GameFramework.actionMessage.MyNameIsAction;
-import edu.up.cs301.game.GameFramework.actionMessage.ReadyAction;
-import edu.up.cs301.game.GameFramework.infoMessage.BindGameInfo;
-import edu.up.cs301.game.GameFramework.infoMessage.GameInfo;
-import edu.up.cs301.game.GameFramework.infoMessage.GameOverInfo;
-import edu.up.cs301.game.GameFramework.infoMessage.StartGameInfo;
-import edu.up.cs301.game.GameFramework.infoMessage.TimerInfo;
-import edu.up.cs301.game.GameFramework.utilities.GameTimer;
-import edu.up.cs301.game.GameFramework.utilities.Logger;
-import edu.up.cs301.game.GameFramework.utilities.MessageBox;
-import edu.up.cs301.game.GameFramework.utilities.Tickable;
+import com.example.palacealpha01.GameFramework.actionMessage.GameOverAckAction;
+import com.example.palacealpha01.GameFramework.actionMessage.MyNameIsAction;
+import com.example.palacealpha01.GameFramework.actionMessage.ReadyAction;
+import com.example.palacealpha01.GameFramework.infoMessage.BindGameInfo;
+import com.example.palacealpha01.GameFramework.infoMessage.GameInfo;
+import com.example.palacealpha01.GameFramework.infoMessage.GameOverInfo;
+import com.example.palacealpha01.GameFramework.infoMessage.StartGameInfo;
+import com.example.palacealpha01.GameFramework.infoMessage.TimerInfo;
+import com.example.palacealpha01.GameFramework.utilities.GameTimer;
+import com.example.palacealpha01.GameFramework.utilities.Logger;
+import com.example.palacealpha01.GameFramework.utilities.MessageBox;
+import com.example.palacealpha01.GameFramework.utilities.Tickable;
+
 
 /**
  * class GameHumanPlayer

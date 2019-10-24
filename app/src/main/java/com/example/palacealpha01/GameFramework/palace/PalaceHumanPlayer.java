@@ -7,6 +7,11 @@ import com.example.palacealpha01.GameFramework.GameMainActivity;
 import com.example.palacealpha01.GameFramework.infoMessage.GameInfo;
 
 public class PalaceHumanPlayer extends GameHumanPlayer {
+
+
+
+
+
     @Override
     public View getTopView() {
         return null;
@@ -19,6 +24,11 @@ public class PalaceHumanPlayer extends GameHumanPlayer {
 
     @Override
     public void setAsGui(GameMainActivity activity) {
+
+    }
+
+    @Override
+    public void sendInfo(GameInfo info) {
 
     }
 }

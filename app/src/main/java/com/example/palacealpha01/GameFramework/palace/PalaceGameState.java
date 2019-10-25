@@ -19,7 +19,7 @@ public class PalaceGameState
 
 	public ArrayList<Pair> the_deck;
 	private ArrayList<Pair> selectedCards;
-	private ArrayList<Pair> discardPile;
+	private Stack discardPile;
 	private Resources resources;
 
 
@@ -28,7 +28,7 @@ public class PalaceGameState
 
 	/**
 	 * Default Constructor for PalaceGameState
-	 *
+	 * <p>
 	 * Creates a deck of cards, shuffles it and deals it
 	 */
 	public PalaceGameState(Resources resources)
@@ -36,7 +36,7 @@ public class PalaceGameState
 		this.resources = resources;
 		the_deck = new ArrayList<>();
 		selectedCards = new ArrayList<>();
-		discardPile = new ArrayList<>();
+		discardPile = new Stack();
 		initialize_the_deck();
 		shuffleTheDeck();
 		turn = 0;
@@ -54,19 +54,24 @@ public class PalaceGameState
 		turn = state.turn;
 		the_deck = new ArrayList<>();
 
-		for (Pair p : state.the_deck) {
+		for (Pair p : state.the_deck)
+		{
 			the_deck.add(new Pair(p));
 		}
 
 		selectedCards = new ArrayList<>();
-		for (Pair p : state.selectedCards) {
+		for (Pair p : state.selectedCards)
+		{
 			selectedCards.add(new Pair(p));
 		}
 
-		discardPile = new ArrayList<>();
-		for (Pair p : state.discardPile) {
+/*		discardPile = new ArrayList<>();
+		for (Pair p : state.discardPile)
+		{
 			discardPile.add(new Pair(p));
 		}
+*/
+		discardPile = new Stack(state.discardPile);
 	}//deep copy constructor
 
 	/**
@@ -136,7 +141,6 @@ public class PalaceGameState
 		the_deck.get(51).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.ten_of_hearts));
 
 
-
 	}//initialize_the_deck
 
 	/**
@@ -151,7 +155,7 @@ public class PalaceGameState
 	/**
 	 * Adds legal, user-selected cards to the selectedCards ArrayList
 	 *
-	 * @param playerID ID of player who called the method
+	 * @param playerID         ID of player who called the method
 	 * @param userSelectedCard card that user attempted to select
 	 * @return true if a card was successfully selected OR deselected
 	 */
@@ -165,8 +169,7 @@ public class PalaceGameState
 				return true;
 			}
 			//also select the card if the other selected cards are of the same rank
-			else if (!selectedCards.contains(userSelectedCard) &&
-					 userSelectedCard.get_card().get_rank() == selectedCards.get(selectedCards.size() - 1).get_card().get_rank())
+			else if (!selectedCards.contains(userSelectedCard) && userSelectedCard.get_card().get_rank() == selectedCards.get(selectedCards.size() - 1).get_card().get_rank())
 			{
 				selectedCards.add(userSelectedCard);
 				return true;
@@ -186,20 +189,23 @@ public class PalaceGameState
 	 * Selects cards to be placed into the palace of the player who called the method.
 	 * Different from selectCards because any cards can be legally added to the palace.
 	 *
-	 * @param playerID ID of player who called the method
+	 * @param playerID         ID of player who called the method
 	 * @param userSelectedCard card that user attempted to select
 	 * @return true if a card was successfully selected OR deselected
 	 */
-	public boolean selectPalaceCards(int playerID, Pair userSelectedCard){
+	public boolean selectPalaceCards(int playerID, Pair userSelectedCard)
+	{
 
 		//deselects the card if it is already selected
-		if (selectedCards.contains(userSelectedCard)) {
+		if (selectedCards.contains(userSelectedCard))
+		{
 			selectedCards.remove(userSelectedCard);
 			return true;
 		}
 
 		//selects a card if there are not already three selected cards
-		if (selectedCards.size() < 3) {
+		if (selectedCards.size() < 3)
+		{
 			selectedCards.add(userSelectedCard);
 			return true;
 		}
@@ -208,39 +214,46 @@ public class PalaceGameState
 
 	}//selectPalaceCards
 
-    /**
-     * Places all selected cards into the discard pile. Bombs the discard pile (bombDiscardPile()) if
-     * 4 of a kind are on top of the discard pile or a ten is played.
-     *
-     * @param playerID player who called this method,
-     * @return true if cards have been selected for play
-     */
+	/**
+	 * Places all selected cards into the discard pile. Bombs the discard pile (bombDiscardPile()) if
+	 * 4 of a kind are on top of the discard pile or a ten is played.
+	 *
+	 * @param playerID player who called this method,
+	 * @return true if cards have been selected for play
+	 */
 	public boolean playCards(int playerID)
 	{
-	    if (selectedCards.size() != 0) {
-            for (int i = 0; i < selectedCards.size(); i++) {
-                discardPile.add(selectedCards.get(i));
-            }
+		if (selectedCards.size() != 0)
+		{
+			for (int i = 0; i < selectedCards.size(); i++)
+			{
+				discardPile.push(selectedCards.get(i));
+			}
 
-            for (Pair p : the_deck) {
-                if (selectedCards.contains(p)) {
-                    p.set_location(Location.DISCARD_PILE);
-                }
-            }
+			for (Pair p : the_deck)
+			{
+				if (selectedCards.contains(p))
+				{
+					p.set_location(Location.DISCARD_PILE);
+				}
+			}
 
-            selectedCards.clear();
+			selectedCards.clear();
 
-            //bomb the discard pile if there at least 4 cards and the top four are of the same rank
-            if (discardPile.size() >= 4) {
-                if (discardPile.get(discardPile.size() - 1).get_card().get_rank() == discardPile.get(discardPile.size() - 2).get_card().get_rank() &&
-                        discardPile.get(discardPile.size() - 1).get_card().get_rank() == discardPile.get(discardPile.size() - 3).get_card().get_rank() &&
-                        discardPile.get(discardPile.size() - 1).get_card().get_rank() == discardPile.get(discardPile.size() - 4).get_card().get_rank() ||
-                        discardPile.get(discardPile.size() - 1).get_card().get_rank() == Rank.TEN) {
-                    bombDiscardPile();
-                }
-            }
-            return true;
-        }
+			//bomb the discard pile if there at least 4 cards and the top four are of the same rank
+			if (discardPile.size() >= 4)
+				if (discardPile.are_next_four_equal() || discardPile.peek().get_card().get_rank() == Rank.TEN)
+					bombDiscardPile();
+				
+/*			if (discardPile.size() >= 4)
+			{
+				if (discardPile.get(discardPile.size() - 1).get_card().get_rank() == discardPile.get(discardPile.size() - 2).get_card().get_rank() && discardPile.get(discardPile.size() - 1).get_card().get_rank() == discardPile.get(discardPile.size() - 3).get_card().get_rank() && discardPile.get(discardPile.size() - 1).get_card().get_rank() == discardPile.get(discardPile.size() - 4).get_card().get_rank() || discardPile.get(discardPile.size() - 1).get_card().get_rank() == Rank.TEN)
+				{
+					bombDiscardPile();
+				}
+			}
+*/          return true;
+		}
 		return false;
 	}//playCards
 
@@ -290,11 +303,14 @@ public class PalaceGameState
 	{
 		if (playerID == 1)
 		{
-			if (selectedCards.size() == 3) {
+			if (selectedCards.size() == 3)
+			{
 
-				for (Pair p : the_deck) {
+				for (Pair p : the_deck)
+				{
 
-					if (p.get_location() == Location.PLAYER_ONE_HAND && selectedCards.contains(p)) {
+					if (p.get_location() == Location.PLAYER_ONE_HAND && selectedCards.contains(p))
+					{
 
 						p.set_location(Location.PLAYER_ONE_UPPER_PALACE);
 
@@ -303,13 +319,17 @@ public class PalaceGameState
 				selectedCards.clear();
 				return true;
 			}
-		} else if (playerID == 2)
+		}
+		else if (playerID == 2)
 		{
-			if (selectedCards.size() == 3) {
+			if (selectedCards.size() == 3)
+			{
 
-				for (Pair p : the_deck) {
+				for (Pair p : the_deck)
+				{
 
-					if (p.get_location() == Location.PLAYER_TWO_HAND && selectedCards.contains(p)) {
+					if (p.get_location() == Location.PLAYER_TWO_HAND && selectedCards.contains(p))
+					{
 
 						p.set_location(Location.PLAYER_TWO_UPPER_PALACE);
 
@@ -325,15 +345,14 @@ public class PalaceGameState
 	/**
 	 * Reassigns location of cards in discard pile to the
 	 * player with the PlayerID passed as parameter.
-     *
-	 * @param playerID player who called the method
 	 *
+	 * @param playerID player who called the method
 	 * @return true if called by a valid player
 	 */
 	public boolean takeDiscardPile(int playerID)
 	{
 
-		if (!discardPile.isEmpty())
+		if (! discardPile.is_empty())
 		{
 
 			if (playerID == 1)
@@ -350,7 +369,8 @@ public class PalaceGameState
 				discardPile.clear();
 				return true;
 
-			} else if (playerID == 2)
+			}
+			else if (playerID == 2)
 			{
 
 				for (Pair p : the_deck)
@@ -384,7 +404,8 @@ public class PalaceGameState
 				if (i % 2 == 0)
 				{
 					the_deck.get(i).set_location(Location.PLAYER_ONE_HAND);
-				} else
+				}
+				else
 				{
 					the_deck.get(i).set_location(Location.PLAYER_TWO_HAND);
 				}
@@ -394,7 +415,8 @@ public class PalaceGameState
 				if (i % 2 == 0)
 				{
 					the_deck.get(i).set_location(Location.PLAYER_ONE_LOWER_PALACE);
-				} else
+				}
+				else
 				{
 					the_deck.get(i).set_location(Location.PLAYER_TWO_LOWER_PALACE);
 				}
@@ -404,7 +426,8 @@ public class PalaceGameState
 				if (i % 2 == 0)
 				{
 					the_deck.get(i).set_location(Location.PLAYER_ONE_UPPER_PALACE);
-				} else
+				}
+				else
 				{
 					the_deck.get(i).set_location(Location.PLAYER_TWO_UPPER_PALACE);
 				}
@@ -418,28 +441,26 @@ public class PalaceGameState
 	 * Checks if playing the selected card is legal according to the rules of Palace
 	 *
 	 * @param selectedCard the card that is selected
-	 *
 	 * @return true if the move is legal, else false
 	 */
 	private boolean isLegal(Pair selectedCard)
 	{
-		if (discardPile.isEmpty())
+		if (discardPile.is_empty())
 		{
 			return true;
 		}
 		//playing a two is always legal
-		else if (discardPile.get(discardPile.size() - 1).get_card().get_rank() == Rank.TWO)
+		else if (discardPile.peek().get_card().get_rank() == Rank.TWO)
 		{
 			return true;
 		}
 		//cards of equal or lower rank are allowed on top of sevens
-		else if (discardPile.get(discardPile.size() - 1).get_card().get_rank() == Rank.SEVEN &&
-				  (selectedCard.get_card().get_rank().get_int_value() <= Rank.SEVEN_INT))
+		else if (discardPile.peek().get_card().get_rank() == Rank.SEVEN && (selectedCard.get_card().get_rank().get_int_value() <= Rank.SEVEN_INT))
 		{
 			return true;
 		}
 		//otherwise, a card is only legal if its rank is higher than the top card of the discard pile
-		else if (discardPile.get(discardPile.size() - 1).get_card().get_rank().get_int_value() <= selectedCard.get_card().get_rank().get_int_value())
+		else if (discardPile.peek().get_card().get_rank().get_int_value() <= selectedCard.get_card().get_rank().get_int_value())
 		{
 			return true;
 		}
@@ -467,8 +488,7 @@ public class PalaceGameState
 	 * Creates a String representation of the results of the Use Case methods.
 	 *
 	 * @return A string representation of the result of the Use Case methods.
-	 */
-	public String toString()
+	 */ public String toString()
 	{
 		String gameStateString = "";
 
@@ -483,11 +503,13 @@ public class PalaceGameState
 
 		gameStateString += "Discard pile contains:\n";
 
-		for (Pair p : discardPile)
+		gameStateString += discardPile.toString();
+
+/*		for (Pair p : discardPile)
 		{
 			gameStateString += p.toString() + "\n";
 		}
-
+*/
 		gameStateString += "Selected cards contains:\n";
 
 		for (Pair p : selectedCards)

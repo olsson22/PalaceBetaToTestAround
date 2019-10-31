@@ -1,6 +1,6 @@
 package com.example.palacealpha01.GameFramework.actionMessage;
 
-import edu.up.cs301.game.GameFramework.GamePlayer;
+import com.example.palacealpha01.GameFramework.GamePlayer;
 
 /**
  * An action by which the player tells the game its name

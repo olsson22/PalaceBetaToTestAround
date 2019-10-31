@@ -2,8 +2,9 @@ package com.example.palacealpha01.GameFramework.actionMessage;
 
 
 import java.io.Serializable;
+import com.example.palacealpha01.GameFramework.GamePlayer;
 
-import edu.up.cs301.game.GameFramework.GamePlayer;
+
 
 /**
  * An action for a generic game.  A game action is something that a player

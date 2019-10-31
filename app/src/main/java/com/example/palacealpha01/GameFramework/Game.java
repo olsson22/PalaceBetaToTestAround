@@ -1,6 +1,8 @@
 package com.example.palacealpha01.GameFramework;
 
-import edu.up.cs301.game.GameFramework.actionMessage.GameAction;
+
+
+import com.example.palacealpha01.GameFramework.actionMessage.GameAction;
 
 /**
  * To support remote play, this game framework has two types of Games: local

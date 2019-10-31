@@ -2,7 +2,9 @@ package com.example.palacealpha01.GameFramework.infoMessage;
 
 import java.io.Serializable;
 
-import edu.up.cs301.game.GameFramework.Game;
+import com.example.palacealpha01.GameFramework.Game;
+
+
 
 /**
  * An informational message that is sent from the game to a player.  The

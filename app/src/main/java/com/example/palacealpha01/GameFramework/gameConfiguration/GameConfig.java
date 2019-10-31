@@ -10,11 +10,17 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+import com.example.palacealpha01.GameFramework.GameMainActivity;
+import com.example.palacealpha01.GameFramework.GamePlayer;
+import com.example.palacealpha01.GameFramework.ProxyPlayer;
+import com.example.palacealpha01.GameFramework.utilities.Logger;
+
+/*
 import edu.up.cs301.game.GameFramework.GameMainActivity;
 import edu.up.cs301.game.GameFramework.GamePlayer;
 import edu.up.cs301.game.GameFramework.ProxyPlayer;
 import edu.up.cs301.game.GameFramework.utilities.Logger;
-
+*/
 /**
  * GameConfig class
  * <P>

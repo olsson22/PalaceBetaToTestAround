@@ -1,6 +1,7 @@
 package com.example.palacealpha01.GameFramework.gameConfiguration;
 
-import edu.up.cs301.game.GameFramework.GamePlayer;
+
+import com.example.palacealpha01.GameFramework.GamePlayer;
 
 /**
  * class GamePlayerType

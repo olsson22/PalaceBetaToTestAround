@@ -25,7 +25,7 @@ public class PalaceMainActivity extends GameMainActivity implements View.OnClick
      */
     @Override
     public GameConfig createDefaultConfig() {
-
+        return null;
     }
 
     @Override

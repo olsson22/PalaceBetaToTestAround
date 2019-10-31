@@ -72,12 +72,38 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListen
             }
         }
         if(event.getAction()== MotionEvent.ACTION_DOWN){
-            int y = this.getHeight()/2;
 
-            int width = (this.getWidth()/(Math.max(5,nbrOfCards)));
+            int y = 2*(this.getHeight())/3;
+
+            //card width
+            int width = (this.getWidth()/(Math.max(4,nbrOfCards)));
+            //card height
             int height = (int) (width*heightRatio);
+            int i = 0;
             for(Pair p: pgs.the_deck){
-                Card c = p.get_card();
+                if(p.get_location()==Location.PLAYER_ONE_HAND)
+                {
+                    Card c = p.get_card();
+
+                    int left = width*i;
+                    int top = y;
+                    int right = width*i + width;
+                    int bottom = height + y;
+
+                    if(tappedX>left && tappedX<right && tappedY>top && tappedY<bottom){
+
+                        /*insert what happens depending on what card has been tapped*/
+                        if(c.get_rank()==Rank.TEN){
+                            //Bomb discard pile action
+
+                        }
+                        else{
+                            PalacePlayCardAction pc = new PalacePlayCardAction(humanPlayer);
+                            theGame.sendAction(pc);
+                        }
+                    }
+
+                }
                 /*here we will have to add how tapping a certain
                 * card will affect what will happen to the game, and
                 * also send the certain gameaction*/

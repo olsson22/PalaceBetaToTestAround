@@ -22,8 +22,6 @@ public class PalaceGameState extends GameState
 	private ArrayList<Pair> selectedCards;
 	private Stack discardPile;
 	private Resources resources;
-
-
 	private int turn;
 
 
@@ -87,6 +85,7 @@ public class PalaceGameState extends GameState
 				the_deck.add(new Pair(new Card(Rank.int_to_rank(i), Suit.int_to_suit(j)), Location.DRAW_PILE));
 			}
 		}
+
 
 		the_deck.get(0).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.three_of_spades));
 		the_deck.get(1).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.three_of_clubs));

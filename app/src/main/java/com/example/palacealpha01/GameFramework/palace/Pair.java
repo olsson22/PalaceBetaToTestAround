@@ -89,4 +89,18 @@ public class Pair
 
 		return return_str;
 	}//END: toString() method
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (! (obj instanceof Pair))
+			return false;
+
+		if (! this.card.equals(((Pair) obj).get_card()))
+			return false;
+		if (this.location != ((Pair) obj).location)
+			return false;
+
+		return true;
+	}
 }//END: Pair class

@@ -119,6 +119,22 @@ public class Card
 		return(return_str);
 	}//END: toString() method
 
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (! (obj instanceof Card))
+			return false;
+
+		if (this.suit != ((Card) obj).suit)
+			return false;
+		if (this.rank != ((Card) obj).rank)
+			return false;
+		if (! this.image.equals(((Card) obj).image))
+			return false;
+
+		return true;
+	}
+
 	public void setImage(Bitmap image) {
 		this.image = image;
 	}

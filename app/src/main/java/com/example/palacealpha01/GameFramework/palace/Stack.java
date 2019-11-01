@@ -30,6 +30,17 @@ public class Stack
 			this.data = data;
 			this.next = null;
 		}//END: StackNode() constructor
+
+		public boolean equals(Object obj)
+		{
+			if (! (obj instanceof StackNode))
+				return false;
+
+			if (! this.data.equals(((StackNode) obj).data))
+				return false;
+
+			return true;
+		}
 	}//END: StackNode class
 
 	StackNode head; // This is the head/top of the Stack. It is the first Node in the stack's linked list.
@@ -146,6 +157,45 @@ public class Stack
 	}
 
 	/**
+	 * This is a wrapper function for the equals_rec() method.
+	 * @param obj
+	 * @return
+	 */
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (! (obj instanceof Stack))
+			return false;
+
+		return equals_rec(this.head, ((Stack) obj).head);
+	}
+
+	/**
+	 * This is a recursive method.
+	 * @param this_current
+	 * @param that_current
+	 * @return
+	 */
+	private boolean equals_rec(StackNode this_current, StackNode that_current)
+	{
+		// if both Stacks are empty, or both Stacks have the same number of StackNodes
+		if (this_current == null &&
+			that_current == null)
+			return true;   // NOTE: recursive loop exit
+
+		// if both Stack's size are not equal
+		if ( (this_current == null) ^ (that_current == null) )   // X-OR logic operator
+			return false;   // NOTE: recursive loop exit
+
+		// if at any point, both StackNode's data is not equal
+		if (! this_current.data.equals(that_current.data))
+			return false;   // NOTE: recursive loop exit
+
+		return equals_rec(this_current.next, that_current.next);   // NOTE: this is the single recursive
+																   //       within this function
+	}
+
+	/**
 	 * This is a recursive method.
 	 * @param s
 	 * @param current
@@ -153,11 +203,11 @@ public class Stack
 	private void to_string(String s, StackNode current)
 	{
 		if (current == null)
-			return;   // NOTE: Exit recursion loop here.
+			return;   // NOTE: we exit recursion loop here
 
 		s.concat(current.data.toString() + "\n");
 
-		to_string(s, current.next);   // NOTE: The is the only recursive call.
+		to_string(s, current.next);   // NOTE: this is the single recursive call within this function
 	}//END: to_string() recursive method
 
 	/**

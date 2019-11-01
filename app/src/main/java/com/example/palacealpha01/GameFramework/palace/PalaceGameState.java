@@ -3,6 +3,7 @@ package com.example.palacealpha01.GameFramework.palace;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 
+import com.example.palacealpha01.GameFramework.infoMessage.GameState;
 import com.example.palacealpha01.R;
 
 import java.util.ArrayList;
@@ -14,15 +15,13 @@ import java.util.Collections;
  *
  * @author Andres Giesemann, Fredrik Olsson, Meredith Marcinko, Maximilian Puglielli
  */
-public class PalaceGameState
+public class PalaceGameState extends GameState
 {
 
 	public ArrayList<Pair> the_deck;
 	private ArrayList<Pair> selectedCards;
 	private Stack discardPile;
 	private Resources resources;
-
-
 	private int turn;
 
 
@@ -31,9 +30,9 @@ public class PalaceGameState
 	 * <p>
 	 * Creates a deck of cards, shuffles it and deals it
 	 */
-	public PalaceGameState(Resources resources)
+	public PalaceGameState(/*Resources resources*/)
 	{
-		this.resources = resources;
+		//this.resources = resources;
 		the_deck = new ArrayList<>();
 		selectedCards = new ArrayList<>();
 		discardPile = new Stack();
@@ -86,6 +85,7 @@ public class PalaceGameState
 				the_deck.add(new Pair(new Card(Rank.int_to_rank(i), Suit.int_to_suit(j)), Location.DRAW_PILE));
 			}
 		}
+
 
 		the_deck.get(0).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.three_of_spades));
 		the_deck.get(1).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.three_of_clubs));

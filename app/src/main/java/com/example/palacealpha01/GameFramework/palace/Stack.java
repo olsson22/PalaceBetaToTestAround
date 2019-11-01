@@ -171,12 +171,12 @@ public class Stack
 	}
 
 	/**
-	 * This is a recursive method.
+	 * This is a recursive function.
 	 * @param this_current
 	 * @param that_current
 	 * @return
 	 */
-	private boolean equals_rec(StackNode this_current, StackNode that_current)
+	private static boolean equals_rec(StackNode this_current, StackNode that_current)
 	{
 		// if both Stacks are empty, or both Stacks have the same number of StackNodes
 		if (this_current == null &&

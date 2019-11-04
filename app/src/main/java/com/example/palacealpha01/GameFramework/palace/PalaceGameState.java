@@ -1,10 +1,11 @@
 package com.example.palacealpha01.GameFramework.palace;
 
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import com.example.palacealpha01.GameFramework.infoMessage.GameState;
-import com.example.palacealpha01.R;
+//import com.example.palacealpha01.R;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,12 +26,13 @@ public class PalaceGameState extends GameState
 	private int turn;
 
 
+
 	/**
 	 * Default Constructor for PalaceGameState
 	 * <p>
 	 * Creates a deck of cards, shuffles it and deals it
 	 */
-	public PalaceGameState(/*Resources resources*/)
+	public PalaceGameState()
 	{
 		//this.resources = resources;
 		the_deck = new ArrayList<>();
@@ -71,7 +73,12 @@ public class PalaceGameState extends GameState
 		}
 */
 		discardPile = new Stack(state.discardPile);
+
 	}//deep copy constructor
+
+	public ArrayList<Pair> getSelectedCards(){
+		return selectedCards;
+	}
 
 	/**
 	 * Creates a deck of 52 Pair objects. All Pair objects have initial location of DRAW_PILE
@@ -85,60 +92,6 @@ public class PalaceGameState extends GameState
 				the_deck.add(new Pair(new Card(Rank.int_to_rank(i), Suit.int_to_suit(j)), Location.DRAW_PILE));
 			}
 		}
-
-
-		the_deck.get(0).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.three_of_spades));
-		the_deck.get(1).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.three_of_clubs));
-		the_deck.get(2).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.three_of_diamonds));
-		the_deck.get(3).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.three_of_hearts));
-		the_deck.get(4).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.four_of_spades));
-		the_deck.get(5).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.four_of_clubs));
-		the_deck.get(6).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.four_of_diamonds));
-		the_deck.get(7).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.four_of_hearts));
-		the_deck.get(8).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.five_of_spades));
-		the_deck.get(9).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.five_of_clubs));
-		the_deck.get(10).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.five_of_diamonds));
-		the_deck.get(11).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.five_of_hearts));
-		the_deck.get(12).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.six_of_spades));
-		the_deck.get(13).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.six_of_clubs));
-		the_deck.get(14).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.six_of_diamonds));
-		the_deck.get(15).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.six_of_hearts));
-		the_deck.get(16).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.seven_of_spades));
-		the_deck.get(17).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.seven_of_clubs));
-		the_deck.get(18).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.seven_of_diamonds));
-		the_deck.get(19).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.seven_of_hearts));
-		the_deck.get(20).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.eight_of_spades));
-		the_deck.get(21).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.eight_of_clubs));
-		the_deck.get(22).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.eight_of_diamonds));
-		the_deck.get(23).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.eight_of_hearts));
-		the_deck.get(24).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.nine_of_spades));
-		the_deck.get(25).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.nine_of_clubs));
-		the_deck.get(26).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.nine_of_diamonds));
-		the_deck.get(27).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.nine_of_hearts));
-		the_deck.get(28).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.jack_of_spades));
-		the_deck.get(29).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.jack_of_clubs));
-		the_deck.get(30).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.jack_of_diamonds));
-		the_deck.get(31).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.jack_of_hearts));
-		the_deck.get(32).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.queen_of_spades));
-		the_deck.get(33).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.queen_of_clubs));
-		the_deck.get(34).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.queen_of_diamonds));
-		the_deck.get(35).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.queen_of_hearts));
-		the_deck.get(36).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.king_of_spades));
-		the_deck.get(37).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.king_of_clubs));
-		the_deck.get(38).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.king_of_diamonds));
-		the_deck.get(39).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.king_of_hearts));
-		the_deck.get(40).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.ace_of_spades));
-		the_deck.get(41).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.ace_of_clubs));
-		the_deck.get(42).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.ace_of_diamonds));
-		the_deck.get(43).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.ace_of_hearts));
-		the_deck.get(44).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.two_of_spades));
-		the_deck.get(45).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.two_of_clubs));
-		the_deck.get(46).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.two_of_diamonds));
-		the_deck.get(47).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.two_of_hearts));
-		the_deck.get(48).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.ten_of_spades));
-		the_deck.get(49).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.ten_of_clubs));
-		the_deck.get(50).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.ten_of_diamonds));
-		the_deck.get(51).get_card().setImage(BitmapFactory.decodeResource(resources, R.drawable.ten_of_hearts));
 
 
 	}//initialize_the_deck
@@ -267,7 +220,7 @@ public class PalaceGameState extends GameState
 	{
 		/*An array to store the selected cards in the players
 		 * hand that will be changed with the palacecards*/
-		if (playerID == 1)
+		if (playerID == 0)
 		{
 			for (Pair p : the_deck)
 			{
@@ -278,7 +231,7 @@ public class PalaceGameState extends GameState
 			}
 			return true;
 		}
-		if (playerID == 2)
+		if (playerID == 1)
 		{
 			for (Pair p : the_deck)
 			{
@@ -301,7 +254,7 @@ public class PalaceGameState extends GameState
 	 */
 	public boolean confirmPalace(int playerID)
 	{
-		if (playerID == 1)
+		if (playerID == 0)
 		{
 			if (selectedCards.size() == 3)
 			{
@@ -320,7 +273,7 @@ public class PalaceGameState extends GameState
 				return true;
 			}
 		}
-		else if (playerID == 2)
+		else if (playerID == 1)
 		{
 			if (selectedCards.size() == 3)
 			{
@@ -355,7 +308,7 @@ public class PalaceGameState extends GameState
 		if (! discardPile.is_empty())
 		{
 
-			if (playerID == 1)
+			if (playerID == 0)
 			{
 
 				for (Pair p : the_deck)
@@ -370,7 +323,7 @@ public class PalaceGameState extends GameState
 				return true;
 
 			}
-			else if (playerID == 2)
+			else if (playerID == 1)
 			{
 
 				for (Pair p : the_deck)
@@ -483,6 +436,26 @@ public class PalaceGameState extends GameState
 		}
 	}//bombDiscardPile
 
+	public int getTurn(){
+		return turn;
+	}
+
+	public void setTurn(int newTurn){
+		turn = newTurn;
+	}
+
+	public boolean isDrawPileEmpty() {
+		boolean empty = true;
+
+		for (Pair p : the_deck) {
+			if (p.get_location() == Location.DRAW_PILE){
+				empty = false;
+				break;
+			}
+		}
+
+		return empty;
+	}
 	@Override
 	/**
 	 * Creates a String representation of the results of the Use Case methods.

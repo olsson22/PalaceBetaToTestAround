@@ -29,10 +29,11 @@ import java.util.ArrayList;
 
 import com.example.palacealpha01.GameFramework.gameConfiguration.GameConfig;
 import com.example.palacealpha01.GameFramework.gameConfiguration.GamePlayerType;
+import com.example.palacealpha01.GameFramework.palace.R;
 import com.example.palacealpha01.GameFramework.utilities.IPCoder;
 import com.example.palacealpha01.GameFramework.utilities.Logger;
 import com.example.palacealpha01.GameFramework.utilities.MessageBox;
-import com.example.palacealpha01.R;
+//import com.example.palacealpha01.R;
 
 /**
  * class GameMainActivity

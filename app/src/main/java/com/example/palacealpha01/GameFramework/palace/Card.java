@@ -129,8 +129,8 @@ public class Card
 			return false;
 		if (this.rank != ((Card) obj).rank)
 			return false;
-		if (! this.image.equals(((Card) obj).image))
-			return false;
+//		if (! this.image.equals(((Card) obj).image))
+		//	return false;
 
 		return true;
 	}

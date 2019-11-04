@@ -8,7 +8,6 @@ public class PalacePlayCardAction extends GameAction {
 
 
 
-
     /**
      * constructor for GameAction
      *
@@ -16,5 +15,7 @@ public class PalacePlayCardAction extends GameAction {
      */
     public PalacePlayCardAction(GamePlayer player) {
         super(player);
+
     }
+
 }

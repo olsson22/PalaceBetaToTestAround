@@ -2,7 +2,10 @@ package com.example.palacealpha01.GameFramework.palace;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -11,108 +14,281 @@ import android.view.View;
 
 import com.example.palacealpha01.GameFramework.Game;
 import com.example.palacealpha01.GameFramework.GamePlayer;
+import com.example.palacealpha01.GameFramework.utilities.Logger;
+//import com.example.palacealpha01.R;
 
-public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListener {
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Hashtable;
+
+//TODO: the biggest thing we need to work in is to get the selectcards-function to select more than one card at a time, I think things needs to be changed in both this class and in the PalaceLocalGame
+public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListener, View.OnClickListener  {
 
     private PalaceGameState pgs;
+    private final int cardWidth = 110;
+    private final int cardHeight = 130;
     private Paint bitmapPaint = new Paint();
-    float x;
-    float y;
-    private GamePlayer humanPlayer;
+    private Bitmap cardBack = BitmapFactory.decodeResource(getResources(), R.drawable.back);
+    ArrayList<Pair> discardPile = new ArrayList<>();
+    private GamePlayer palaceHumanPlayer;
     private Game theGame;
     private Activity myActivity;
+    private Hashtable<String, Bitmap> pictures = new Hashtable<>();
+
+
+
+    public PalaceSurfaceView(Context context){
+        super(context);
+    }
 
     public PalaceSurfaceView(Context context, AttributeSet attrs) {
+
         super(context, attrs);
         setWillNotDraw(false);
+        this.pgs = new PalaceGameState();
 
+    }
 
-
-
+    public void setPictures(Hashtable<String, Bitmap> map){
+    	this.pictures = map;
+	}
+    public void setHumanPlayer(GamePlayer p){
+        this.palaceHumanPlayer=p;
+    }
+    public void setGame(Game g){
+        this.theGame = g;
+    }
+    public void setActivity(Activity a){
+        this.myActivity = a;
     }
 
     public void onDraw(Canvas canvas) {
 
+        //pgs.shuffleTheDeck();
+
+        if(pgs == null){
+            return;
+        }
+        drawPlayerOnePalaces(canvas);
+
+        drawHands(canvas);
+        //used for seeing if discard pile fills up
+        Paint discardPaint = new Paint();
+        //used for seeing if discard pile fills up
+        discardPaint.setColor(Color.BLUE);
 
 
-        x = 10;
-        y = 100;
-        pgs.shuffleTheDeck();
+        drawPlayerTwoPalaces(canvas);
+        //used for seeing if discard pile fills up
+        int counter = 0;
+        //TODO: we have to change this so it fits with the stack that Max wrote.
+        for(int i = pgs.the_deck.size()-1;i>=0;i--)
+        {
+            canvas.drawText("cards in discard pile: " + counter, 200, 10*counter,discardPaint );
+            if(pgs.the_deck.get(i).get_location()==Location.DISCARD_PILE)
+            {
+                canvas.drawBitmap(pictures.get(pgs.the_deck.get(i).get_card().toString()), getWidth() / 2, getHeight() / 2 - 3 * cardHeight / 4, bitmapPaint);
+
+            counter++;
+            }
+        }
+
+
+
+        if (!pgs.isDrawPileEmpty()) {
+            canvas.drawBitmap(cardBack, getWidth()/2 + cardWidth, getHeight()/2 - 3*(cardHeight/4), bitmapPaint);
+        }
+
+
+    }
+
+    private void drawPlayerTwoPalaces(Canvas canvas) {
+
+        int xP2LP = getWidth()/2 - 3*(cardWidth)/2;
+        int xP2UP = getWidth()/2 - 3*(cardWidth)/2;
+
+        int yP2LP = 50;
+        int yP2UP = 75;
+
         for (Pair p : pgs.the_deck) {
-
-            canvas.drawBitmap(p.get_card().getImage(), x, y, bitmapPaint);
-
-            x+=110;
-            if (x + 100 > getWidth()) {
-                x = 10;
-                y += 200;
+            if (p.get_location() == Location.PLAYER_TWO_LOWER_PALACE) {
+                canvas.drawBitmap(cardBack, xP2LP, yP2LP, bitmapPaint);
+                xP2LP += cardWidth;
             }
 
         }
 
+        for (Pair p : pgs.the_deck) {
+            if (p.get_location() == Location.PLAYER_TWO_UPPER_PALACE) {
+                canvas.drawBitmap(pictures.get(p.get_card().toString()), xP2UP, yP2UP, bitmapPaint);
+                xP2UP += cardWidth;
+            }
+        }
     }
 
-    public void setPgs(PalaceGameState pgs) {
+    private void drawHands(Canvas canvas) {
+        Paint recPaint = new Paint();
+        recPaint.setColor(Color.RED);
+        int xP1H = 0;
+        int yP1H = getHeight()/2 + (cardHeight/2);
+
+        int xP2H = 0;
+        int yP2H = getHeight()/2 - 2*(cardHeight);
+
+        for(Pair p : pgs.the_deck){
+            if(p.get_location() == Location.PLAYER_ONE_HAND && pgs.getSelectedCards().contains(p)|| p.get_location()==Location.PLAYER_ONE_UPPER_PALACE && pgs.getSelectedCards().contains(p)|| p.get_location()==Location.PLAYER_ONE_LOWER_PALACE&&pgs.getSelectedCards().contains(p)){
+                canvas.drawText("card " + p.toString() + "is selected", 100,100,recPaint);
+            }
+        }
+
+        for (Pair p : pgs.the_deck) {
+            if (p.get_location() == Location.PLAYER_ONE_HAND) {
+                canvas.drawBitmap(pictures.get(p.get_card().toString()), xP1H, yP1H, bitmapPaint);
+                xP1H += cardWidth;
+            }
+        }
+
+        for (Pair p : pgs.the_deck) {
+            if (p.get_location() == Location.PLAYER_TWO_HAND) {
+                canvas.drawBitmap(pictures.get(p.get_card().toString()), xP2H, yP2H, bitmapPaint);
+                xP2H += cardWidth;
+            }
+        }
+
+    }
+
+    private void drawPlayerOnePalaces(Canvas canvas) {
+
+        int xP1LP = getWidth()/2 - 3*(cardWidth)/2;
+        int xP1UP = getWidth()/2 - 3*(cardWidth)/2;
+        int yP1LP = getHeight() - 200;
+        int height = getHeight();
+        int yP1UP = getHeight() - 225;
+
+
+
+        for (Pair p : pgs.the_deck) {
+
+            if (p.get_location() == Location.PLAYER_ONE_LOWER_PALACE) {
+
+
+                canvas.drawBitmap(cardBack, xP1LP, yP1LP, bitmapPaint);
+                xP1LP += cardWidth;
+            }
+
+        }
+
+        for (Pair p : pgs.the_deck) {
+            if (p.get_location() == Location.PLAYER_ONE_UPPER_PALACE) {
+
+				canvas.drawBitmap(pictures.get(p.get_card().toString()), xP1UP, yP1UP, bitmapPaint);
+                xP1UP += cardWidth;
+            }
+        }
+    }
+//bit of a mess, but this handles the clicks on the different cards
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        int nbrCardsInHand = 0;
+        int nbrCardsInUP = 0;
+        int sVHeight = 1092;
+        int cardHeight = 130;
+        int cardWidth = 110;
+        int xDiscard = getWidth()/2;
+        int yDiscard = getHeight()/2 - 3*cardHeight/4;
+        int xUpperPalace = getWidth()/2 - 3*(cardWidth)/2;
+        int yUpperPalace = getHeight() - 225;
+        int xLowerPalace = xUpperPalace;
+        int yLowerPalace = getHeight()-200;
+        int clickedX = (int) event.getX();
+        int clickedY = (int) event.getY();
+
+        if(event.getAction() == MotionEvent.ACTION_DOWN)
+        {
+            int top = (sVHeight / 2) + (cardHeight / 2);
+            int left = 0;
+            int right = left + cardWidth;
+            int bottom = top + cardHeight;
+
+
+            for (Pair p : pgs.the_deck)
+            {
+               //if a card in player ones hand is tapped, select that card
+                if (p.get_location() == Location.PLAYER_ONE_HAND)
+                {
+                    nbrCardsInHand++;
+                    nbrCardsInUP++;
+                    PalaceSelectCardAction selectCard = new PalaceSelectCardAction(palaceHumanPlayer, p);
+
+                    if (clickedX >= left && clickedY >= top && clickedX <= right && clickedY <= bottom)
+                    {
+                        theGame.sendAction(selectCard);
+                    }
+                    left += cardWidth;
+                    right = left + cardWidth;
+
+                }
+
+                //if the discard pile is tapped, then pick up the discard pile
+                else if (p.get_location() == Location.PLAYER_ONE_UPPER_PALACE && nbrCardsInHand==0)
+                {
+                    nbrCardsInUP++;
+                    PalaceSelectCardAction selectCard = new PalaceSelectCardAction(palaceHumanPlayer, p);
+                    if (clickedX >= xUpperPalace && clickedY >= yUpperPalace && clickedX < (xUpperPalace + cardWidth) && clickedY < (yUpperPalace + cardHeight))
+                    {
+                        theGame.sendAction(selectCard);
+                    }
+                    xUpperPalace += cardWidth;
+                }
+                else if (p.get_location() == Location.PLAYER_ONE_LOWER_PALACE && nbrCardsInHand==0 && nbrCardsInUP==0)
+                {
+                    PalaceSelectCardAction selectCard = new PalaceSelectCardAction(palaceHumanPlayer, p);
+                    if (clickedX >= xLowerPalace && clickedY >= yLowerPalace && clickedX < (xLowerPalace + cardWidth) && clickedY < (yLowerPalace + cardHeight))
+                    {
+                        theGame.sendAction(selectCard);
+                    }
+                    xLowerPalace += cardWidth;
+            }
+                else if (p.get_location() == Location.DISCARD_PILE)
+                {
+                    PalaceTakeDiscardPileAction takeDiscard = new PalaceTakeDiscardPileAction(palaceHumanPlayer);
+                    if (clickedX >= xDiscard && clickedY >= yDiscard && clickedX < (xDiscard + cardWidth) && clickedY < (yDiscard + cardHeight))
+                    {
+                        theGame.sendAction(takeDiscard);
+                        invalidate();
+                    }
+                }
+            }
+        }
+            invalidate();
+        return true;}
+
+
+
+    public void setPgs(PalaceGameState pgs)
+    {
         this.pgs = pgs;
     }
 
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-
-        int tappedX = (int) event.getX();
-        int tappedY = (int) event.getY();
-
-        //the ratio between the height and width of the card 72*100.
-        double heightRatio= 1.25;
-
-        int nbrOfCards=0;
-        for(Pair p: pgs.the_deck){
-            if(p.get_location()==Location.PLAYER_ONE_HAND){
-                nbrOfCards++;
-            }
-        }
-        if(event.getAction()== MotionEvent.ACTION_DOWN){
-
-            int y = 2*(this.getHeight())/3;
-
-            //card width
-            int width = (this.getWidth()/(Math.max(4,nbrOfCards)));
-            //card height
-            int height = (int) (width*heightRatio);
-            int i = 0;
-            for(Pair p: pgs.the_deck){
-                if(p.get_location()==Location.PLAYER_ONE_HAND)
-                {
-                    Card c = p.get_card();
-
-                    int left = width*i;
-                    int top = y;
-                    int right = width*i + width;
-                    int bottom = height + y;
-
-                    if(tappedX>left && tappedX<right && tappedY>top && tappedY<bottom){
-
-                        /*insert what happens depending on what card has been tapped*/
-                        if(c.get_rank()==Rank.TEN){
-                            //Bomb discard pile action
-
-                        }
-                        else{
-                            PalacePlayCardAction pc = new PalacePlayCardAction(humanPlayer);
-                            theGame.sendAction(pc);
-                        }
-                    }
-
-                }
-                /*here we will have to add how tapping a certain
-                * card will affect what will happen to the game, and
-                * also send the certain gameaction*/
-
-            }
-        }
-
-        return false;
+    public void setDiscardPile(ArrayList<Pair> discardPile)
+    {
+        this.discardPile = discardPile;
     }
 
-
+        //Since the playCard-button needs to know about the GameState I implemented this listener here.
+        @Override
+        public void onClick(View button)
+        {
+         if(button.getId() == R.id.playCardButton)
+         {
+            for(Pair p: pgs.getSelectedCards())
+            {
+                if (pgs.getSelectedCards().contains(p)){
+                    PalacePlayCardAction playCardAction = new PalacePlayCardAction(palaceHumanPlayer);
+                    theGame.sendAction(playCardAction);
+                    button.invalidate();
+                }
+            }
+        }
+    }
 }

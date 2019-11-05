@@ -1,5 +1,7 @@
 package com.example.palacealpha01.GameFramework.palace;
 
+import android.util.Log;
+
 import com.example.palacealpha01.GameFramework.GamePlayer;
 import com.example.palacealpha01.GameFramework.LocalGame;
 import com.example.palacealpha01.GameFramework.actionMessage.GameAction;
@@ -10,8 +12,7 @@ public class PalaceLocalGame extends LocalGame {
 
     protected PalaceGameState pgs;
     private ArrayList<Pair> selectedCards = new ArrayList<>();
-    private int p1counter=0;
-    private int p2counter=0;
+
     public PalaceLocalGame() {
         super();
 
@@ -32,35 +33,48 @@ public class PalaceLocalGame extends LocalGame {
     //
     @Override
     protected String checkIfGameOver() {
-return null;
-        /*
-        if(pgs.getTurn()== 1){
+        int p0counter=0;
+        int p1counter=0;
+
             for(Pair p : pgs.the_deck){
-                if(p.get_location()== Location.PLAYER_TWO_HAND && p.get_location() == Location.PLAYER_TWO_UPPER_PALACE
-                        && p.get_location()== Location.PLAYER_TWO_LOWER_PALACE){
-                    p2counter++;
+                if(p.get_location()== Location.PLAYER_ONE_LOWER_PALACE){
+                    p0counter++;
                 }
             }
-        }
-        if(pgs.getTurn()== 0){
+
+
             for(Pair p : pgs.the_deck){
-                if(p.get_location()== Location.PLAYER_ONE_HAND && p.get_location() == Location.PLAYER_ONE_UPPER_PALACE
-                        && p.get_location()== Location.PLAYER_ONE_LOWER_PALACE){
+                if(p.get_location()== Location.PLAYER_TWO_LOWER_PALACE){
                     p1counter++;
                 }
             }
-        }
 
-        if(p1counter == 0){
+            for(Pair p : pgs.the_deck)
+            {
+                if(p.get_location() == Location.PLAYER_ONE_HAND)
+                {
+                    p0counter++;
+                }
+            }
+
+            for(Pair p : pgs.the_deck)
+            {
+                if(p.get_location() == Location.PLAYER_TWO_HAND)
+                {
+                    p1counter++;
+                }
+            }
+
+        if(p0counter == 0){
             return playerNames[0] + " is the winner ";
         }
-        else if(p2counter == 1){
+        else if(p1counter == 0){
             return playerNames[1] + " is the winner ";
         }else
         {
 
             return null;
-        }*/
+        }
     }
 
     @Override

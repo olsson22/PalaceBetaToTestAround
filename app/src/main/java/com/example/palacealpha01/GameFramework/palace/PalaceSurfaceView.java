@@ -15,7 +15,7 @@ import android.view.View;
 import com.example.palacealpha01.GameFramework.Game;
 import com.example.palacealpha01.GameFramework.GamePlayer;
 import com.example.palacealpha01.GameFramework.utilities.Logger;
-//import com.example.palacealpha01.R;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,7 +44,6 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListen
     }
 
     public PalaceSurfaceView(Context context, AttributeSet attrs) {
-
 
         super(context, attrs);
         selectCardPaint.setColor(Color.YELLOW);
@@ -166,7 +165,7 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListen
                 if (pgs.getSelectedCards().contains(p)) {
                     drawSelectionBox(canvas, xP2H, yP2H);
                 }
-                canvas.drawBitmap(pictures.get(p.get_card().toString()), xP2H, yP2H, bitmapPaint);
+                canvas.drawBitmap(cardBack, xP2H, yP2H, bitmapPaint);
                 xP2H += cardWidth + 5;
             }
         }

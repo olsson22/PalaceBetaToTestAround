@@ -151,7 +151,6 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListen
         for (Pair p : pgs.the_deck) {
             if (p.get_location() == Location.PLAYER_TWO_HAND) {
                 canvas.drawBitmap(cardBack, xP2H, yP2H, bitmapPaint);
-                //
                 xP2H += cardWidth;
             }
         }

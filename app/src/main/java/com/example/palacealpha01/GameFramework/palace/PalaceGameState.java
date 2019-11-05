@@ -460,6 +460,7 @@ public class PalaceGameState extends GameState
 
 		return empty;
 	}
+
 	@Override
 	/**
 	 * Creates a String representation of the results of the Use Case methods.

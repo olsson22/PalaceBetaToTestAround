@@ -21,14 +21,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
 
-//TODO: the biggest thing we need to work in is to get the selectcards-function to select more than one card at a time, I think things needs to be changed in both this class and in the PalaceLocalGame
+
 public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListener, View.OnClickListener  {
 
     private PalaceGameState pgs;
-    private final int cardWidth = 110;
-    private final int cardHeight = 130;
+
     private Paint bitmapPaint = new Paint();
+    private Paint selectCardPaint = new Paint();
     private Bitmap cardBack = BitmapFactory.decodeResource(getResources(), R.drawable.back);
+    private final int cardWidth = cardBack.getWidth();
+    private final int cardHeight = cardBack.getHeight();
     ArrayList<Pair> discardPile = new ArrayList<>();
     private GamePlayer palaceHumanPlayer;
     private Game theGame;
@@ -43,7 +45,9 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListen
 
     public PalaceSurfaceView(Context context, AttributeSet attrs) {
 
+
         super(context, attrs);
+        selectCardPaint.setColor(Color.YELLOW);
         setWillNotDraw(false);
         this.pgs = new PalaceGameState();
 
@@ -112,16 +116,22 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListen
 
         for (Pair p : pgs.the_deck) {
             if (p.get_location() == Location.PLAYER_TWO_LOWER_PALACE) {
+                if (pgs.getSelectedCards().contains(p)) {
+                    drawSelectionBox(canvas, xP2LP, yP2LP);
+                }
                 canvas.drawBitmap(cardBack, xP2LP, yP2LP, bitmapPaint);
-                xP2LP += cardWidth;
+                xP2LP += cardWidth + 5;
             }
 
         }
 
         for (Pair p : pgs.the_deck) {
             if (p.get_location() == Location.PLAYER_TWO_UPPER_PALACE) {
+                if (pgs.getSelectedCards().contains(p)) {
+                    drawSelectionBox(canvas, xP2UP, yP2UP);
+                }
                 canvas.drawBitmap(pictures.get(p.get_card().toString()), xP2UP, yP2UP, bitmapPaint);
-                xP2UP += cardWidth;
+                xP2UP += cardWidth + 5;
             }
         }
     }
@@ -143,15 +153,21 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListen
 
         for (Pair p : pgs.the_deck) {
             if (p.get_location() == Location.PLAYER_ONE_HAND) {
+                if (pgs.getSelectedCards().contains(p)) {
+                    drawSelectionBox(canvas, xP1H, yP1H);
+                }
                 canvas.drawBitmap(pictures.get(p.get_card().toString()), xP1H, yP1H, bitmapPaint);
-                xP1H += cardWidth;
+                xP1H += cardWidth + 5;
             }
         }
 
         for (Pair p : pgs.the_deck) {
             if (p.get_location() == Location.PLAYER_TWO_HAND) {
+                if (pgs.getSelectedCards().contains(p)) {
+                    drawSelectionBox(canvas, xP2H, yP2H);
+                }
                 canvas.drawBitmap(pictures.get(p.get_card().toString()), xP2H, yP2H, bitmapPaint);
-                xP2H += cardWidth;
+                xP2H += cardWidth + 5;
             }
         }
 
@@ -171,18 +187,22 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListen
 
             if (p.get_location() == Location.PLAYER_ONE_LOWER_PALACE) {
 
-
+                if (pgs.getSelectedCards().contains(p)) {
+                    drawSelectionBox(canvas, xP1LP, yP1LP);
+                }
                 canvas.drawBitmap(cardBack, xP1LP, yP1LP, bitmapPaint);
-                xP1LP += cardWidth;
+                xP1LP += cardWidth + 5;
             }
 
         }
 
         for (Pair p : pgs.the_deck) {
             if (p.get_location() == Location.PLAYER_ONE_UPPER_PALACE) {
-
+                if (pgs.getSelectedCards().contains(p)) {
+                    drawSelectionBox(canvas, xP1UP, yP1UP);
+                }
 				canvas.drawBitmap(pictures.get(p.get_card().toString()), xP1UP, yP1UP, bitmapPaint);
-                xP1UP += cardWidth;
+                xP1UP += cardWidth + 5;
             }
         }
     }
@@ -224,8 +244,8 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListen
                     {
                         theGame.sendAction(selectCard);
                     }
-                    left += cardWidth;
-                    right = left + cardWidth;
+                    left += cardWidth + 5;
+                    right = left + cardWidth + 5;
 
                 }
 
@@ -238,7 +258,7 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListen
                     {
                         theGame.sendAction(selectCard);
                     }
-                    xUpperPalace += cardWidth;
+                    xUpperPalace += cardWidth + 5;
                 }
                 else if (p.get_location() == Location.PLAYER_ONE_LOWER_PALACE && nbrCardsInHand==0 && nbrCardsInUP==0)
                 {
@@ -247,7 +267,7 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListen
                     {
                         theGame.sendAction(selectCard);
                     }
-                    xLowerPalace += cardWidth;
+                    xLowerPalace += cardWidth + 5;
             }
                 else if (p.get_location() == Location.DISCARD_PILE)
                 {
@@ -263,6 +283,11 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListen
             invalidate();
         return true;}
 
+    private void drawSelectionBox(Canvas canvas, int x, int y) {
+
+        canvas.drawRect(x - 5, y - 5, x + cardWidth + 5, y + cardHeight + 5, selectCardPaint);
+
+    }
 
 
     public void setPgs(PalaceGameState pgs)

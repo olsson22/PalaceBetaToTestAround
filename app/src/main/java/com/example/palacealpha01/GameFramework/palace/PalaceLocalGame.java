@@ -32,18 +32,20 @@ public class PalaceLocalGame extends LocalGame {
     //
     @Override
     protected String checkIfGameOver() {
-        return null;
-/*
+return null;
+        /*
         if(pgs.getTurn()== 1){
             for(Pair p : pgs.the_deck){
-                if(p.get_location()== Location.PLAYER_TWO_HAND && p.get_location() == Location.PLAYER_TWO_UPPER_PALACE && p.get_location()== Location.PLAYER_TWO_LOWER_PALACE){
+                if(p.get_location()== Location.PLAYER_TWO_HAND && p.get_location() == Location.PLAYER_TWO_UPPER_PALACE
+                        && p.get_location()== Location.PLAYER_TWO_LOWER_PALACE){
                     p2counter++;
                 }
             }
         }
         if(pgs.getTurn()== 0){
             for(Pair p : pgs.the_deck){
-                if(p.get_location()== Location.PLAYER_ONE_HAND && p.get_location() == Location.PLAYER_ONE_UPPER_PALACE && p.get_location()== Location.PLAYER_ONE_LOWER_PALACE){
+                if(p.get_location()== Location.PLAYER_ONE_HAND && p.get_location() == Location.PLAYER_ONE_UPPER_PALACE
+                        && p.get_location()== Location.PLAYER_ONE_LOWER_PALACE){
                     p1counter++;
                 }
             }
@@ -90,12 +92,12 @@ public class PalaceLocalGame extends LocalGame {
                     if(pgs.getTurn()==0)
                     {
 
-                        pgs.selectCards(0, pair);
+                        pgs.selectPalaceCards(0, pair);
 
                         return true;
                     }
                     else{
-                        pgs.selectCards(1,pair);
+                        pgs.selectPalaceCards(1,pair);
                         return true;
                     }
 
@@ -128,9 +130,22 @@ public class PalaceLocalGame extends LocalGame {
                     pgs.setTurn(1);
                     return true;
                 }
+
                 else{
                     pgs.takeDiscardPile(1);
                     pgs.setTurn(0);
+                    return true;
+                }
+            }
+        }
+        else if(action instanceof PalaceConfirmPalaceAction){
+            if(canMove(playerNum)){
+                if(pgs.getTurn()==0){
+                    pgs.confirmPalace(0);
+                    return true;
+                }
+                else{
+                    pgs.confirmPalace(1);
                     return true;
                 }
             }

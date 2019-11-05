@@ -3,6 +3,7 @@ package com.example.palacealpha01.GameFramework.palace;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 import com.example.palacealpha01.GameFramework.infoMessage.GameState;
 //import com.example.palacealpha01.R;
@@ -194,10 +195,10 @@ public class PalaceGameState extends GameState
 			selectedCards.clear();
 
 			//bomb the discard pile if there at least 4 cards and the top four are of the same rank
-			if (discardPile.size() >= 4)
-				if (discardPile.are_next_four_equal() || discardPile.peek().get_card().get_rank() == Rank.TEN)
+				if ((discardPile.size() == 4 && discardPile.are_next_four_equal()) || discardPile.peek().get_card().get_rank() == Rank.TEN)
+				{
 					bombDiscardPile();
-				
+				}
 /*			if (discardPile.size() >= 4)
 			{
 				if (discardPile.get(discardPile.size() - 1).get_card().get_rank() == discardPile.get(discardPile.size() - 2).get_card().get_rank() && discardPile.get(discardPile.size() - 1).get_card().get_rank() == discardPile.get(discardPile.size() - 3).get_card().get_rank() && discardPile.get(discardPile.size() - 1).get_card().get_rank() == discardPile.get(discardPile.size() - 4).get_card().get_rank() || discardPile.get(discardPile.size() - 1).get_card().get_rank() == Rank.TEN)
@@ -207,6 +208,8 @@ public class PalaceGameState extends GameState
 			}
 */          return true;
 		}
+
+		//TODO refill player's hand if draw pile is not empty
 		return false;
 	}//playCards
 
@@ -432,6 +435,7 @@ public class PalaceGameState extends GameState
 			if (p.get_location() == Location.DISCARD_PILE)
 			{
 				p.set_location(Location.DEAD_PILE);
+				Log.i("discard", "card" + p.toString()+ "was bombed");
 			}
 		}
 	}//bombDiscardPile

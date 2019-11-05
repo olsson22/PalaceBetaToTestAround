@@ -22,7 +22,7 @@ public class PalaceGameState extends GameState
 
 	public ArrayList<Pair> the_deck;
 	private ArrayList<Pair> selectedCards;
-	private Stack discardPile;
+	public Stack discardPile;
 	private Resources resources;
 	private int turn;
 

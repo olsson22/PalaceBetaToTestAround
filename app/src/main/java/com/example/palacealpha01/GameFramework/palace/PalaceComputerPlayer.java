@@ -26,7 +26,7 @@ public class PalaceComputerPlayer extends GameComputerPlayer
 
 		//TODO: add functions to make the computer player play cards and not only pick up the discard pile every time.
 		game.sendAction(new PalaceTakeDiscardPileAction(this));
-		sleep(2);
+		sleep(10);
 
 
 		//game.sendAction(new PalaceSkipTurn(this));

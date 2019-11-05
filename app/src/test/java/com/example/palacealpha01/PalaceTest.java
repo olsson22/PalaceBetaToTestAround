@@ -1,5 +1,7 @@
 package com.example.palacealpha01;
 
+import com.example.palacealpha01.GameFramework.palace.PalaceGameState;
+
 import org.junit.Test;
 
 
@@ -11,10 +13,16 @@ import org.junit.Test;
  */
 public class PalaceTest
 {
+
+	//testing the shuffleDeck function
+	//doesn't need to be tested because the outcome
+	// of the shuffle will be different every time the
+	// method is called
+	//Meredith Marcinko
     @Test
     public void shuffleTheDeckTest()
     {
-
+	    PalaceGameState state = new PalaceGameState();
     }
 
     @Test

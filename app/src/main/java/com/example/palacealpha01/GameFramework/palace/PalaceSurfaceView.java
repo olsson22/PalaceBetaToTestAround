@@ -15,10 +15,9 @@ import android.view.View;
 import com.example.palacealpha01.GameFramework.Game;
 import com.example.palacealpha01.GameFramework.GamePlayer;
 import com.example.palacealpha01.GameFramework.utilities.Logger;
-//import com.example.palacealpha01.R;
+
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Hashtable;
 
 //TODO: the biggest thing we need to work in is to get the selectcards-function to select more than one card at a time, I think things needs to be changed in both this class and in the PalaceLocalGame

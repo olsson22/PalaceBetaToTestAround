@@ -106,12 +106,12 @@ public class PalaceLocalGame extends LocalGame {
                     if(pgs.getTurn()==0)
                     {
 
-                        pgs.selectPalaceCards(0, pair);
+                        pgs.selectCards(0, pair);
 
                         return true;
                     }
                     else{
-                        pgs.selectPalaceCards(1,pair);
+                        pgs.selectCards(1,pair);
                         return true;
                     }
 

@@ -85,9 +85,9 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListen
         drawPlayerTwoPalaces(canvas);
         //used for seeing if discard pile fills up
 
-        int counter = 0;
+/*        int counter = 0;
         //TODO: we have to change this so it fits with the stack that Max wrote.
-       /* for(int i = pgs.the_deck.size()-1;i>=0;i--)
+        for(int i = pgs.the_deck.size()-1;i>=0;i--)
         {
             canvas.drawText("cards in discard pile: " + counter, 200, 10*counter,discardPaint );
             if(pgs.the_deck.get(i).get_location()==Location.DISCARD_PILE)
@@ -98,14 +98,12 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListen
             }
         }
 */
-
-        canvas.drawBitmap(pictures.get(pgs.discardPile.peek().get_card().toString()), getWidth() / 2, getHeight() / 2 - 3 * cardHeight / 4, bitmapPaint);
+        if (pgs.discardPile.peek() != null)
+            canvas.drawBitmap(pictures.get(pgs.discardPile.peek().get_card().toString()), getWidth() / 2, getHeight() / 2 - 3 * cardHeight / 4, bitmapPaint);
 
         if (!pgs.isDrawPileEmpty()) {
             canvas.drawBitmap(cardBack, getWidth()/2 + cardWidth, getHeight()/2 - 3*(cardHeight/4), bitmapPaint);
         }
-
-
     }
 
     private void drawPlayerTwoPalaces(Canvas canvas) {

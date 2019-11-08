@@ -47,13 +47,14 @@ public class Pair
 	 * @return String representation of Pair object
 	 */
 	@Override
-	public String toString() {
+	public String toString()
+	{
 
 		String return_str = "";
 
 		return_str = card.toString() + " in ";
 
-		switch(location)
+		switch (location)
 		{
 			case PLAYER_ONE_HAND:
 				return_str += "Player one's hand";
@@ -93,10 +94,10 @@ public class Pair
 	@Override
 	public boolean equals(Object obj)
 	{
-		if (! (obj instanceof Pair))
+		if (!(obj instanceof Pair))
 			return false;
 
-		if (! this.card.equals(((Pair) obj).get_card()))
+		if (!this.card.equals(((Pair) obj).get_card()))
 			return false;
 		if (this.location != ((Pair) obj).location)
 			return false;

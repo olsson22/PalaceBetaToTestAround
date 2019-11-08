@@ -50,7 +50,7 @@ public class Card
 	public String toString()
 	{
 		String return_str = "";
-		switch(rank)
+		switch (rank)
 		{
 			case THREE:
 				return_str += "Three";
@@ -97,7 +97,7 @@ public class Card
 				return null;
 		}
 		return_str += " of ";
-		switch(suit)
+		switch (suit)
 		{
 			case SPADES:
 				return_str += "Spades";
@@ -116,13 +116,13 @@ public class Card
 				Log.d("Card.java|toString", "ERROR: (suit) variable corrupted");
 				return null;
 		}
-		return(return_str);
+		return (return_str);
 	}//END: toString() method
 
 	@Override
 	public boolean equals(Object obj)
 	{
-		if (! (obj instanceof Card))
+		if (!(obj instanceof Card))
 			return false;
 
 		if (this.suit != ((Card) obj).suit)
@@ -135,11 +135,13 @@ public class Card
 		return true;
 	}
 
-	public void setImage(Bitmap image) {
+	public void setImage(Bitmap image)
+	{
 		this.image = image;
 	}
 
-	public Bitmap getImage() {
+	public Bitmap getImage()
+	{
 		return image;
 	}
 }//END: Card class

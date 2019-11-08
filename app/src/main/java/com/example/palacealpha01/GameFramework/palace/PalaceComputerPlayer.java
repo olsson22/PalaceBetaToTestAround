@@ -13,14 +13,16 @@ public class PalaceComputerPlayer extends GameComputerPlayer
 {
 
 
-	public PalaceComputerPlayer(String name){
+	public PalaceComputerPlayer(String name)
+	{
 		super(name);
 	}
 
 	@Override
 	protected void receiveInfo(GameInfo info)
 	{
-		if(info instanceof NotYourTurnInfo){
+		if (info instanceof NotYourTurnInfo)
+		{
 			return;
 		}
 

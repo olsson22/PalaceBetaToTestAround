@@ -23,6 +23,7 @@ public class Stack
 
 		/**
 		 * default constructor for the StackNode class
+		 *
 		 * @param data
 		 */
 		public StackNode(Pair data)
@@ -33,10 +34,10 @@ public class Stack
 
 		public boolean equals(Object obj)
 		{
-			if (! (obj instanceof StackNode))
+			if (!(obj instanceof StackNode))
 				return false;
 
-			if (! this.data.equals(((StackNode) obj).data))
+			if (!this.data.equals(((StackNode) obj).data))
 				return false;
 
 			return true;
@@ -56,6 +57,7 @@ public class Stack
 	/**
 	 * copy constructor for the Stack.java class
 	 * This is the wrapper method for the copy_constructor() recursive method.
+	 *
 	 * @param that
 	 */
 	public Stack(Stack that)
@@ -66,6 +68,7 @@ public class Stack
 
 	/**
 	 * This is a recursive method.
+	 *
 	 * @param current
 	 */
 	private void copy_constructor(StackNode current)
@@ -124,7 +127,7 @@ public class Stack
 
 	public void clear()
 	{
-		while (! this.is_empty())
+		while (!this.is_empty())
 			this.pop();
 	}//END: clear() method
 
@@ -144,8 +147,10 @@ public class Stack
 		return s;
 	}//END: toString() method
 */
+
 	/**
 	 * This is the wrapper function for the toString() recursive method.
+	 *
 	 * @return
 	 */
 	@Override
@@ -158,13 +163,15 @@ public class Stack
 
 	/**
 	 * This is a wrapper function for the equals_rec() method.
+	 *
 	 * @param obj
+	 *
 	 * @return
 	 */
 	@Override
 	public boolean equals(Object obj)
 	{
-		if (! (obj instanceof Stack))
+		if (!(obj instanceof Stack))
 			return false;
 
 		return equals_rec(this.head, ((Stack) obj).head);
@@ -172,31 +179,33 @@ public class Stack
 
 	/**
 	 * This is a recursive function.
+	 *
 	 * @param this_current
 	 * @param that_current
+	 *
 	 * @return
 	 */
 	private static boolean equals_rec(StackNode this_current, StackNode that_current)
 	{
 		// if both Stacks are empty, or both Stacks have the same number of StackNodes
-		if (this_current == null &&
-			that_current == null)
+		if (this_current == null && that_current == null)
 			return true;   // NOTE: recursive loop exit
 
 		// if both Stack's size are not equal
-		if ( (this_current == null) ^ (that_current == null) )   // X-OR logic operator
+		if ((this_current == null) ^ (that_current == null))   // X-OR logic operator
 			return false;   // NOTE: recursive loop exit
 
 		// if at any point, both StackNode's data is not equal
-		if (! this_current.data.equals(that_current.data))
+		if (!this_current.data.equals(that_current.data))
 			return false;   // NOTE: recursive loop exit
 
 		return equals_rec(this_current.next, that_current.next);   // NOTE: this is the single recursive
-																   //       within this function
+		//       within this function
 	}
 
 	/**
 	 * This is a recursive method.
+	 *
 	 * @param s
 	 * @param current
 	 */
@@ -212,6 +221,7 @@ public class Stack
 
 	/**
 	 * This is the wrapper method for the size_rec() recursive method.
+	 *
 	 * @return
 	 */
 	public int size()
@@ -221,7 +231,9 @@ public class Stack
 
 	/**
 	 * This is a recursive method.
+	 *
 	 * @param current
+	 *
 	 * @return
 	 */
 	private int size_rec(StackNode current)

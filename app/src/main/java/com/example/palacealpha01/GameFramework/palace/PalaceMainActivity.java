@@ -22,40 +22,46 @@ import java.util.ArrayList;
 public class PalaceMainActivity extends GameMainActivity implements View.OnClickListener
 {
 
-    //private static final String TAG = "PalaceMainActivity";
-    public static final int PORT_NUMBER = 5213;
+	//private static final String TAG = "PalaceMainActivity";
+	public static final int PORT_NUMBER = 5213;
 
-    /**
-     * a tic-tac-toe game is for two players. The default is human vs. computer
-     */
-    @Override
-    public GameConfig createDefaultConfig() {
-        ArrayList<GamePlayerType>playerTypes = new ArrayList<>();
-        playerTypes.add(new GamePlayerType("Local Human Player") {
-            public GamePlayer createPlayer(String name) {
-                return new PalaceHumanPlayer(name, R.layout.palace_activity_main);
-            }
-        });
+	/**
+	 * a tic-tac-toe game is for two players. The default is human vs. computer
+	 */
+	@Override
+	public GameConfig createDefaultConfig()
+	{
+		ArrayList<GamePlayerType> playerTypes = new ArrayList<>();
+		playerTypes.add(new GamePlayerType("Local Human Player")
+		{
+			public GamePlayer createPlayer(String name)
+			{
+				return new PalaceHumanPlayer(name, R.layout.palace_activity_main);
+			}
+		});
 
-		playerTypes.add(new GamePlayerType("Computer Player (dumb)") {
-			public GamePlayer createPlayer(String name) {
+		playerTypes.add(new GamePlayerType("Computer Player (dumb)")
+		{
+			public GamePlayer createPlayer(String name)
+			{
 				return new PalaceComputerPlayer(name);
 			}
 		});
-        // Create a game configuration class for Tic-tac-toe
-        GameConfig defaultConfig = new GameConfig(playerTypes, 2,2, "Palace", PORT_NUMBER);
+		// Create a game configuration class for Tic-tac-toe
+		GameConfig defaultConfig = new GameConfig(playerTypes, 2, 2, "Palace", PORT_NUMBER);
 
-        defaultConfig.addPlayer("Human", 0);
-        defaultConfig.addPlayer("computer", 1);
-        defaultConfig.setRemoteData("Remote Player", "", 1);
+		defaultConfig.addPlayer("Human", 0);
+		defaultConfig.addPlayer("computer", 1);
+		defaultConfig.setRemoteData("Remote Player", "", 1);
 
-        return defaultConfig;
-    }
+		return defaultConfig;
+	}
 
-    @Override
-    public LocalGame createLocalGame() {
-        return new PalaceLocalGame();
-    }
+	@Override
+	public LocalGame createLocalGame()
+	{
+		return new PalaceLocalGame();
+	}
 
 
 

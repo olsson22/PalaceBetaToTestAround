@@ -77,7 +77,8 @@ public class PalaceGameState extends GameState
 
 	}//deep copy constructor
 
-	public ArrayList<Pair> getSelectedCards(){
+	public ArrayList<Pair> getSelectedCards()
+	{
 		return selectedCards;
 	}
 
@@ -93,7 +94,6 @@ public class PalaceGameState extends GameState
 				the_deck.add(new Pair(new Card(Rank.int_to_rank(i), Suit.int_to_suit(j)), Location.DRAW_PILE));
 			}
 		}
-
 
 	}//initialize_the_deck
 
@@ -111,6 +111,7 @@ public class PalaceGameState extends GameState
 	 *
 	 * @param playerID         ID of player who called the method
 	 * @param userSelectedCard card that user attempted to select
+	 *
 	 * @return true if a card was successfully selected OR deselected
 	 */
 	public boolean selectCards(int playerID, Pair userSelectedCard)
@@ -145,6 +146,7 @@ public class PalaceGameState extends GameState
 	 *
 	 * @param playerID         ID of player who called the method
 	 * @param userSelectedCard card that user attempted to select
+	 *
 	 * @return true if a card was successfully selected OR deselected
 	 */
 	public boolean selectPalaceCards(int playerID, Pair userSelectedCard)
@@ -173,6 +175,7 @@ public class PalaceGameState extends GameState
 	 * 4 of a kind are on top of the discard pile or a ten is played.
 	 *
 	 * @param playerID player who called this method,
+	 *
 	 * @return true if cards have been selected for play
 	 */
 	public boolean playCards(int playerID)
@@ -195,10 +198,10 @@ public class PalaceGameState extends GameState
 			selectedCards.clear();
 
 			//bomb the discard pile if there at least 4 cards and the top four are of the same rank
-				if ((discardPile.size() == 4 && discardPile.are_next_four_equal()) || discardPile.peek().get_card().get_rank() == Rank.TEN)
-				{
-					bombDiscardPile();
-				}
+			if ((discardPile.size() == 4 && discardPile.are_next_four_equal()) || discardPile.peek().get_card().get_rank() == Rank.TEN)
+			{
+				bombDiscardPile();
+			}
 /*			if (discardPile.size() >= 4)
 			{
 				if (discardPile.get(discardPile.size() - 1).get_card().get_rank() == discardPile.get(discardPile.size() - 2).get_card().get_rank() && discardPile.get(discardPile.size() - 1).get_card().get_rank() == discardPile.get(discardPile.size() - 3).get_card().get_rank() && discardPile.get(discardPile.size() - 1).get_card().get_rank() == discardPile.get(discardPile.size() - 4).get_card().get_rank() || discardPile.get(discardPile.size() - 1).get_card().get_rank() == Rank.TEN)
@@ -206,7 +209,8 @@ public class PalaceGameState extends GameState
 					bombDiscardPile();
 				}
 			}
-*/          return true;
+*/
+			return true;
 		}
 
 		//TODO refill player's hand if draw pile is not empty
@@ -217,6 +221,7 @@ public class PalaceGameState extends GameState
 	 * Places cards from player's upper palace to their hand.
 	 *
 	 * @param playerID player who called this method
+	 *
 	 * @return true if called by a valid player
 	 */
 	public boolean changePalace(int playerID)
@@ -253,6 +258,7 @@ public class PalaceGameState extends GameState
 	 * places selected cards into the upper palace of the player with playerID
 	 *
 	 * @param playerID player who called this method
+	 *
 	 * @return true if called by a valid player and there are three selected cards
 	 */
 	public boolean confirmPalace(int playerID)
@@ -303,12 +309,13 @@ public class PalaceGameState extends GameState
 	 * player with the PlayerID passed as parameter.
 	 *
 	 * @param playerID player who called the method
+	 *
 	 * @return true if called by a valid player
 	 */
 	public boolean takeDiscardPile(int playerID)
 	{
 
-		if (! discardPile.is_empty())
+		if (!discardPile.is_empty())
 		{
 
 			if (playerID == 0)
@@ -390,13 +397,13 @@ public class PalaceGameState extends GameState
 			}
 		}
 
-
 	}//dealTheDeck
 
 	/**
 	 * Checks if playing the selected card is legal according to the rules of Palace
 	 *
 	 * @param selectedCard the card that is selected
+	 *
 	 * @return true if the move is legal, else false
 	 */
 	private boolean isLegal(Pair selectedCard)
@@ -435,24 +442,29 @@ public class PalaceGameState extends GameState
 			if (p.get_location() == Location.DISCARD_PILE)
 			{
 				p.set_location(Location.DEAD_PILE);
-				Log.i("discard", "card" + p.toString()+ "was bombed");
+				Log.i("discard", "card" + p.toString() + "was bombed");
 			}
 		}
 	}//bombDiscardPile
 
-	public int getTurn(){
+	public int getTurn()
+	{
 		return turn;
 	}
 
-	public void setTurn(int newTurn){
+	public void setTurn(int newTurn)
+	{
 		turn = newTurn;
 	}
 
-	public boolean isDrawPileEmpty() {
+	public boolean isDrawPileEmpty()
+	{
 		boolean empty = true;
 
-		for (Pair p : the_deck) {
-			if (p.get_location() == Location.DRAW_PILE){
+		for (Pair p : the_deck)
+		{
+			if (p.get_location() == Location.DRAW_PILE)
+			{
 				empty = false;
 				break;
 			}

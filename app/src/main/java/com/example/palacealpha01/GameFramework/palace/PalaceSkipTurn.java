@@ -6,7 +6,8 @@ import com.example.palacealpha01.GameFramework.actionMessage.GameAction;
 public class PalaceSkipTurn extends GameAction
 {
 
-public PalaceSkipTurn(GamePlayer p){
-super(p);
-}
+	public PalaceSkipTurn(GamePlayer p)
+	{
+		super(p);
+	}
 }

@@ -1,13 +1,8 @@
 package com.example.palacealpha01.GameFramework.palace;
 
-import android.util.Log;
-
 import com.example.palacealpha01.GameFramework.GameComputerPlayer;
 import com.example.palacealpha01.GameFramework.infoMessage.GameInfo;
 import com.example.palacealpha01.GameFramework.infoMessage.NotYourTurnInfo;
-
-import java.util.ArrayList;
-import java.util.Random;
 
 public class PalaceComputerPlayer extends GameComputerPlayer
 {

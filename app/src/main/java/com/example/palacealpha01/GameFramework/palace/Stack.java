@@ -1,3 +1,6 @@
+/**
+ * @formatter:off
+ */
 package com.example.palacealpha01.GameFramework.palace;
 
 /**
@@ -23,7 +26,6 @@ public class Stack
 
 		/**
 		 * default constructor for the StackNode class
-		 *
 		 * @param data
 		 */
 		public StackNode(Pair data)
@@ -57,7 +59,6 @@ public class Stack
 	/**
 	 * copy constructor for the Stack.java class
 	 * This is the wrapper method for the copy_constructor() recursive method.
-	 *
 	 * @param that
 	 */
 	public Stack(Stack that)
@@ -68,7 +69,6 @@ public class Stack
 
 	/**
 	 * This is a recursive method.
-	 *
 	 * @param current
 	 */
 	private void copy_constructor(StackNode current)
@@ -150,22 +150,19 @@ public class Stack
 
 	/**
 	 * This is the wrapper function for the toString() recursive method.
-	 *
 	 * @return
 	 */
 	@Override
 	public String toString()
 	{
 		String s = "";
-		to_string(s, this.head);
+		to_string_rec(s, this.head);
 		return s;
 	}
 
 	/**
 	 * This is a wrapper function for the equals_rec() method.
-	 *
 	 * @param obj
-	 *
 	 * @return
 	 */
 	@Override
@@ -179,10 +176,8 @@ public class Stack
 
 	/**
 	 * This is a recursive function.
-	 *
 	 * @param this_current
 	 * @param that_current
-	 *
 	 * @return
 	 */
 	private static boolean equals_rec(StackNode this_current, StackNode that_current)
@@ -200,28 +195,26 @@ public class Stack
 			return false;   // NOTE: recursive loop exit
 
 		return equals_rec(this_current.next, that_current.next);   // NOTE: this is the single recursive
-		//       within this function
+		//                                                                  within this function
 	}
 
 	/**
 	 * This is a recursive method.
-	 *
 	 * @param s
 	 * @param current
 	 */
-	private void to_string(String s, StackNode current)
+	private void to_string_rec(String s, StackNode current)
 	{
 		if (current == null)
 			return;   // NOTE: we exit recursion loop here
 
 		s.concat(current.data.toString() + "\n");
 
-		to_string(s, current.next);   // NOTE: this is the single recursive call within this function
+		to_string_rec(s, current.next);   // NOTE: this is the single recursive call within this function
 	}//END: to_string() recursive method
 
 	/**
 	 * This is the wrapper method for the size_rec() recursive method.
-	 *
 	 * @return
 	 */
 	public int size()
@@ -231,9 +224,7 @@ public class Stack
 
 	/**
 	 * This is a recursive method.
-	 *
 	 * @param current
-	 *
 	 * @return
 	 */
 	private int size_rec(StackNode current)

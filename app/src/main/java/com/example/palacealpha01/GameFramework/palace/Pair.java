@@ -1,3 +1,6 @@
+/**
+ * @formatter:off
+ */
 package com.example.palacealpha01.GameFramework.palace;
 
 import android.util.Log;
@@ -43,7 +46,6 @@ public class Pair
 
 	/**
 	 * Represents a Pair object with a string by listing the card and its location
-	 *
 	 * @return String representation of Pair object
 	 */
 	@Override
@@ -84,7 +86,7 @@ public class Pair
 				return_str += "Draw pile";
 				break;
 			default:
-				Log.d("Pair.java|toString", "ERROR: invalid location");
+				Log.d("Pair.java", "toString()");
 				return null;
 		}
 

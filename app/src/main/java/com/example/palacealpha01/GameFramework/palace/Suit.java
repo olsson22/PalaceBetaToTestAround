@@ -1,3 +1,6 @@
+/**
+ * @formatter:off
+ */
 package com.example.palacealpha01.GameFramework.palace;
 
 import android.util.Log;
@@ -27,6 +30,7 @@ public enum Suit
 	}//END: Suit() enum constructor
 
 
+
 	public int get_suit_num()
 	{
 		return this.suit_num;
@@ -46,7 +50,7 @@ public enum Suit
 				return HEARTS;
 
 			default:
-				Log.d("Suit.java|int_to_suit", "ERROR: Incorrect integer passed to the 'int_to_suit()' function");
+				Log.d("Suit.java", "int_to_suit()");
 				return null;
 		}
 	}//END: int_to_suit() function

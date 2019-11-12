@@ -150,5 +150,5 @@ public class Card
 		return image;
 	}
 */
-	}//END: getImage() method
-}//END: Card class
+	}//END: Card Class
+

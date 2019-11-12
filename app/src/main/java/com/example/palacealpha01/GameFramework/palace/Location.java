@@ -1,3 +1,6 @@
+/**
+ * @formatter:off
+ */
 package com.example.palacealpha01.GameFramework.palace;
 
 /**

@@ -410,7 +410,7 @@ public class PalaceGameState extends GameState
 	 *
 	 * @return true if the move is legal, else false
 	 */
-	private boolean isLegal(Pair selectedCard)
+	public boolean isLegal(Pair selectedCard)
 	{
 		if (discardPile.is_empty())
 		{

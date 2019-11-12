@@ -1,10 +1,11 @@
 package com.example.palacealpha01.GameFramework.palace;
-
+/*
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-//import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
+*/
 import android.util.Log;
 
 /**
@@ -21,7 +22,7 @@ public class Card
 {
 	private Suit suit;
 	private Rank rank;
-	private Bitmap image;
+//	private Bitmap image;
 
 	public Card(Rank rank, Suit suit) /*BitmapDrawable image)*/
 	{
@@ -33,13 +34,14 @@ public class Card
 	{
 		this.suit = that.suit;
 		this.rank = that.rank;
-		this.image = that.image;
+//		this.image = that.image;
 	}//END: Card() copy constructor
 
-	public void draw(Canvas c, float x, float y, Paint p)
+/*	public void draw(Canvas c, float x, float y, Paint p)
 	{
 		c.drawBitmap(this.image, x, y, p);
 	}//END: draw() method
+*/
 
 	public Rank get_rank()
 	{
@@ -93,7 +95,7 @@ public class Card
 				break;
 
 			default:
-				Log.d("Card.java|toString", "ERROR: (rank) variable corrupted");
+				Log.d("Card.java", "toString()");
 				return null;
 		}
 		return_str += " of ";
@@ -113,7 +115,7 @@ public class Card
 				break;
 
 			default:
-				Log.d("Card.java|toString", "ERROR: (suit) variable corrupted");
+				Log.d("Card.java", "toString()");
 				return null;
 		}
 		return (return_str);
@@ -135,13 +137,18 @@ public class Card
 		return true;
 	} //END: equals() method
 
-	public void setImage(Bitmap image)
+/*	public void setImage(Bitmap image)
 	{
 		this.image = image;
+	}
+*/
+/*	public Bitmap getImage()
 	}//END: setImage() method
 
 	public Bitmap getImage()
 	{
 		return image;
+	}
+*/
 	}//END: getImage() method
 }//END: Card class

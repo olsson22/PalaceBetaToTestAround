@@ -1,3 +1,6 @@
+/**
+ * @formatter:off
+ */
 package com.example.palacealpha01.GameFramework.palace;
 
 import android.util.Log;
@@ -85,7 +88,7 @@ public enum Rank
 				return TEN;
 
 			default:
-				Log.d("Rank.java|int_to_rank", "ERROR: Incorrect integer passed to the 'int_to_rank()' function");
+				Log.d("Rank.java", "int_to_rank()");
 				return null;
 		}
 	}//END: int_to_rank() function

@@ -196,6 +196,7 @@ public class PalaceHumanPlayer extends GameHumanPlayer implements View.OnClickLi
 	@Override
 	public void setAsGui(GameMainActivity activity)
 	{
+
 		myActivity = activity;
 		initCardImages();
 

@@ -28,10 +28,11 @@ public class PalaceComputerPlayer extends GameComputerPlayer
 
 			if (pgs.getTurn() == this.playerNum)
 			{
-//				sleep(2);
+
 
 				if (pgs.getSelectedCards().size() > 0)
 				{
+					sleep(2);
 					game.sendAction(new PalacePlayCardAction(this));
 					return;
 				}
@@ -78,6 +79,7 @@ public class PalaceComputerPlayer extends GameComputerPlayer
 				// but none of them are legal.
 				//then the computer picks up the discard pile.
 				if(legalCards.size()==0){
+					sleep(2);
 					game.sendAction(new PalaceTakeDiscardPileAction(this));
 				}
 				else if (player_two_hand.size() > 0)

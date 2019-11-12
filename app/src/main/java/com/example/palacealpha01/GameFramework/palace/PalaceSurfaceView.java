@@ -196,6 +196,7 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListen
 					drawSelectionBox(canvas, xP2H, yP2H);
 				}
 				canvas.drawBitmap(cardBack, xP2H, yP2H, bitmapPaint);
+				//canvas.drawBitmap(pictures.get(p.get_card().toString()), xP2H, yP2H, bitmapPaint);
 				xP2H += cardWidth + 5;
 			}
 		}
@@ -244,6 +245,7 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListen
 	}
 
 	//bit of a mess, but this handles the clicks on the different cards
+	//TODO move this to PalaceHumanPlayer
 	@Override
 	public boolean onTouch(View v, MotionEvent event)
 	{
@@ -276,11 +278,18 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListen
 				{
 					nbrCardsInHand++;
 					nbrCardsInUP++;
-					PalaceSelectCardAction selectCard = new PalaceSelectCardAction(palaceHumanPlayer, p);
+
+
 
 					if (clickedX >= left && clickedY >= top && clickedX <= right && clickedY <= bottom)
 					{
-						theGame.sendAction(selectCard);
+						if (pgs.getIsChangingPalace()) {
+							theGame.sendAction(new PalaceSelectPalaceCardAction(palaceHumanPlayer, p));
+						}
+
+						else {
+							theGame.sendAction(new PalaceSelectCardAction(palaceHumanPlayer, p));
+						}
 					}
 					left += cardWidth + 5;
 					right = left + cardWidth + 5;

@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.palacealpha01.GameFramework.GameHumanPlayer;
 import com.example.palacealpha01.GameFramework.GameMainActivity;
@@ -35,6 +36,11 @@ public class PalaceHumanPlayer extends GameHumanPlayer implements View.OnClickLi
 	//the pictures are stored in a hashmap and are initialized in the initCardImages-method.
 	private Hashtable<String, Bitmap> pictures = new Hashtable<>();
 	private PalaceGameState pgs;
+	private Toast toast;
+
+
+
+
 
 
 	/**
@@ -49,6 +55,7 @@ public class PalaceHumanPlayer extends GameHumanPlayer implements View.OnClickLi
 	{
 		super(name);
 		this.layoutId = layoutId;
+
 
 	}//PalaceHumanPlayer
 
@@ -182,6 +189,7 @@ public class PalaceHumanPlayer extends GameHumanPlayer implements View.OnClickLi
 		else
 		{
 			palaceSurfaceView.setPgs((PalaceGameState) info);
+			pgs = (PalaceGameState) info;
 			palaceSurfaceView.invalidate();
 		}
 
@@ -217,7 +225,9 @@ public class PalaceHumanPlayer extends GameHumanPlayer implements View.OnClickLi
 
 		//  palaceSurfaceView.setHumanPlayer(this);
 		palaceSurfaceView.setActivity(myActivity);
-	}//setAsGui
+
+		toast = Toast.makeText(myActivity.getApplicationContext(), "You can no longer change your palace!", Toast.LENGTH_SHORT);
+	}
 
 	/**
 	 * onClick method:
@@ -237,6 +247,9 @@ public class PalaceHumanPlayer extends GameHumanPlayer implements View.OnClickLi
 		}
 		else if (button.getId() == R.id.PalaceButton)
 		{
+			if (pgs != null && !pgs.getP1CanChangePalace()) {
+				toast.show();
+			}
 			PalaceChangePalaceAction changePalace = new PalaceChangePalaceAction(this);
 			game.sendAction(changePalace);
 			button.invalidate();

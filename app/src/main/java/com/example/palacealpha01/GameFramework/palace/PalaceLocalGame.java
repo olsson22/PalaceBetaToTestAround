@@ -153,7 +153,6 @@ public class PalaceLocalGame extends LocalGame
 			return false;
 		}
 		//if action is a selectCardAction, perform this action
-		//TODO: I think we need to change this call in some way so we can select multiple cards, and not only one, as we have it now.
 		if (action instanceof PalaceSelectCardAction)
 		{
 
@@ -250,6 +249,28 @@ public class PalaceLocalGame extends LocalGame
 				pgs.changePalace(1);
 				return true;
 			}
+		}
+		else if (action instanceof PalaceSelectPalaceCardAction) {
+
+			if (canMove(playerNum))
+			{
+				Pair pair = ((PalaceSelectPalaceCardAction) action).getUserSelectedCard();
+
+				if (pgs.getTurn() == 0)
+				{
+
+					pgs.selectPalaceCards(0, pair);
+
+					return true;
+				}
+				else
+				{
+					pgs.selectPalaceCards(1, pair);
+					return true;
+				}
+
+			}
+
 		}
 
 		return false;

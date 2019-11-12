@@ -11,6 +11,8 @@ import com.example.palacealpha01.GameFramework.infoMessage.GameState;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import static android.os.SystemClock.sleep;
+
 
 /**
  * Data representation of a game of Palace for use with the CS301 Game Framework
@@ -29,6 +31,9 @@ public class PalaceGameState extends GameState
 	public Stack discardPile;
 	private Resources resources;
 	private int turn;
+	private boolean isChangingPalace;
+	private boolean p1CanChangePalace;
+	private boolean p2CanChangePalace;
 
 
 
@@ -47,8 +52,10 @@ public class PalaceGameState extends GameState
 		shuffleTheDeck();
 		turn = 0;
 		dealTheDeck();
-
-	}//PalaceGameState
+		isChangingPalace = false;
+		p1CanChangePalace = true;
+		p2CanChangePalace = true;
+	}//constructor
 
 	/**
 	 * Deep Copy Constructor
@@ -79,7 +86,11 @@ public class PalaceGameState extends GameState
 */
 		discardPile = new Stack(state.discardPile);
 
-	}//PalaceGameState
+		isChangingPalace = state.getIsChangingPalace();
+		p1CanChangePalace = state.getP1CanChangePalace();
+		p2CanChangePalace = state.getP2CanChangePalace();
+
+	}//deep copy constructor
 
 	public ArrayList<Pair> getSelectedCards()
 	{
@@ -189,6 +200,9 @@ public class PalaceGameState extends GameState
 	 */
 	public boolean playCards(int playerID)
 	{
+		if (isChangingPalace) {
+			return false;
+		}
 		if (selectedCards.size() != 0)
 		{
 			for (int i = 0; i < selectedCards.size(); i++)
@@ -211,6 +225,8 @@ public class PalaceGameState extends GameState
 			{
 				bombDiscardPile();
 			}
+
+			takeFromDrawPile(playerID);
 /*			if (discardPile.size() >= 4)
 			{
 				if (discardPile.get(discardPile.size() - 1).get_card().get_rank() == discardPile.get(discardPile.size() - 2).get_card().get_rank() && discardPile.get(discardPile.size() - 1).get_card().get_rank() == discardPile.get(discardPile.size() - 3).get_card().get_rank() && discardPile.get(discardPile.size() - 1).get_card().get_rank() == discardPile.get(discardPile.size() - 4).get_card().get_rank() || discardPile.get(discardPile.size() - 1).get_card().get_rank() == Rank.TEN)
@@ -218,13 +234,87 @@ public class PalaceGameState extends GameState
 					bombDiscardPile();
 				}
 			}
+
 */
+			if (playerID == 0) {
+				p1CanChangePalace = false;
+			}
+
+			else if (playerID == 1) {
+				p2CanChangePalace = false;
+			}
+
 			return true;
 		}
-
-		//TODO refill player's hand if draw pile is not empty
 		return false;
 	}//playCards
+
+	private void takeFromDrawPile(int playerID) {
+
+		int drawPileSize = 0;
+		int handSize = 0;
+
+		for (Pair p : the_deck) {
+
+			if (p.get_location() == Location.DRAW_PILE) {
+				drawPileSize++;
+			}
+		}
+
+		if (drawPileSize == 0) {
+			return;
+		}
+
+		if (playerID == 0) {
+
+			for (Pair p : the_deck) {
+				if (p.get_location() == Location.PLAYER_ONE_HAND) {
+					handSize++;
+				}
+			}
+
+
+			for (Pair p : the_deck) {
+				if (p.get_location() == Location.DRAW_PILE) {
+
+					if (handSize >= 5 || drawPileSize == 0) {
+						break;
+					}
+
+					p.set_location(Location.PLAYER_ONE_HAND);
+					drawPileSize--;
+					handSize++;
+				}
+			}
+
+		}
+
+		else if (playerID == 1) {
+
+			for (Pair p : the_deck) {
+				if (p.get_location() == Location.PLAYER_TWO_HAND) {
+					handSize++;
+				}
+			}
+
+
+			for (Pair p : the_deck) {
+				if (p.get_location() == Location.DRAW_PILE) {
+
+					if (handSize >= 5 || drawPileSize == 0) {
+						break;
+					}
+
+					p.set_location(Location.PLAYER_TWO_HAND);
+					drawPileSize--;
+					handSize++;
+				}
+			}
+
+		}
+
+	}
+
 
 	/**
 	 * changePalace method:
@@ -240,6 +330,10 @@ public class PalaceGameState extends GameState
 		 * hand that will be changed with the palacecards*/
 		if (playerID == 0)
 		{
+			if (!p1CanChangePalace) {
+				return false;
+			}
+			isChangingPalace = true;
 			for (Pair p : the_deck)
 			{
 				if (p.get_location() == Location.PLAYER_ONE_UPPER_PALACE)
@@ -251,6 +345,10 @@ public class PalaceGameState extends GameState
 		}
 		if (playerID == 1)
 		{
+			if (!p2CanChangePalace) {
+				return false;
+			}
+			isChangingPalace = true;
 			for (Pair p : the_deck)
 			{
 				if (p.get_location() == Location.PLAYER_TWO_UPPER_PALACE)
@@ -290,6 +388,8 @@ public class PalaceGameState extends GameState
 					}
 				}
 				selectedCards.clear();
+				isChangingPalace = false;
+				p1CanChangePalace = false;
 				return true;
 			}
 		}
@@ -309,6 +409,8 @@ public class PalaceGameState extends GameState
 					}
 				}
 				selectedCards.clear();
+				isChangingPalace = false;
+				p2CanChangePalace = false;
 				return true;
 			}
 		}
@@ -542,4 +644,17 @@ public class PalaceGameState extends GameState
 
 		return gameStateString;
 	}//toString
+
+	public boolean getIsChangingPalace () {
+	 	return isChangingPalace;
+	}
+
+	public boolean getP1CanChangePalace() {
+	 	return p1CanChangePalace;
+	}
+
+	public boolean getP2CanChangePalace() {
+		return p2CanChangePalace;
+	}
+
 }//class PalaceGameState

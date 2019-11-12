@@ -22,4 +22,14 @@ public class PalaceSelectPalaceCardAction extends GameAction
 		super(player);
 		this.userSelectedCard = userSelectedCard;
 	}//PalaceSelectPalaceCardAction
+
+	/**
+	 * getUserSelectedCard method:
+	 * gets the card that the user selected
+	 * @return
+	 */
+	public Pair getUserSelectedCard()
+	{
+		return userSelectedCard;
+	}//getUserSelectedCard
 }//class PalaceSelectPalaceCardAction

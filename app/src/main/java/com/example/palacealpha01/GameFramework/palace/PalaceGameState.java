@@ -11,6 +11,8 @@ import com.example.palacealpha01.GameFramework.infoMessage.GameState;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import static android.os.SystemClock.sleep;
+
 
 /**
  * Data representation of a game of Palace for use with the CS301 Game Framework

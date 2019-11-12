@@ -15,3 +15,4 @@ public class PalaceTakeDiscardPileAction extends GameAction
 		super(player);
 	}//PalaceTakeDiscardPileAction
 }//class PalaceTakeDiscardPileAction
+

@@ -14,12 +14,16 @@ import java.util.Collections;
 
 /**
  * Data representation of a game of Palace for use with the CS301 Game Framework
+ * Contains the state of the Palace game.
  *
  * @author Andres Giesemann, Fredrik Olsson, Meredith Marcinko, Maximilian Puglielli
  */
 public class PalaceGameState extends GameState
 {
 
+	/**
+	 * Initialize Variables
+	 */
 	public ArrayList<Pair> the_deck;
 	private ArrayList<Pair> selectedCards;
 	public Stack discardPile;
@@ -550,13 +554,19 @@ public class PalaceGameState extends GameState
 	public int getTurn()
 	{
 		return turn;
-	}
+	}//getTurn
 
 	public void setTurn(int newTurn)
 	{
 		turn = newTurn;
-	}
+	}//setTurn
 
+	/**
+	 * isDrawPileEmpty method:
+	 * checks to see if the draw pile is empty
+	 *
+	 * @return
+	 */
 	public boolean isDrawPileEmpty()
 	{
 		boolean empty = true;
@@ -571,14 +581,15 @@ public class PalaceGameState extends GameState
 		}
 
 		return empty;
-	}
+	}//isDrawPileEmpty
 
-	@Override
 	/**
 	 * Creates a String representation of the results of the Use Case methods.
 	 *
 	 * @return A string representation of the result of the Use Case methods.
-	 */ public String toString()
+	 */
+	@Override
+	public String toString()
 	{
 		String gameStateString = "";
 

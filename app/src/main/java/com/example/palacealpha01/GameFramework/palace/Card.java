@@ -1,6 +1,3 @@
-/**
- * @formatter:off
- */
 package com.example.palacealpha01.GameFramework.palace;
 /*
 import android.graphics.Bitmap;
@@ -138,7 +135,7 @@ public class Card
 		//	return false;
 
 		return true;
-	}
+	} //END: equals() method
 
 /*	public void setImage(Bitmap image)
 	{
@@ -146,8 +143,12 @@ public class Card
 	}
 */
 /*	public Bitmap getImage()
+	}//END: setImage() method
+
+	public Bitmap getImage()
 	{
 		return image;
 	}
 */
-}//END: Card class
+	}//END: Card Class
+

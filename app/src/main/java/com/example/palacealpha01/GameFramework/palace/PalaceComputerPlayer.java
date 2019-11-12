@@ -6,15 +6,31 @@ import com.example.palacealpha01.GameFramework.infoMessage.NotYourTurnInfo;
 
 import java.util.ArrayList;
 
+/**
+ * This is the Computer Player class for Palace
+ *
+ * The Computer Player is implemented here
+ *
+ * @author Andres Giesemann, Fredrik Olsson, Meredith Marcinko, Maximilian Puglielli
+ * @version November 2019
+ */
+
 public class PalaceComputerPlayer extends GameComputerPlayer
 {
 
-
+	/**
+	 * The PalaceComputerPlayer is extened from the GameComputerPlayer Class
+	 * @param name
+	 */
 	public PalaceComputerPlayer(String name)
 	{
 		super(name);
-	}
+	}//PalaceComputerPlayer
 
+	/**
+	 *
+	 * @param info
+	 */
 	@Override
 	protected void receiveInfo(GameInfo info)
 	{
@@ -36,6 +52,14 @@ public class PalaceComputerPlayer extends GameComputerPlayer
 					game.sendAction(new PalacePlayCardAction(this));
 					return;
 				}
+
+		//TODO: add functions to make the computer player play cards and not only pick up the discard pile every time.
+		game.sendAction(new PalaceTakeDiscardPileAction(this));
+		sleep(2);
+
+
+		//game.sendAction(new PalaceSkipTurn(this));
+
 
 				//used for temporarily storing the cards in computer player's hand and palace
 				ArrayList<Pair> player_two_hand = new ArrayList<>();
@@ -94,5 +118,5 @@ public class PalaceComputerPlayer extends GameComputerPlayer
 			}
 		}
 		//TODO: add functions to make the computer player play cards and not only pick up the discard pile every time.
-	}
+	}//receiveInfo
 }

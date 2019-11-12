@@ -105,5 +105,5 @@ public class Pair
 			return false;
 
 		return true;
-	}
+	}//END: equals() method
 }//END: Pair class

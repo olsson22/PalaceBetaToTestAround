@@ -9,15 +9,31 @@ import com.example.palacealpha01.GameFramework.infoMessage.NotYourTurnInfo;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * This is the Computer Player class for Palace
+ *
+ * The Computer Player is implemented here
+ *
+ * @author Andres Giesemann, Fredrik Olsson, Meredith Marcinko, Maximilian Puglielli
+ * @version November 2019
+ */
+
 public class PalaceComputerPlayer extends GameComputerPlayer
 {
 
-
+	/**
+	 * The PalaceComputerPlayer is extened from the GameComputerPlayer Class
+	 * @param name
+	 */
 	public PalaceComputerPlayer(String name)
 	{
 		super(name);
-	}
+	}//PalaceComputerPlayer
 
+	/**
+	 *
+	 * @param info
+	 */
 	@Override
 	protected void receiveInfo(GameInfo info)
 	{
@@ -33,5 +49,5 @@ public class PalaceComputerPlayer extends GameComputerPlayer
 
 		//game.sendAction(new PalaceSkipTurn(this));
 
-	}
+	}//receiveInfo
 }

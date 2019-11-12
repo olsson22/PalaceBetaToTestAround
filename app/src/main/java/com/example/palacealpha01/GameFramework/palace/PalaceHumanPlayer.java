@@ -15,13 +15,20 @@ import com.example.palacealpha01.GameFramework.infoMessage.NotYourTurnInfo;
 
 import java.util.Hashtable;
 
-
+/**
+ * This is the class that hold the Human Player for Palace
+ *
+ * @author Andres Giesemann, Fredrik Olsson, Meredith Marcinko, Maximilian Puglielli
+ * @version November 2019
+ */
 
 //needs to handle screen interaction (implement listeners)
 public class PalaceHumanPlayer extends GameHumanPlayer implements View.OnClickListener
 {
 
-
+	/**
+	 * Initialize variables
+	 */
 	private Activity myActivity;
 	private PalaceSurfaceView palaceSurfaceView;
 	private int layoutId;
@@ -30,15 +37,25 @@ public class PalaceHumanPlayer extends GameHumanPlayer implements View.OnClickLi
 	private PalaceGameState pgs;
 
 
-
+	/**
+	 * The contructor for the PalaceHumanPlayer
+	 *
+	 * @param name
+	 *      the player's name
+	 * @param layoutId
+	 *      the id of the layout to use
+	 */
 	public PalaceHumanPlayer(String name, int layoutId)
 	{
 		super(name);
 		this.layoutId = layoutId;
 
-	}
+	}//PalaceHumanPlayer
 
-	//the cards are initialized in this class in order to avoid nullpointerexceptions.
+	/**
+	 * initCardImages Method:
+	 * the cards are initialed in this class in order to avoid nullpointerexceptions
+	 */
 	private void initCardImages()
 	{
 		Resources resources = myActivity.getApplicationContext().getResources();
@@ -109,9 +126,12 @@ public class PalaceHumanPlayer extends GameHumanPlayer implements View.OnClickLi
 		pictures.put("Ten of Diamonds", BitmapFactory.decodeResource(resources, R.drawable.ten_of_diamonds));
 		pictures.put("Ten of Hearts", BitmapFactory.decodeResource(resources, R.drawable.ten_of_hearts));
 
-	}
+	}//initCardImages
 
-	//sets up all the buttons and surfaceview
+	/**
+	 * initAfterReady Method:
+	 * sets up all the buttons and surfaceview
+	 */
 	protected void initAfterReady()
 	{
 		Button palaceButton = myActivity.findViewById(R.id.PalaceButton);
@@ -122,16 +142,28 @@ public class PalaceHumanPlayer extends GameHumanPlayer implements View.OnClickLi
 		confirmPalace.setOnClickListener(this);
 		palaceSurfaceView.setGame(game);
 
-	}
+	}//initAfterReady
 
-	//returns the surfaceview
+
+	/**
+	 * getTopView method:
+	 * returns the surfaceView
+	 *
+	 * @return null
+	 */
 	@Override
 	public View getTopView()
 	{
 		return myActivity.findViewById(R.id.TableSurfaceView);
-	}
+	}//getTopView
 
-	//receives info from the gameframework and sets the gamestate if the gamestate is not null
+	/**
+	 * recieveInfo method:
+	 * receives info from the gameFrameWork and sets the GameState
+	 * if the GameState is not null
+	 *
+	 * @param info
+	 */
 	@Override
 	public void receiveInfo(GameInfo info)
 	{
@@ -153,15 +185,17 @@ public class PalaceHumanPlayer extends GameHumanPlayer implements View.OnClickLi
 			palaceSurfaceView.invalidate();
 		}
 
-	}
+	}//receiveInfo
 
+	/**
+	 * setAsGui method:
+	 * can access mainActivity from this class for resources
+	 *
+	 * @param activity
+	 */
 	@Override
-	//can access mainActivity from this class for resources
 	public void setAsGui(GameMainActivity activity)
 	{
-
-
-
 		myActivity = activity;
 		initCardImages();
 
@@ -182,9 +216,15 @@ public class PalaceHumanPlayer extends GameHumanPlayer implements View.OnClickLi
 
 		//  palaceSurfaceView.setHumanPlayer(this);
 		palaceSurfaceView.setActivity(myActivity);
-	}
+	}//setAsGui
 
-	//this listener does not need to know about the gamestate, that is why it is implemented in this class
+	/**
+	 * onClick method:
+	 * the listeners do not need to know about the gameState,
+	 * they are speficially for the human player to use
+	 *
+	 * @param button
+	 */
 	@Override
 	public void onClick(View button)
 	{
@@ -201,5 +241,5 @@ public class PalaceHumanPlayer extends GameHumanPlayer implements View.OnClickLi
 			button.invalidate();
 		}
 
-	}
+	}//onClick
 }

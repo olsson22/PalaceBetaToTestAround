@@ -26,7 +26,7 @@ public class PalaceMainActivity extends GameMainActivity implements View.OnClick
 	public static final int PORT_NUMBER = 5213;
 
 	/**
-	 * a tic-tac-toe game is for two players. The default is human vs. computer
+	 * Palace is for two players. The default is human vs. computer
 	 */
 	@Override
 	public GameConfig createDefaultConfig()
@@ -55,13 +55,18 @@ public class PalaceMainActivity extends GameMainActivity implements View.OnClick
 		defaultConfig.setRemoteData("Remote Player", "", 1);
 
 		return defaultConfig;
-	}
+	}//createDefaultConfig
 
+	/**
+	 * LocalGame method:
+	 * creates the localGame.
+	 * @return
+	 */
 	@Override
 	public LocalGame createLocalGame()
 	{
 		return new PalaceLocalGame();
-	}
+	}//createLocalGame
 
 
 

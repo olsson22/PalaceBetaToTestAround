@@ -21,10 +21,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
 
-
+/**
+ * PalaceSurfaceView Class:
+ * the user interface visuals are implemented in this class
+ *
+ * @author Andres Giesemann, Fredrik Olsson, Meredith Marcinko, Maximilian Puglielli
+ * @version November 2019
+ */
 public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListener, View.OnClickListener
 {
 
+	/**
+	 * Initialize variables
+	 */
 	private PalaceGameState pgs;
 
 	private Paint bitmapPaint = new Paint();
@@ -40,12 +49,23 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListen
 	private Hashtable<String, Bitmap> pictures = new Hashtable<>();
 
 
-
+	/**
+	 * Constructor
+	 *
+	 * @param context
+	 */
 	public PalaceSurfaceView(Context context)
 	{
 		super(context);
-	}
+	}//PalaceSurfaceView
 
+	/**
+	 * An alternate constructor for use when a subclass is directly specified
+	 * in the layout.
+	 *
+	 * @param context
+	 * @param attrs
+	 */
 	public PalaceSurfaceView(Context context, AttributeSet attrs)
 	{
 
@@ -54,28 +74,53 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListen
 		setWillNotDraw(false);
 		this.pgs = new PalaceGameState();
 
-	}
+	}//PalaceSurfaceView
 
+	/**
+	 * setPictures method:
+	 * palaces the pictures of the cards on the GUI
+	 * @param map
+	 */
 	public void setPictures(Hashtable<String, Bitmap> map)
 	{
 		this.pictures = map;
-	}
+	}//setPictures
 
+	/**
+	 *setHumanPlayer method:
+	 * gets the human player and displays their hand on the GUI
+	 * @param p
+	 */
 	public void setHumanPlayer(GamePlayer p)
 	{
 		this.palaceHumanPlayer = p;
-	}
+	}//setHumanPlayer
 
+	/**
+	 * setGame method:
+	 * sets the game for displaying it on the GUI
+ 	 * @param g
+	 */
 	public void setGame(Game g)
 	{
 		this.theGame = g;
-	}
+	}//setGame
 
+	/**
+	 * setActivity method:
+	 * shows the activity of the game
+	 * @param a
+	 */
 	public void setActivity(Activity a)
 	{
 		this.myActivity = a;
-	}
+	}//setActivity
 
+	/**
+	 * onDraw method:
+	 * this is the method in which the game is drawn on the GUI
+	 * @param canvas
+	 */
 	public void onDraw(Canvas canvas)
 	{
 
@@ -117,8 +162,13 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListen
 		{
 			canvas.drawBitmap(cardBack, getWidth() / 2 + cardWidth, getHeight() / 2 - 3 * (cardHeight / 4), bitmapPaint);
 		}
-	}
+	}//onDraw
 
+	/**
+	 * drawPlayerTwoPalaces method:
+	 * draws player 2's palace
+	 * @param canvas
+	 */
 	private void drawPlayerTwoPalaces(Canvas canvas)
 	{
 
@@ -154,8 +204,13 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListen
 				xP2UP += cardWidth + 5;
 			}
 		}
-	}
+	}//drawPlayerTwoPalaces
 
+	/**
+	 * drawHands method:
+	 * draws the cards in the and tells which card is selected
+	 * @param canvas
+	 */
 	private void drawHands(Canvas canvas)
 	{
 		Paint recPaint = new Paint();

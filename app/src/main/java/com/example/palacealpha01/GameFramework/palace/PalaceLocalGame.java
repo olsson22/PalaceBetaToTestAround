@@ -8,33 +8,67 @@ import com.example.palacealpha01.GameFramework.actionMessage.GameAction;
 
 import java.util.ArrayList;
 
+/**
+ * PalaceLocalGame Class
+ * Returns the new local GameState
+ * checks if the game is over
+ */
 public class PalaceLocalGame extends LocalGame
 {
 
+	//the game's state
 	protected PalaceGameState pgs;
 	private ArrayList<Pair> selectedCards = new ArrayList<>();
 
+	/**
+	 * Constructor for PalaceLocalGame
+	 */
 	public PalaceLocalGame()
 	{
 		super();
 
 		pgs = new PalaceGameState();
-	}
+	}//PalaceLocalGame
 
+
+	/**
+	 * sendUpdatedStateTo method:
+	 * Notify the given player that its state has changed.
+	 * This should involove sending a GameInfo object to the player.
+	 *
+	 * @param p
+	 */
 	@Override
 	protected void sendUpdatedStateTo(GamePlayer p)
 	{
 		p.sendInfo(new PalaceGameState(pgs));
-	}
+	}//sendUpdatedStateTo
 
+	/**
+	 * canMove method:
+	 * Tell whether the given player is allowed to make a move
+	 * at the present point in the game.
+	 *
+	 * @param playerIdx
+	 * 		the player's player-number (ID)
+	 * @return
+	 *      true iff the player is allowed to move
+	 */
 	@Override
 	protected boolean canMove(int playerIdx)
 	{
 		return playerIdx == pgs.getTurn();
-	}
+	}//canMove
 
 	//TODO: as of now, as soon as you tap a card it returns that player 0 won... need to fix this, that's why it is commented out
 	//
+
+	/**
+	 * checkIfGameOver method:
+	 * checks the player's/computer's hand, lower palace and upper palacep for cards.
+	 * If no cards are found then the game is over and the player without cards wins.
+	 * @return
+	 */
 	@Override
 	protected String checkIfGameOver()
 	{
@@ -87,8 +121,17 @@ public class PalaceLocalGame extends LocalGame
 
 			return null;
 		}
-	}
+	}//checkIfGameOver
 
+	/**
+	 * makeMove method:
+	 * Makes the move of the player
+	 *
+	 * @param action
+	 * 			The move that the player has sent to the game
+	 * @return
+	 *      tells whether the move was a legal one
+	 */
 	@Override
 	protected boolean makeMove(GameAction action)
 	{
@@ -210,5 +253,5 @@ public class PalaceLocalGame extends LocalGame
 		}
 
 		return false;
-	}//Makemove
+	}//makeMove
 }

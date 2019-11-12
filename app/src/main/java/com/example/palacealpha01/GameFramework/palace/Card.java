@@ -133,15 +133,15 @@ public class Card
 		//	return false;
 
 		return true;
-	}
+	} //END: equals() method
 
 	public void setImage(Bitmap image)
 	{
 		this.image = image;
-	}
+	}//END: setImage() method
 
 	public Bitmap getImage()
 	{
 		return image;
-	}
+	}//END: getImage() method
 }//END: Card class

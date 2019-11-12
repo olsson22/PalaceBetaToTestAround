@@ -21,4 +21,4 @@ public class PalacePlayCardAction extends GameAction
 
 	}//PalacePlayCardAction
 
-}
+}//class PalacePlayCardAction

@@ -20,4 +20,4 @@ public class PalaceConfirmPalaceAction extends GameAction
 	{
 		super(player);
 	}//PalaceConfirmPalaceAction
-}
+}//class PalaceConfirmPalaceAction

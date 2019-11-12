@@ -243,4 +243,4 @@ public class PalaceHumanPlayer extends GameHumanPlayer implements View.OnClickLi
 		}
 
 	}//onClick
-}
+}//class PalaceHumanPlayer

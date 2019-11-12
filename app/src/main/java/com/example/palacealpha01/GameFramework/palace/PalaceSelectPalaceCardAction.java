@@ -22,4 +22,4 @@ public class PalaceSelectPalaceCardAction extends GameAction
 		super(player);
 		this.userSelectedCard = userSelectedCard;
 	}//PalaceSelectPalaceCardAction
-}
+}//class PalaceSelectPalaceCardAction

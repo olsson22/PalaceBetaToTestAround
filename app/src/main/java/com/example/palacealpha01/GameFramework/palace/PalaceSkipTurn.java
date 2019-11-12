@@ -10,9 +10,13 @@ import com.example.palacealpha01.GameFramework.actionMessage.GameAction;
  */
 public class PalaceSkipTurn extends GameAction
 {
-
+	/**
+	 * Constructor for GameAction
+	 *
+	 * @param p the player who created the action
+	 */
 	public PalaceSkipTurn(GamePlayer p)
 	{
 		super(p);
 	}//PalaceSkipTurn
-}
+}//class PalaceSkipTurn

@@ -21,4 +21,4 @@ public class PalaceChangePalaceAction extends GameAction
 	{
 		super(player);
 	}//PalaceChangePalaceAction
-}
+}//class PalaceChangePalaceAction

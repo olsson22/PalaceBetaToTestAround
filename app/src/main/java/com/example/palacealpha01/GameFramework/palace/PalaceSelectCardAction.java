@@ -24,10 +24,14 @@ public class PalaceSelectCardAction extends GameAction
 
 	}//PalaceSelectCardAction
 
-
+	/**
+	 * getUserSelectedCard method:
+	 * gets the card that the user selected
+	 * @return the Pair object of the card selected
+	 */
 	public Pair getUserSelectedCard()
 	{
 		return userSelectedCard;
 	}//getUserSelectedCard
 
-}
+}//class PalaceSelectCardAction

@@ -87,6 +87,7 @@ public class PalaceGameState extends GameState
 	}
 
 	/**
+	 * initialize_the_deck method:
 	 * Creates a deck of 52 Pair objects. All Pair objects have initial location of DRAW_PILE
 	 */
 	private void initialize_the_deck()
@@ -102,6 +103,7 @@ public class PalaceGameState extends GameState
 	}//initialize_the_deck
 
 	/**
+	 * shuffleTheDeck method:
 	 * Simply shuffles the deck using the shuffle method from Collections
 	 */
 	//function wont be implemented until the arrayList for theDeck is made
@@ -111,6 +113,7 @@ public class PalaceGameState extends GameState
 	}//shuffleTheDeck
 
 	/**
+	 * selectCards method:
 	 * Adds legal, user-selected cards to the selectedCards ArrayList
 	 *
 	 * @param playerID         ID of player who called the method
@@ -145,6 +148,7 @@ public class PalaceGameState extends GameState
 	}//selectCards
 
 	/**
+	 * selectPalaceCards method:
 	 * Selects cards to be placed into the palace of the player who called the method.
 	 * Different from selectCards because any cards can be legally added to the palace.
 	 *
@@ -175,6 +179,7 @@ public class PalaceGameState extends GameState
 	}//selectPalaceCards
 
 	/**
+	 * playCards method:
 	 * Places all selected cards into the discard pile. Bombs the discard pile (bombDiscardPile()) if
 	 * 4 of a kind are on top of the discard pile or a ten is played.
 	 *
@@ -222,6 +227,7 @@ public class PalaceGameState extends GameState
 	}//playCards
 
 	/**
+	 * changePalace method:
 	 * Places cards from player's upper palace to their hand.
 	 *
 	 * @param playerID player who called this method
@@ -259,6 +265,7 @@ public class PalaceGameState extends GameState
 
 
 	/**
+	 * confirmPalace method:
 	 * places selected cards into the upper palace of the player with playerID
 	 *
 	 * @param playerID player who called this method
@@ -309,6 +316,7 @@ public class PalaceGameState extends GameState
 	}//confirmPalace
 
 	/**
+	 * takeDiscardPile method:
 	 * Reassigns location of cards in discard pile to the
 	 * player with the PlayerID passed as parameter.
 	 *
@@ -357,6 +365,7 @@ public class PalaceGameState extends GameState
 
 
 	/**
+	 * dealTheDeck method:
 	 * Deals cards from DRAW_PILE to palaces and hands of players
 	 */
 	public void dealTheDeck()
@@ -404,6 +413,7 @@ public class PalaceGameState extends GameState
 	}//dealTheDeck
 
 	/**
+	 * isLegal method:
 	 * Checks if playing the selected card is legal according to the rules of Palace
 	 *
 	 * @param selectedCard the card that is selected
@@ -436,6 +446,7 @@ public class PalaceGameState extends GameState
 	}//isLegal
 
 	/**
+	 * bombDiscardPile method:
 	 * Removes the discardPile from play by moving it to the dead pile.
 	 */
 	private void bombDiscardPile()
@@ -451,11 +462,21 @@ public class PalaceGameState extends GameState
 		}
 	}//bombDiscardPile
 
+	/**
+	 * getTurn method:
+	 * gets the turn of the player
+	 * @return the turn of the user
+	 */
 	public int getTurn()
 	{
 		return turn;
 	}//getTurn
 
+	/**
+	 * setTurn method:
+	 * sets the turn
+	 * @param newTurn return whos turn it is
+	 */
 	public void setTurn(int newTurn)
 	{
 		turn = newTurn;
@@ -465,7 +486,7 @@ public class PalaceGameState extends GameState
 	 * isDrawPileEmpty method:
 	 * checks to see if the draw pile is empty
 	 *
-	 * @return
+	 * @return true is the draw pile is empty
 	 */
 	public boolean isDrawPileEmpty()
 	{
@@ -484,6 +505,7 @@ public class PalaceGameState extends GameState
 	}//isDrawPileEmpty
 
 	/**
+	 * toString method:
 	 * Creates a String representation of the results of the Use Case methods.
 	 *
 	 * @return A string representation of the result of the Use Case methods.

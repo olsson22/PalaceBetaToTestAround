@@ -5,11 +5,6 @@ import com.example.palacealpha01.GameFramework.actionMessage.GameAction;
 
 public class PalaceTakeDiscardPileAction extends GameAction
 {
-
-
-
-
-
 	/**
 	 * constructor for GameAction
 	 *
@@ -18,5 +13,5 @@ public class PalaceTakeDiscardPileAction extends GameAction
 	public PalaceTakeDiscardPileAction(GamePlayer player)
 	{
 		super(player);
-	}
-}
+	}//PalaceTakeDiscardPileAction
+}//class PalaceTakeDiscardPileAction

@@ -19,7 +19,8 @@ public class PalaceComputerPlayer extends GameComputerPlayer
 {
 
 	/**
-	 * The PalaceComputerPlayer is extened from the GameComputerPlayer Class
+	 * PalaceComputerPlayer method:
+	 * The PalaceComputerPlayer is exteneded from the GameComputerPlayer Class
 	 * @param name
 	 */
 	public PalaceComputerPlayer(String name)
@@ -28,6 +29,7 @@ public class PalaceComputerPlayer extends GameComputerPlayer
 	}//PalaceComputerPlayer
 
 	/**
+	 *receiveInfo method:
 	 *
 	 * @param info
 	 */
@@ -117,4 +119,4 @@ public class PalaceComputerPlayer extends GameComputerPlayer
 		}
 		//TODO: add functions to make the computer player play cards and not only pick up the discard pile every time.
 	}//receiveInfo
-}
+}//class PalaceComputerPlayer

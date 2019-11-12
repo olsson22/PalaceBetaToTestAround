@@ -254,4 +254,4 @@ public class PalaceLocalGame extends LocalGame
 
 		return false;
 	}//makeMove
-}
+}//class PalaceLocalGame

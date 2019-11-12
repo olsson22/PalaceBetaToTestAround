@@ -257,6 +257,11 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListen
 
 	}
 
+	/**
+	 * drawPlayerOnePalaces method:
+	 * draws the cards that are within player one's palace
+	 * @param canvas
+	 */
 	private void drawPlayerOnePalaces(Canvas canvas)
 	{
 
@@ -265,8 +270,6 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListen
 		int yP1LP = getHeight() - 200;
 		int height = getHeight();
 		int yP1UP = getHeight() - 225;
-
-
 
 		for (Pair p : pgs.the_deck)
 		{
@@ -296,9 +299,15 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListen
 				xP1UP += cardWidth + 5;
 			}
 		}
-	}
+	}//drawPlayerOnePalace
 
-	//bit of a mess, but this handles the clicks on the different cards
+	/**
+	 * onTouch method:
+	 * handles the taps on the different cards
+	 * @param v
+	 * @param event
+	 * @return
+	 */
 	@Override
 	public boolean onTouch(View v, MotionEvent event)
 	{
@@ -375,27 +384,48 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListen
 		}
 		invalidate();
 		return true;
-	}
+	}//onTouch
 
+	/**
+	 * drawSelectionBox method:
+	 * draws the box that highlights the card that is selected
+	 * @param canvas
+	 * @param x
+	 * @param y
+	 */
 	private void drawSelectionBox(Canvas canvas, int x, int y)
 	{
 
 		canvas.drawRect(x - 5, y - 5, x + cardWidth + 5, y + cardHeight + 5, selectCardPaint);
 
-	}
+	}//drawSelectionBox
 
 
+	/**
+	 * setPgs method:
+	 * sets the state of the game
+	 * @param pgs
+	 */
 	public void setPgs(PalaceGameState pgs)
 	{
 		this.pgs = pgs;
-	}
+	}//setPgs
 
+	/**
+	 * setDiscardPile method:
+	 * set the discard pile
+	 * @param discardPile
+	 */
 	public void setDiscardPile(ArrayList<Pair> discardPile)
 	{
 		this.discardPile = discardPile;
-	}
+	}//setDiscardPile
 
-	//Since the playCard-button needs to know about the GameState I implemented this listener here.
+	/**
+	 * onClick method:
+	 * the listeners for the button are implemented here
+	 * @param button
+	 */
 	@Override
 	public void onClick(View button)
 	{
@@ -411,5 +441,5 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListen
 				}
 			}
 		}
-	}
-}
+	}//onClick
+}//class PalaceSurfaceView

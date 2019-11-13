@@ -221,7 +221,7 @@ public class PalaceGameState extends GameState
 			selectedCards.clear();
 
 			//bomb the discard pile if there at least 4 cards and the top four are of the same rank
-			if ((discardPile.size() == 4 && discardPile.are_next_four_equal()) || discardPile.peek().get_card().get_rank() == Rank.TEN)
+			if (discardPile.are_next_four_equal() || discardPile.peek().get_card().get_rank() == Rank.TEN)
 			{
 				bombDiscardPile();
 			}

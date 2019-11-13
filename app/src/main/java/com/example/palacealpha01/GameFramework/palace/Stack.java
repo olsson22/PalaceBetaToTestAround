@@ -113,7 +113,7 @@ public class Stack
 		{
 			if (current.next == null)
 				return false;
-			if (current.data != current.next.data)
+			if (current.data.get_card().get_rank() != current.next.data.get_card().get_rank())
 				return false;
 			current = current.next;
 		}

@@ -23,9 +23,9 @@ import static android.os.SystemClock.sleep;
 public class PalaceGameState extends GameState
 {
 
-	/**
-	 * Initialize Variables
-	 */
+
+	//Declare Variables
+
 	public ArrayList<Pair> the_deck;
 	private ArrayList<Pair> selectedCards;
 	public Stack discardPile;
@@ -539,7 +539,7 @@ public class PalaceGameState extends GameState
 			return true;
 		}
 		//otherwise, a card is only legal if its rank is higher than the top card of the discard pile
-		else if (discardPile.peek().get_card().get_rank().get_int_value() <= selectedCard.get_card().get_rank().get_int_value())
+		else if (discardPile.peek().get_card().get_rank() != Rank.SEVEN && discardPile.peek().get_card().get_rank().get_int_value() <= selectedCard.get_card().get_rank().get_int_value())
 		{
 			return true;
 		}
@@ -552,7 +552,7 @@ public class PalaceGameState extends GameState
 	 * Removes the discardPile from play by moving it to the dead pile.
 	 */
 	private void bombDiscardPile()
-	{
+	{//TODO make it clear to the user that the discardPile is getting bombed, instead of just having it disappear
 		discardPile.clear();
 		for (Pair p : the_deck)
 		{

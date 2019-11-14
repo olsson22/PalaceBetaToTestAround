@@ -186,13 +186,23 @@ public class PalaceLocalGame extends LocalGame
 				if (pgs.getTurn() == 0)
 				{
 					pgs.playCards(0);
-					pgs.setTurn(1);
+
+					//If this playCardAction causes the deck to be bombed, the player still has their turn
+					if (!pgs.discardPile.is_empty()) {
+                        pgs.setTurn(1);
+                    }
+
 					return true;
 				}
 				else
 				{
 					pgs.playCards(1);
-					pgs.setTurn(0);
+
+                    //If this playCardAction causes the deck to be bombed, the player still has their turn
+                    if (!pgs.discardPile.is_empty()) {
+                        pgs.setTurn(0);
+                    }
+
 					return true;
 				}
 

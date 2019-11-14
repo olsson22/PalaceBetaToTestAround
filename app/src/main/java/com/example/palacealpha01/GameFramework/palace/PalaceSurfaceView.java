@@ -212,7 +212,7 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListen
 	 * @param canvas
 	 */
 	private void drawHands(Canvas canvas)
-	{
+	{//TODO center the hands on screen
 		Paint recPaint = new Paint();
 		recPaint.setColor(Color.RED);
 		int xP1H = 0;
@@ -311,6 +311,8 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListen
 	 */
 	//bit of a mess, but this handles the clicks on the different cards
 	//TODO move this to PalaceHumanPlayer
+	//TODO add drag to play feature
+	//TODO allow hand scrolling when hand is too big for the screen
 	@Override
 	public boolean onTouch(View v, MotionEvent event)
 	{

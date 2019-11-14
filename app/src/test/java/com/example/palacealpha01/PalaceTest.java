@@ -73,16 +73,64 @@ public class PalaceTest
 
     }
 
+    /**
+     * tests playCard method from PalaceGameState
+     * First, selects a card and then plays it.
+     *
+     * Checks that the played card is in the discard pile
+     */
     @Test
     public void playCardsTest()
     {
+        PalaceGameState pgs = new PalaceGameState();
+        Pair temp = new Pair(new Card(Rank.int_to_rank(4), Suit.int_to_suit(1)), Location.DRAW_PILE);
+        for (Pair p : pgs.the_deck)
+        {
+            if (p.get_location() == Location.PLAYER_TWO_HAND)
+            {
+                pgs.selectCards(2, p);
+                temp = p;
+                break;
+            }
+        }
 
+        //done selecting the card, now play it
+
+        pgs.playCards(2);
+
+        for (Pair p : pgs.the_deck) {
+            if ((p.get_location() == Location.DISCARD_PILE  || p.get_location() == Location.DEAD_PILE) && p.equals(temp)) {
+                assertEquals(p, temp);
+            }
+
+        }
     }
 
+    /**
+     * tests changePalace method from PalaceGameState by checking to see that upper palace cards
+     * are moved to the proper user's hand.
+     */
     @Test
     public void changePalaceTest()
     {
+        PalaceGameState pgs = new PalaceGameState();
+        Pair[] palaceCards = new Pair[3];
+        int counter = 0;
+        for (Pair p : pgs.the_deck) {
+            if (p.get_location() == Location.PLAYER_TWO_UPPER_PALACE) {
+                palaceCards[counter] = p;
+                counter++;
+            }
 
+        }
+        pgs.changePalace(1);
+        int counter2 = 0;
+        for (int i = 0; i < palaceCards.length; i++) {
+            if (palaceCards[i].get_location() == Location.PLAYER_TWO_HAND) {
+                counter2++;
+            }
+        }
+        assertEquals(counter2, palaceCards.length);
     }
 
     @Test
@@ -91,10 +139,32 @@ public class PalaceTest
 
     }
 
+    /**
+     * tests takeDiscardPile method from PalaceGameState by checking
+     * that a card that is in the discard pile is moved to the correct
+     * player's hand.
+     *
+     * Starts by playing a card so that the discard pile is not empty
+     */
     @Test
-    public void takeDiscardPilTest()
-    {
+    public void takeDiscardPileTest()
+    {//TODO make this test more rigorous by adding more cards to the discard pile
+        PalaceGameState pgs = new PalaceGameState();
+        Pair temp = new Pair(new Card(Rank.int_to_rank(4), Suit.int_to_suit(1)), Location.DRAW_PILE);
+        for (Pair p : pgs.the_deck)
+        {
+            if (p.get_location() == Location.PLAYER_TWO_HAND)
+            {
+                pgs.selectCards(1, p);
+                temp = p;
+                break;
+            }
+        }
 
+        pgs.playCards(1);
+        pgs.takeDiscardPile(1);
+
+        assertEquals(temp.get_location(), Location.PLAYER_TWO_HAND);
     }
 
     @Test

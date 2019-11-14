@@ -143,7 +143,6 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListen
 		//used for seeing if discard pile fills up
 
 /*        int counter = 0;
-        //TODO: we have to change this so it fits with the stack that Max wrote.
         for(int i = pgs.the_deck.size()-1;i>=0;i--)
         {
             canvas.drawText("cards in discard pile: " + counter, 200, 10*counter,discardPaint );

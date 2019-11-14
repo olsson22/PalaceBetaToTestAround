@@ -60,7 +60,6 @@ public class PalaceLocalGame extends LocalGame
 		return playerIdx == pgs.getTurn();
 	}//canMove
 
-	//TODO: as of now, as soon as you tap a card it returns that player 0 won... need to fix this, that's why it is commented out
 	//
 
 	/**
@@ -177,7 +176,6 @@ public class PalaceLocalGame extends LocalGame
 
 		}
 		//if action is a playCardAction, perform this move
-		//TODO: I suppose this call needs to be changed aswell to handle multiple cards being played.
 		else if (action instanceof PalacePlayCardAction)
 		{
 			if (canMove(playerNum))

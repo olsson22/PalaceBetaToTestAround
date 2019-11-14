@@ -60,32 +60,19 @@ public enum Rank
 	{
 		switch (num)
 		{
-			case THREE_INT:
-				return THREE;
-			case FOUR_INT:
-				return FOUR;
-			case FIVE_INT:
-				return FIVE;
-			case SIX_INT:
-				return SIX;
-			case SEVEN_INT:
-				return SEVEN;
-			case EIGHT_INT:
-				return EIGHT;
-			case NINE_INT:
-				return NINE;
-			case JACK_INT:
-				return JACK;
-			case QUEEN_INT:
-				return QUEEN;
-			case KING_INT:
-				return KING;
-			case ACE_INT:
-				return ACE;
-			case TWO_INT:
-				return TWO;
-			case TEN_INT:
-				return TEN;
+			case THREE_INT: return THREE;
+			case FOUR_INT:  return FOUR;
+			case FIVE_INT:  return FIVE;
+			case SIX_INT:   return SIX;
+			case SEVEN_INT: return SEVEN;
+			case EIGHT_INT: return EIGHT;
+			case NINE_INT:  return NINE;
+			case JACK_INT:  return JACK;
+			case QUEEN_INT: return QUEEN;
+			case KING_INT:  return KING;
+			case ACE_INT:   return ACE;
+			case TWO_INT:   return TWO;
+			case TEN_INT:   return TEN;
 
 			default:
 				Log.d("Rank.java", "int_to_rank()");

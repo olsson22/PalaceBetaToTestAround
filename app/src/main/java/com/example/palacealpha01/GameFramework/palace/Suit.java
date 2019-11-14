@@ -40,14 +40,10 @@ public enum Suit
 	{
 		switch (num)
 		{
-			case SPADES_INT:
-				return SPADES;
-			case CLUBS_INT:
-				return CLUBS;
-			case DIAMONDS_INT:
-				return DIAMONDS;
-			case HEARTS_INT:
-				return HEARTS;
+			case SPADES_INT:    return SPADES;
+			case CLUBS_INT:     return CLUBS;
+			case DIAMONDS_INT:  return DIAMONDS;
+			case HEARTS_INT:    return HEARTS;
 
 			default:
 				Log.d("Suit.java", "int_to_suit()");

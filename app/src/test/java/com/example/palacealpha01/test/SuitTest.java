@@ -17,6 +17,9 @@ import static com.example.palacealpha01.GameFramework.palace.Suit.SPADES;
 import static com.example.palacealpha01.GameFramework.palace.Suit.SPADES_INT;
 import static org.junit.Assert.*;
 
+/**
+ * @author Maximilian
+ */
 public class SuitTest
 {
 

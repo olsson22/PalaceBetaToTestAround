@@ -1,3 +1,6 @@
+/**
+ * @formatter:off
+ */
 package com.example.palacealpha01.GameFramework.palace;
 /*
 import android.graphics.Bitmap;
@@ -28,6 +31,7 @@ public class Card
 	{
 		this.suit = suit;
 		this.rank = rank;
+//      this.image = image;
 	}//END: Card() constructor
 
 	public Card(Card that)
@@ -96,7 +100,6 @@ public class Card
 
 			default:
 				Log.d("Card.java", "toString()");
-				return null;
 		}
 		return_str += " of ";
 		switch (suit)
@@ -116,15 +119,14 @@ public class Card
 
 			default:
 				Log.d("Card.java", "toString()");
-				return null;
 		}
-		return (return_str);
+		return return_str;
 	}//END: toString() method
 
 	@Override
 	public boolean equals(Object obj)
 	{
-		if (!(obj instanceof Card))
+		if (! (obj instanceof Card))
 			return false;
 
 		if (this.suit != ((Card) obj).suit)
@@ -135,7 +137,7 @@ public class Card
 		//	return false;
 
 		return true;
-	} //END: equals() method
+	}//END: equals() method
 
 /*	public void setImage(Bitmap image)
 	{

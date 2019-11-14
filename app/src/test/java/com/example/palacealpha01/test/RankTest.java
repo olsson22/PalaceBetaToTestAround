@@ -35,6 +35,9 @@ import static com.example.palacealpha01.GameFramework.palace.Rank.TWO;
 import static com.example.palacealpha01.GameFramework.palace.Rank.TWO_INT;
 import static org.junit.Assert.*;
 
+/**
+ * @author Maximilian
+ */
 public class RankTest
 {
 

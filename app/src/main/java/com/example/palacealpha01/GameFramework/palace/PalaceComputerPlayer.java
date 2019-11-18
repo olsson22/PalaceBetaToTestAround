@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 /**
  * This is the Computer Player class for Palace
- *
  * The Computer Player is implemented here
  *
  * @author Andres Giesemann, Fredrik Olsson, Meredith Marcinko, Maximilian Puglielli
@@ -55,12 +54,7 @@ public class PalaceComputerPlayer extends GameComputerPlayer
 					return;
 				}
 
-
-
-
-
 		//game.sendAction(new PalaceSkipTurn(this));
-
 
 				//used for temporarily storing the cards in computer player's hand and palace
 				ArrayList<Pair> player_two_hand = new ArrayList<>();

@@ -10,6 +10,7 @@ import org.junit.Test;
 import static com.example.palacealpha01.GameFramework.palace.Rank.ACE;
 import static com.example.palacealpha01.GameFramework.palace.Rank.EIGHT;
 import static com.example.palacealpha01.GameFramework.palace.Rank.JACK;
+import static com.example.palacealpha01.GameFramework.palace.Rank.KING;
 import static com.example.palacealpha01.GameFramework.palace.Rank.QUEEN;
 import static com.example.palacealpha01.GameFramework.palace.Rank.SEVEN;
 import static com.example.palacealpha01.GameFramework.palace.Rank.TEN;
@@ -28,12 +29,17 @@ public class CardTest
 {
 	/**
 	 * The Card.java's copy_constructor() test relies on Card.java's equals() method. Therefore, it
-	 * is crucial for the validity of this test, to test Card.java's equals() method, which has a test
-	 * written within this source file, before testing Card.java's copy constructor.
+	 * is crucial for the validity of this test, to test Card.java's equals() method first, which has
+	 * a test written within this source file, before testing Card.java's copy constructor.
 	 */
 	@Test
 	public void copy_constructor()
 	{
+		Card king_clubs_one = new Card(KING, CLUBS);
+		Card king_clubs_two = new Card(KING, CLUBS);
+
+		assertEquals(true, king_clubs_one.equals(king_clubs_two));
+
 		Card ace_spades = new Card(ACE, SPADES);
 		Card ace_clubs = new Card(ACE, CLUBS);
 		Card eight_clubs = new Card(EIGHT, CLUBS);
@@ -106,7 +112,7 @@ public class CardTest
 	}
 
 	@Test
-	public void toString1()
+	public void toString_test()
 	{
 		Card ace_spades = new Card(ACE, SPADES);
 		Card ace_clubs = new Card(ACE, CLUBS);
@@ -136,7 +142,7 @@ public class CardTest
 	}
 
 	@Test
-	public void equals1()
+	public void equals_test()
 	{
 		Card ace_spades = new Card(ACE, SPADES);
 		Card ace_clubs = new Card(ACE, CLUBS);

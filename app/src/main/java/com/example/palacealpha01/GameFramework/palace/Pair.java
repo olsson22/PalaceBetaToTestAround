@@ -16,17 +16,23 @@ public class Pair
 {
 	private Card card;
 	private Location location;
+	private int x;
+	private int y;
 
 	public Pair(Card card, Location location)
 	{
 		this.card = card;
 		this.location = location;
+		x = -1000;
+		y = -1000;
 	}//END: Pair() constructor
 
 	public Pair(Pair that)
 	{
 		this.card = new Card(that.card);
 		this.location = that.location;
+		this.x = that.x;
+		this.y = that.y;
 	}//END: Pair() copy constructor
 
 	public Card get_card()
@@ -43,6 +49,22 @@ public class Pair
 	{
 		this.location = location;
 	}//END: set_location() method
+
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setX(int newX) {
+		x = newX;
+	}
+
+	public void setY(int newY) {
+		y = newY;
+	}
 
 	/**
 	 * Represents a Pair object with a string by listing the card and its location

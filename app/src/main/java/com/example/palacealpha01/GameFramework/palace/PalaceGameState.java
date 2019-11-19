@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import static android.os.SystemClock.sleep;
+import static com.example.palacealpha01.GameFramework.palace.PalaceSurfaceView.cardHeight;
+import static com.example.palacealpha01.GameFramework.palace.PalaceSurfaceView.cardWidth;
 
 
 /**
@@ -208,8 +210,8 @@ public class PalaceGameState extends GameState
 			for (int i = 0; i < selectedCards.size(); i++)
 			{
 				discardPile.push(selectedCards.get(i));
-			}
 
+			}
 			for (Pair p : the_deck)
 			{
 				if (selectedCards.contains(p))
@@ -217,6 +219,7 @@ public class PalaceGameState extends GameState
 					p.set_location(Location.DISCARD_PILE);
 				}
 			}
+			discardPile.peek().set_location(Location.DISCARD_PILE);
 
 			selectedCards.clear();
 
@@ -644,6 +647,21 @@ public class PalaceGameState extends GameState
 
 		return gameStateString;
 	}//toString
+
+	public Pair getPairAt(int x, int y) {
+		//Bitmap cardBack = BitmapFactory.decodeResource(getResources(), R.drawable.back);
+		for (Pair p : the_deck) {
+			if (x > p.getX() && x < p.getX() + cardWidth && y > p.getY() && y < p.getY() + cardHeight) {
+				return p;
+			}
+		}
+
+		Pair discardTop = discardPile.peek();
+		if (discardTop != null && x > discardTop.getX() && x < discardTop.getX() + cardWidth && y > discardTop.getY() && y < discardTop.getY() + cardHeight) {
+			return discardTop;
+		}
+		return null;
+	}
 
 	public boolean getIsChangingPalace () {
 	 	return isChangingPalace;

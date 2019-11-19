@@ -8,6 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
@@ -21,6 +22,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
 
+
+
 /**
  * PalaceSurfaceView Class:
  * the user interface visuals are implemented in this class
@@ -28,7 +31,7 @@ import java.util.Hashtable;
  * @author Andres Giesemann, Fredrik Olsson, Meredith Marcinko, Maximilian Puglielli
  * @version November 2019
  */
-public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListener, View.OnClickListener
+public class PalaceSurfaceView extends SurfaceView implements View.OnClickListener
 {
 
 	/**
@@ -39,10 +42,12 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListen
 	private Paint bitmapPaint = new Paint();
 	private Paint selectCardPaint = new Paint();
 	private Bitmap cardBack = BitmapFactory.decodeResource(getResources(), R.drawable.back);
-	private final int cardWidth = cardBack.getWidth();
-	private final int cardHeight = cardBack.getHeight();
+	public static final int cardWidth = 108;
+	public static final int cardHeight = 150;
 
-	ArrayList<Pair> discardPile = new ArrayList<>();
+
+	ArrayList<Pair> playerOneHand = new ArrayList<>();
+	ArrayList<Pair> playerTwoHand = new ArrayList<>();
 	private GamePlayer palaceHumanPlayer;
 	private Game theGame;
 	private Activity myActivity;
@@ -57,6 +62,7 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListen
 	public PalaceSurfaceView(Context context)
 	{
 		super(context);
+
 	}//PalaceSurfaceView
 
 	/**
@@ -73,6 +79,15 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListen
 		selectCardPaint.setColor(Color.YELLOW);
 		setWillNotDraw(false);
 		this.pgs = new PalaceGameState();
+		for (Pair p : pgs.the_deck) {
+			if (p.get_location() == Location.PLAYER_ONE_HAND) {
+				playerOneHand.add(p);
+			}
+			else if (p.get_location() == Location.PLAYER_TWO_HAND) {
+				playerTwoHand.add(p);
+			}
+		}
+
 
 	}//PalaceSurfaceView
 
@@ -130,16 +145,16 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListen
 		{
 			return;
 		}
-		drawPlayerOnePalaces(canvas);
+		drawPlayerOnePalaces(canvas); //done
 
-		drawHands(canvas);
+		drawHands(canvas);//done
 		//used for seeing if discard pile fills up
 		Paint discardPaint = new Paint();
 		//used for seeing if discard pile fills up
 		discardPaint.setColor(Color.BLUE);
 
 
-		drawPlayerTwoPalaces(canvas);
+		drawPlayerTwoPalaces(canvas);//done
 		//used for seeing if discard pile fills up
 
 /*        int counter = 0;
@@ -154,9 +169,13 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListen
             }
         }
 */
-		if (pgs.discardPile.peek() != null)
-			canvas.drawBitmap(pictures.get(pgs.discardPile.peek().get_card().toString()), getWidth() / 2, getHeight() / 2 - 3 * cardHeight / 4, bitmapPaint);
-
+		if (pgs.discardPile.peek() != null) {
+			int discardX = getWidth() / 2;
+			int discardY = getHeight() / 2 - 3 * cardHeight / 4;
+			canvas.drawBitmap(pictures.get(pgs.discardPile.peek().get_card().toString()), discardX, discardY, bitmapPaint);
+			pgs.discardPile.peek().setX(discardX);
+			pgs.discardPile.peek().setY(discardY);
+		}
 		if (!pgs.isDrawPileEmpty())
 		{
 			canvas.drawBitmap(cardBack, getWidth() / 2 + cardWidth, getHeight() / 2 - 3 * (cardHeight / 4), bitmapPaint);
@@ -186,6 +205,8 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListen
 					drawSelectionBox(canvas, xP2LP, yP2LP);
 				}
 				canvas.drawBitmap(cardBack, xP2LP, yP2LP, bitmapPaint);
+				p.setX(xP2LP);
+				p.setY(yP2LP);
 				xP2LP += cardWidth + 5;
 			}
 
@@ -200,6 +221,8 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListen
 					drawSelectionBox(canvas, xP2UP, yP2UP);
 				}
 				canvas.drawBitmap(pictures.get(p.get_card().toString()), xP2UP, yP2UP, bitmapPaint);
+				p.setX(xP2UP);
+				p.setY(yP2UP);
 				xP2UP += cardWidth + 5;
 			}
 		}
@@ -211,7 +234,8 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListen
 	 * @param canvas
 	 */
 	private void drawHands(Canvas canvas)
-	{//TODO center the hands on screen
+	{
+
 		Paint recPaint = new Paint();
 		recPaint.setColor(Color.RED);
 		int xP1H = 0;
@@ -228,7 +252,42 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListen
 			}
 		}
 
-		for (Pair p : pgs.the_deck)
+		playerOneHand.clear();
+		playerTwoHand.clear();
+
+		for (Pair p : pgs.the_deck) {
+			if (p.get_location() == Location.PLAYER_ONE_HAND) {
+				playerOneHand.add(p);
+			}
+			else if (p.get_location() == Location.PLAYER_TWO_HAND) {
+				playerTwoHand.add(p);
+			}
+		}
+
+		xP1H = (getWidth()/2) - ((playerOneHand.size()*(cardWidth+5))/2);
+		for (Pair p : playerOneHand) {
+			if (pgs.getSelectedCards().contains(p))
+			{
+				drawSelectionBox(canvas, xP1H, yP1H);
+			}
+			canvas.drawBitmap(pictures.get(p.get_card().toString()), xP1H, yP1H, bitmapPaint);
+			p.setX(xP1H);
+			p.setY(yP1H);
+			xP1H += cardWidth + 5;
+		}
+
+		xP2H = (getWidth()/2) - ((playerTwoHand.size()*(cardWidth+5))/2);
+		for (Pair p : playerTwoHand) {
+			if (pgs.getSelectedCards().contains(p))
+			{
+				drawSelectionBox(canvas, xP2H, yP2H);
+			}
+			canvas.drawBitmap(cardBack, xP2H, yP2H, bitmapPaint);
+			p.setX(xP2H);
+			p.setY(yP2H);
+			xP2H += cardWidth + 5;
+		}
+		/*for (Pair p : pgs.the_deck)
 		{
 			if (p.get_location() == Location.PLAYER_ONE_HAND)
 			{
@@ -237,6 +296,8 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListen
 					drawSelectionBox(canvas, xP1H, yP1H);
 				}
 				canvas.drawBitmap(pictures.get(p.get_card().toString()), xP1H, yP1H, bitmapPaint);
+				p.setX(xP1H);
+				p.setY(yP1H);
 				xP1H += cardWidth + 5;
 			}
 		}
@@ -250,10 +311,12 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListen
 					drawSelectionBox(canvas, xP2H, yP2H);
 				}
 				canvas.drawBitmap(cardBack, xP2H, yP2H, bitmapPaint);
+				p.setX(xP2H);
+				p.setY(yP2H);
 				//canvas.drawBitmap(pictures.get(p.get_card().toString()), xP2H, yP2H, bitmapPaint);
 				xP2H += cardWidth + 5;
 			}
-		}
+		}*/
 
 	}
 
@@ -282,6 +345,8 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListen
 					drawSelectionBox(canvas, xP1LP, yP1LP);
 				}
 				canvas.drawBitmap(cardBack, xP1LP, yP1LP, bitmapPaint);
+				p.setX(xP1LP);
+				p.setY(yP1LP);
 				xP1LP += cardWidth + 5;
 			}
 
@@ -296,106 +361,13 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListen
 					drawSelectionBox(canvas, xP1UP, yP1UP);
 				}
 				canvas.drawBitmap(pictures.get(p.get_card().toString()), xP1UP, yP1UP, bitmapPaint);
+				p.setX(xP1UP);
+				p.setY(yP1UP);
 				xP1UP += cardWidth + 5;
 			}
 		}
 	}//drawPlayerOnePalace
 
-	/**
-	 * onTouch method:
-	 * handles the taps on the different cards
-	 * @param v
-	 * @param event
-	 * @return
-	 */
-	//bit of a mess, but this handles the clicks on the different cards
-	//TODO move this to PalaceHumanPlayer
-	//TODO add drag to play feature
-	//TODO allow hand scrolling when hand is too big for the screen
-	@Override
-	public boolean onTouch(View v, MotionEvent event)
-	{
-		int nbrCardsInHand = 0;
-		int nbrCardsInUP = 0;
-		int sVHeight = 1092;
-		int cardHeight = 130;
-		int cardWidth = 110;
-		int xDiscard = getWidth() / 2;
-		int yDiscard = getHeight() / 2 - 3 * cardHeight / 4;
-		int xUpperPalace = getWidth() / 2 - 3 * (cardWidth) / 2;
-		int yUpperPalace = getHeight() - 225;
-		int xLowerPalace = xUpperPalace;
-		int yLowerPalace = getHeight() - 200;
-		int clickedX = (int) event.getX();
-		int clickedY = (int) event.getY();
-
-		if (event.getAction() == MotionEvent.ACTION_DOWN)
-		{
-			int top = (sVHeight / 2) + (cardHeight / 2);
-			int left = 0;
-			int right = left + cardWidth;
-			int bottom = top + cardHeight;
-
-
-			for (Pair p : pgs.the_deck)
-			{
-				//if a card in player ones hand is tapped, select that card
-				if (p.get_location() == Location.PLAYER_ONE_HAND)
-				{
-					nbrCardsInHand++;
-					nbrCardsInUP++;
-
-
-
-					if (clickedX >= left && clickedY >= top && clickedX <= right && clickedY <= bottom)
-					{
-						if (pgs.getIsChangingPalace()) {
-							theGame.sendAction(new PalaceSelectPalaceCardAction(palaceHumanPlayer, p));
-						}
-
-						else {
-							theGame.sendAction(new PalaceSelectCardAction(palaceHumanPlayer, p));
-						}
-					}
-					left += cardWidth + 5;
-					right = left + cardWidth + 5;
-
-				}
-
-				//if the discard pile is tapped, then pick up the discard pile
-				else if (p.get_location() == Location.PLAYER_ONE_UPPER_PALACE && nbrCardsInHand == 0)
-				{
-					nbrCardsInUP++;
-					PalaceSelectCardAction selectCard = new PalaceSelectCardAction(palaceHumanPlayer, p);
-					if (clickedX >= xUpperPalace && clickedY >= yUpperPalace && clickedX < (xUpperPalace + cardWidth) && clickedY < (yUpperPalace + cardHeight))
-					{
-						theGame.sendAction(selectCard);
-					}
-					xUpperPalace += cardWidth + 5;
-				}
-				else if (p.get_location() == Location.PLAYER_ONE_LOWER_PALACE && nbrCardsInHand == 0 && nbrCardsInUP == 0)
-				{
-					PalaceSelectCardAction selectCard = new PalaceSelectCardAction(palaceHumanPlayer, p);
-					if (clickedX >= xLowerPalace && clickedY >= yLowerPalace && clickedX < (xLowerPalace + cardWidth) && clickedY < (yLowerPalace + cardHeight))
-					{
-						theGame.sendAction(selectCard);
-					}
-					xLowerPalace += cardWidth + 5;
-				}
-				else if (p.get_location() == Location.DISCARD_PILE)
-				{
-					PalaceTakeDiscardPileAction takeDiscard = new PalaceTakeDiscardPileAction(palaceHumanPlayer);
-					if (clickedX >= xDiscard && clickedY >= yDiscard && clickedX < (xDiscard + cardWidth) && clickedY < (yDiscard + cardHeight))
-					{
-						theGame.sendAction(takeDiscard);
-						invalidate();
-					}
-				}
-			}
-		}
-		invalidate();
-		return true;
-	}//onTouch
 
 	/**
 	 * drawSelectionBox method:
@@ -423,16 +395,6 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListen
 	}//setPgs
 
 	/**
-	 * setDiscardPile method:
-	 * set the discard pile
-	 * @param discardPile
-	 */
-	public void setDiscardPile(ArrayList<Pair> discardPile)
-	{
-		this.discardPile = discardPile;
-	}//setDiscardPile
-
-	/**
 	 * onClick method:
 	 * the listeners for the button are implemented here
 	 * @param button
@@ -453,4 +415,5 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnTouchListen
 			}
 		}
 	}//onClick
+
 }//class PalaceSurfaceView

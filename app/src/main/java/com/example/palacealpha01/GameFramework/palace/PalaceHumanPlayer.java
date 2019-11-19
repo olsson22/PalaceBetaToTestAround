@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -24,7 +25,7 @@ import java.util.Hashtable;
  */
 
 //needs to handle screen interaction (implement listeners)
-public class PalaceHumanPlayer extends GameHumanPlayer implements View.OnClickListener
+public class PalaceHumanPlayer extends GameHumanPlayer implements View.OnClickListener, View.OnTouchListener
 {
 
 	/**
@@ -214,7 +215,7 @@ public class PalaceHumanPlayer extends GameHumanPlayer implements View.OnClickLi
 		palaceSurfaceView = (PalaceSurfaceView) myActivity.findViewById(R.id.TableSurfaceView);
 
 		//sets on the listener for the surfaceview
-		palaceSurfaceView.setOnTouchListener(palaceSurfaceView);
+		palaceSurfaceView.setOnTouchListener(this);
 
 
 		//sets up the pictures stored in the hashmap
@@ -256,4 +257,43 @@ public class PalaceHumanPlayer extends GameHumanPlayer implements View.OnClickLi
 		}
 
 	}//onClick
+
+	//TODO allow hand scrolling when hand is too big for the screen
+	//TODO do not allow playing from palaces when hand is not empty
+	/**
+	 * onTouch method:
+	 * handles the taps on the different cards
+	 * @param v
+	 * @param event
+	 * @return
+	 */
+	@Override
+	public boolean onTouch(View v, MotionEvent event) {
+		if (event.getAction() == MotionEvent.ACTION_DOWN) {
+			Pair tappedCard = pgs.getPairAt((int) event.getX(), (int) event.getY());
+
+			if (tappedCard == null) {
+				return false;
+			}
+
+			if (tappedCard.get_location() == Location.PLAYER_ONE_HAND) {
+				if (pgs.getIsChangingPalace()) {
+					game.sendAction(new PalaceSelectPalaceCardAction(this, tappedCard));
+				} else {
+					game.sendAction(new PalaceSelectCardAction(this, tappedCard));
+				}
+			} else if (tappedCard.get_location() == Location.PLAYER_ONE_UPPER_PALACE) {
+				game.sendAction(new PalaceSelectCardAction(this, tappedCard));
+			} else if (tappedCard.get_location() == Location.PLAYER_ONE_LOWER_PALACE) {
+				game.sendAction(new PalaceSelectCardAction(this, tappedCard));
+			} else if (tappedCard.get_location() == Location.DISCARD_PILE) {
+				game.sendAction(new PalaceTakeDiscardPileAction(this));
+			}
+
+		}
+
+
+		v.invalidate();
+		return true;
+	}
 }//class PalaceHumanPlayer

@@ -180,7 +180,6 @@ public class PalaceLocalGame extends LocalGame
 		{
 			if (canMove(playerNum))
 			{
-				//TODO sound effect when bombing discard pile
 
 				if (pgs.getTurn() == 0)
 				{

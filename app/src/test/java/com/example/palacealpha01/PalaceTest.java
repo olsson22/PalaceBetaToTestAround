@@ -24,11 +24,7 @@ public class PalaceTest
 {
 
 	//testing the shuffleDeck function
-	//doesn't need to be tested because the outcome
-	// of the shuffle will be different every time the
-	// method is called
 	//Meredith Marcinko
-
     //Andres: updated the shuffleTheDeck test method so that it at least ensures that the deck is changing.
     @Test
     public void shuffleTheDeckTest()
@@ -182,6 +178,13 @@ public class PalaceTest
     @Test
     public void isDrawPileEmptyTest()
     {
+	    PalaceGameState testpgs = new PalaceGameState();
+
+	    //testpgs.the_deck.clear();
+	    testpgs.isDrawPileEmpty();
+	    int after = testpgs.discardPile.size();
+
+	    assertEquals(0, after);
 
     }
 }

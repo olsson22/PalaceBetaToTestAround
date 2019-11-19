@@ -7,7 +7,6 @@ import com.example.palacealpha01.GameFramework.actionMessage.GameAction;
  * An Action in which the Change Palace Action is implemented
  *
  * @author Andres Giesemann, Fredrik Olsson, Meredith Marcinko, Maximilian Puglielli
- *
  * @version November 2019
  */
 public class PalaceChangePalaceAction extends GameAction

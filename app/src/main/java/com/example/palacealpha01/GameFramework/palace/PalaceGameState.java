@@ -230,15 +230,15 @@ public class PalaceGameState extends GameState
 			}
 
 			takeFromDrawPile(playerID);
-/*			if (discardPile.size() >= 4)
+		/*	if (discardPile.size() >= 4)
 			{
 				if (discardPile.get(discardPile.size() - 1).get_card().get_rank() == discardPile.get(discardPile.size() - 2).get_card().get_rank() && discardPile.get(discardPile.size() - 1).get_card().get_rank() == discardPile.get(discardPile.size() - 3).get_card().get_rank() && discardPile.get(discardPile.size() - 1).get_card().get_rank() == discardPile.get(discardPile.size() - 4).get_card().get_rank() || discardPile.get(discardPile.size() - 1).get_card().get_rank() == Rank.TEN)
 				{
 					bombDiscardPile();
 				}
-			}
+			}*/
 
-*/
+
 			if (playerID == 0) {
 				p1CanChangePalace = false;
 			}

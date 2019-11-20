@@ -31,7 +31,7 @@ import java.util.Hashtable;
  * @author Andres Giesemann, Fredrik Olsson, Meredith Marcinko, Maximilian Puglielli
  * @version November 2019
  */
-public class PalaceSurfaceView extends SurfaceView implements View.OnClickListener
+public class PalaceSurfaceView extends SurfaceView
 {
 
 	/**
@@ -52,6 +52,7 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnClickListen
 	private Game theGame;
 	private Activity myActivity;
 	private Hashtable<String, Bitmap> pictures = new Hashtable<>();
+	private int offset = 0;
 
 
 	/**
@@ -246,7 +247,9 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnClickListen
 
 		for (Pair p : pgs.the_deck)
 		{
-			if (p.get_location() == Location.PLAYER_ONE_HAND && pgs.getSelectedCards().contains(p) || p.get_location() == Location.PLAYER_ONE_UPPER_PALACE && pgs.getSelectedCards().contains(p) || p.get_location() == Location.PLAYER_ONE_LOWER_PALACE && pgs.getSelectedCards().contains(p))
+			if (p.get_location() == Location.PLAYER_ONE_HAND && pgs.getSelectedCards().contains(p) ||
+					p.get_location() == Location.PLAYER_ONE_UPPER_PALACE && pgs.getSelectedCards().contains(p) ||
+					p.get_location() == Location.PLAYER_ONE_LOWER_PALACE && pgs.getSelectedCards().contains(p))
 			{
 				canvas.drawText("card " + p.toString() + "is selected", 100, 100, recPaint);
 			}
@@ -265,17 +268,32 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnClickListen
 		}
 
 		xP1H = (getWidth()/2) - ((playerOneHand.size()*(cardWidth+5))/2);
-		for (Pair p : playerOneHand) {
-			if (pgs.getSelectedCards().contains(p))
-			{
-				drawSelectionBox(canvas, xP1H, yP1H);
+		if(xP1H>0) {
+			for (Pair p : playerOneHand) {
+				if (pgs.getSelectedCards().contains(p)) {
+					drawSelectionBox(canvas, xP1H, yP1H);
+				}
+				canvas.drawBitmap(pictures.get(p.get_card().toString()), xP1H, yP1H, bitmapPaint);
+				p.setX(xP1H);
+				p.setY(yP1H);
+				xP1H += cardWidth + 5;
 			}
-			canvas.drawBitmap(pictures.get(p.get_card().toString()), xP1H, yP1H, bitmapPaint);
-			p.setX(xP1H);
-			p.setY(yP1H);
-			xP1H += cardWidth + 5;
 		}
+		else{
+			xP1H = 0;
+			for (int i = offset; i<playerOneHand.size();i++) {
+				if (xP1H + cardWidth < getWidth()) {
+					if (pgs.getSelectedCards().contains(playerOneHand.get(i))) {
+						drawSelectionBox(canvas, xP1H, yP1H);
+					}
+					canvas.drawBitmap(pictures.get(playerOneHand.get(i).get_card().toString()), xP1H, yP1H, bitmapPaint);
+					playerOneHand.get(i).setX(xP1H);
+					playerOneHand.get(i).setY(yP1H);
+					xP1H += cardWidth + 5;
+				}
+			}
 
+		}
 		xP2H = (getWidth()/2) - ((playerTwoHand.size()*(cardWidth+5))/2);
 		for (Pair p : playerTwoHand) {
 			if (pgs.getSelectedCards().contains(p))
@@ -318,6 +336,13 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnClickListen
 			}
 		}*/
 
+	}
+
+	public void setOffset(int offset){
+		if(this.offset+offset<0){
+			return;
+		}
+		this.offset += offset;
 	}
 
 	/**
@@ -393,27 +418,5 @@ public class PalaceSurfaceView extends SurfaceView implements View.OnClickListen
 	{
 		this.pgs = pgs;
 	}//setPgs
-
-	/**
-	 * onClick method:
-	 * the listeners for the button are implemented here
-	 * @param button
-	 */
-	@Override
-	public void onClick(View button)
-	{
-		if (button.getId() == R.id.playCardButton)
-		{
-			for (Pair p : pgs.getSelectedCards())
-			{
-				if (pgs.getSelectedCards().contains(p))
-				{
-					PalacePlayCardAction playCardAction = new PalacePlayCardAction(palaceHumanPlayer);
-					theGame.sendAction(playCardAction);
-					button.invalidate();
-				}
-			}
-		}
-	}//onClick
 
 }//class PalaceSurfaceView

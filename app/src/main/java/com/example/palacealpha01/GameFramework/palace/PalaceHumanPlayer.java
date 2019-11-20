@@ -142,10 +142,14 @@ public class PalaceHumanPlayer extends GameHumanPlayer implements View.OnClickLi
 	 */
 	protected void initAfterReady()
 	{
+		Button leftButton = myActivity.findViewById(R.id.leftButton);
+		leftButton.setOnClickListener(this);
+		Button rightButton = myActivity.findViewById(R.id.rightButton);
+		rightButton.setOnClickListener(this);
 		Button palaceButton = myActivity.findViewById(R.id.PalaceButton);
 		palaceButton.setOnClickListener(this);
 		Button playCardButton = myActivity.findViewById(R.id.playCardButton);
-		playCardButton.setOnClickListener(palaceSurfaceView);
+		playCardButton.setOnClickListener(this);
 		Button confirmPalace = myActivity.findViewById(R.id.confirmPalace);
 		confirmPalace.setOnClickListener(this);
 		palaceSurfaceView.setGame(game);
@@ -218,6 +222,7 @@ public class PalaceHumanPlayer extends GameHumanPlayer implements View.OnClickLi
 		palaceSurfaceView.setOnTouchListener(this);
 
 
+
 		//sets up the pictures stored in the hashmap
 		palaceSurfaceView.setPictures(pictures);
 
@@ -255,6 +260,26 @@ public class PalaceHumanPlayer extends GameHumanPlayer implements View.OnClickLi
 			game.sendAction(changePalace);
 			button.invalidate();
 		}
+		else if(button.getId()== R.id.leftButton){
+			palaceSurfaceView.setOffset(-1);
+
+		}
+		else if(button.getId() == R.id.rightButton){
+			palaceSurfaceView.setOffset(1);
+		}
+		else if (button.getId() == R.id.playCardButton)
+		{
+			for (Pair p : pgs.getSelectedCards())
+			{
+				if (pgs.getSelectedCards().contains(p))
+				{
+					PalacePlayCardAction playCardAction = new PalacePlayCardAction(this);
+					game.sendAction(playCardAction);
+					button.invalidate();
+				}
+			}
+		}
+		palaceSurfaceView.invalidate();
 
 	}//onClick
 

@@ -39,6 +39,10 @@ public class PalaceHumanPlayer extends GameHumanPlayer implements View.OnClickLi
 	private PalaceGameState pgs;
 	private Toast toast;
 
+    private Pair tappedCard;
+    private int lastTapX;
+	private int lastTapY;
+
 
 
 
@@ -56,6 +60,9 @@ public class PalaceHumanPlayer extends GameHumanPlayer implements View.OnClickLi
 	{
 		super(name);
 		this.layoutId = layoutId;
+		lastTapX = 0;
+		lastTapY = 0;
+		tappedCard = null;
 
 
 	}//PalaceHumanPlayer
@@ -283,8 +290,7 @@ public class PalaceHumanPlayer extends GameHumanPlayer implements View.OnClickLi
 
 	}//onClick
 
-	//TODO allow hand scrolling when hand is too big for the screen
-	//TODO do not allow playing from palaces when hand is not empty
+
 	/**
 	 * onTouch method:
 	 * handles the taps on the different cards
@@ -295,27 +301,53 @@ public class PalaceHumanPlayer extends GameHumanPlayer implements View.OnClickLi
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
 		if (event.getAction() == MotionEvent.ACTION_DOWN) {
-			Pair tappedCard = pgs.getPairAt((int) event.getX(), (int) event.getY());
-
-			if (tappedCard == null) {
-				return false;
-			}
-
-			if (tappedCard.get_location() == Location.PLAYER_ONE_HAND) {
-				if (pgs.getIsChangingPalace()) {
-					game.sendAction(new PalaceSelectPalaceCardAction(this, tappedCard));
-				} else {
-					game.sendAction(new PalaceSelectCardAction(this, tappedCard));
-				}
-			} else if (tappedCard.get_location() == Location.PLAYER_ONE_UPPER_PALACE) {
-				game.sendAction(new PalaceSelectCardAction(this, tappedCard));
-			} else if (tappedCard.get_location() == Location.PLAYER_ONE_LOWER_PALACE) {
-				game.sendAction(new PalaceSelectCardAction(this, tappedCard));
-			} else if (tappedCard.get_location() == Location.DISCARD_PILE) {
-				game.sendAction(new PalaceTakeDiscardPileAction(this));
-			}
-
+		    lastTapX = (int) event.getX();
+		    lastTapY = (int) event.getY();
+			tappedCard = pgs.getPairAt(lastTapX, lastTapY);
+			return true;
 		}
+
+		else if (event.getAction() == MotionEvent.ACTION_UP) {
+
+            if (tappedCard == null) {
+                return false;
+            }
+
+            if (tappedCard.get_location() == Location.PLAYER_ONE_HAND) {
+                if (pgs.getIsChangingPalace()) {
+                    game.sendAction(new PalaceSelectPalaceCardAction(this, tappedCard));
+                } else {
+                    if (lastTapY - 50 > event.getY()) {
+                    	if (pgs.getSelectedCards().isEmpty()) {
+							game.sendAction(new PalaceSelectCardAction(this, tappedCard));
+						}
+
+						game.sendAction(new PalacePlayCardAction(this));
+                    }
+                    else {
+                        game.sendAction(new PalaceSelectCardAction(this, tappedCard));
+                    }
+                }
+            } else if (tappedCard.get_location() == Location.PLAYER_ONE_UPPER_PALACE) {
+                if (lastTapY - 50 > event.getY()) {
+					if (pgs.getSelectedCards().isEmpty()) {
+						game.sendAction(new PalaceSelectCardAction(this, tappedCard));
+					}
+					if (!pgs.getSelectedCards().isEmpty()) {
+						game.sendAction(new PalacePlayCardAction(this));
+					}
+                }
+                else {
+                    game.sendAction(new PalaceSelectCardAction(this, tappedCard));
+                }
+            } else if (tappedCard.get_location() == Location.PLAYER_ONE_LOWER_PALACE) {
+                game.sendAction(new PalaceSelectCardAction(this, tappedCard));
+            } else if (tappedCard.get_location() == Location.DISCARD_PILE) {
+                game.sendAction(new PalaceTakeDiscardPileAction(this));
+            }
+        }
+
+
 
 
 		v.invalidate();

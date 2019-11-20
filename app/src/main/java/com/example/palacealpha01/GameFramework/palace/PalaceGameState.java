@@ -36,6 +36,7 @@ public class PalaceGameState extends GameState
 	private boolean isChangingPalace;
 	private boolean p1CanChangePalace;
 	private boolean p2CanChangePalace;
+	private boolean testingP1Palace = false; //change this for debugging issues with playing cards from player one's lower palace
 
 
 
@@ -473,44 +474,51 @@ public class PalaceGameState extends GameState
 	 * dealTheDeck method:
 	 * Deals cards from DRAW_PILE to palaces and hands of players
 	 */
+
 	public void dealTheDeck()
 	{
+		if (!testingP1Palace) {
+			for (int i = 0; i < 52; i++) {
 
-		for (int i = 0; i < 52; i++)
-		{
+				if (i < 10) {
 
-			if (i < 10)
-			{
-
-				if (i % 2 == 0)
-				{
-					the_deck.get(i).set_location(Location.PLAYER_ONE_HAND);
+					if (i % 2 == 0) {
+						the_deck.get(i).set_location(Location.PLAYER_ONE_HAND);
+					} else {
+						the_deck.get(i).set_location(Location.PLAYER_TWO_HAND);
+					}
 				}
-				else
-				{
-					the_deck.get(i).set_location(Location.PLAYER_TWO_HAND);
+				if (10 <= i && i < 16) {
+					if (i % 2 == 0) {
+						the_deck.get(i).set_location(Location.PLAYER_ONE_LOWER_PALACE);
+					} else {
+						the_deck.get(i).set_location(Location.PLAYER_TWO_LOWER_PALACE);
+					}
+				}
+				if (16 <= i && i < 22) {
+					if (i % 2 == 0) {
+						the_deck.get(i).set_location(Location.PLAYER_ONE_UPPER_PALACE);
+					} else {
+						the_deck.get(i).set_location(Location.PLAYER_TWO_UPPER_PALACE);
+					}
 				}
 			}
-			if (10 <= i && i < 16)
-			{
-				if (i % 2 == 0)
-				{
+		}
+
+		else {
+			for (int i = 0; i < 52; i++) {
+
+				if (i < 3) {
 					the_deck.get(i).set_location(Location.PLAYER_ONE_LOWER_PALACE);
 				}
-				else
-				{
+				else if (i < 6) {
 					the_deck.get(i).set_location(Location.PLAYER_TWO_LOWER_PALACE);
 				}
-			}
-			if (16 <= i && i < 22)
-			{
-				if (i % 2 == 0)
-				{
-					the_deck.get(i).set_location(Location.PLAYER_ONE_UPPER_PALACE);
-				}
-				else
-				{
+				else if (i < 9) {
 					the_deck.get(i).set_location(Location.PLAYER_TWO_UPPER_PALACE);
+				}
+				else {
+					the_deck.get(i).set_location(Location.PLAYER_TWO_HAND);
 				}
 			}
 		}
@@ -527,12 +535,24 @@ public class PalaceGameState extends GameState
 	 */
 	public boolean isLegal(Pair selectedCard)
 	{
+		if (selectedCard.get_location() == Location.PLAYER_ONE_UPPER_PALACE && getPlayerOneHandSize() > 0) {
+			return false;
+		}
+		if (selectedCard.get_location() == Location.PLAYER_TWO_UPPER_PALACE && getPlayerTwoHandSize() > 0) {
+			return false;
+		}
+		if (selectedCard.get_location() == Location.PLAYER_ONE_LOWER_PALACE && (getPlayerOneHandSize() > 0 || getPlayerOneUpperPalaceSize() > 0)) {
+			return false;
+		}
+		if (selectedCard.get_location() == Location.PLAYER_TWO_LOWER_PALACE && (getPlayerTwoHandSize() > 0 || getPlayerTwoUpperPalaceSize() > 0)) {
+			return false;
+		}
 		if (discardPile.is_empty())
 		{
 			return true;
 		}
-		//playing a two is always legal
-		else if (discardPile.peek().get_card().get_rank() == Rank.TWO)
+		//playing a two or a ten or playing on a two is always legal
+		else if (discardPile.peek().get_card().get_rank() == Rank.TWO || selectedCard.get_card().get_rank() == Rank.TWO || selectedCard.get_card().get_rank() == Rank.TEN)
 		{
 			return true;
 		}
@@ -652,7 +672,17 @@ public class PalaceGameState extends GameState
 		//Bitmap cardBack = BitmapFactory.decodeResource(getResources(), R.drawable.back);
 		for (Pair p : the_deck) {
 			if (x > p.getX() && x < p.getX() + cardWidth && y > p.getY() && y < p.getY() + cardHeight) {
-				return p;
+				if (p.get_location() != Location.PLAYER_ONE_LOWER_PALACE) {
+					return p;
+				}
+			}
+		}
+
+		for (Pair p : the_deck) {
+			if (x > p.getX() && x < p.getX() + cardWidth && y > p.getY() && y < p.getY() + cardHeight) {
+				if (p.get_location() == Location.PLAYER_ONE_LOWER_PALACE) {
+					return p;
+				}
 			}
 		}
 
@@ -674,5 +704,47 @@ public class PalaceGameState extends GameState
 	public boolean getP2CanChangePalace() {
 		return p2CanChangePalace;
 	}
+
+	public int getPlayerOneHandSize() {
+		int counter = 0;
+		for (Pair p : the_deck) {
+			if (p.get_location() == Location.PLAYER_ONE_HAND) {
+				counter++;
+			}
+		}
+		return counter;
+	}
+
+	public int getPlayerTwoHandSize() {
+		int counter = 0;
+		for (Pair p : the_deck) {
+			if (p.get_location() == Location.PLAYER_TWO_HAND) {
+				counter++;
+			}
+		}
+		return counter;
+	}
+
+	public int getPlayerOneUpperPalaceSize() {
+		int counter = 0;
+		for (Pair p : the_deck) {
+			if (p.get_location() == Location.PLAYER_ONE_UPPER_PALACE) {
+				counter++;
+			}
+		}
+		return counter;
+	}
+
+	public int getPlayerTwoUpperPalaceSize() {
+		int counter = 0;
+		for (Pair p : the_deck) {
+			if (p.get_location() == Location.PLAYER_TWO_UPPER_PALACE) {
+				counter++;
+			}
+		}
+		return counter;
+	}
+
+
 
 }//class PalaceGameState

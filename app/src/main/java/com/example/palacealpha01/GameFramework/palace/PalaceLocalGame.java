@@ -71,7 +71,27 @@ public class PalaceLocalGame extends LocalGame
 	@Override
 	protected String checkIfGameOver()
 	{
-		int p0counter = 0;
+		boolean playerOneWin = true;
+		boolean playerTwoWin = true;
+		for (Pair p : pgs.the_deck) {
+			if (p.get_location() == Location.PLAYER_ONE_HAND || p.get_location() == Location.PLAYER_ONE_UPPER_PALACE || p.get_location() == Location.PLAYER_ONE_LOWER_PALACE) {
+				playerOneWin = false;
+			}
+			else if (p.get_location() == Location.PLAYER_TWO_HAND || p.get_location() == Location.PLAYER_TWO_UPPER_PALACE || p.get_location() == Location.PLAYER_TWO_LOWER_PALACE) {
+				playerTwoWin = false;
+			}
+		}
+
+		if (playerOneWin) {
+			return playerNames[0] + " is the winner ";
+		}
+
+		if (playerTwoWin) {
+			return playerNames[1] + " is the winner ";
+		}
+
+		return null;
+		/*int p0counter = 0;
 		int p1counter = 0;
 
 		for (Pair p : pgs.the_deck)
@@ -119,7 +139,7 @@ public class PalaceLocalGame extends LocalGame
 		{
 
 			return null;
-		}
+		} */
 	}//checkIfGameOver
 
 	/**

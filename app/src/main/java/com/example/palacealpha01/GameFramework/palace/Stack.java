@@ -3,6 +3,8 @@
  */
 package com.example.palacealpha01.GameFramework.palace;
 
+import java.util.ArrayList;
+
 /**
  * @author Maximilian
  * <p>
@@ -34,19 +36,20 @@ public class Stack
 			this.next = null;
 		}//END: StackNode() constructor
 
+		@Override
 		public boolean equals(Object obj)
 		{
-			if (!(obj instanceof StackNode))
+			if (! (obj instanceof StackNode))
 				return false;
 
-			if (!this.data.equals(((StackNode) obj).data))
+			if (! this.data.equals(((StackNode) obj).data))
 				return false;
 
 			return true;
 		}
 	}//END: StackNode class
 
-	StackNode head; // This is the head/top of the Stack. It is the first Node in the stack's linked list.
+	private StackNode head; // This is the head/top of the Stack. It is the first Node in the stack's linked list.
 
 	/**
 	 * default constructor for the Stack.java class
@@ -54,6 +57,28 @@ public class Stack
 	public Stack()
 	{
 		this.head = null;
+	}//END: Stack() default constructor
+
+	public Stack(Pair[] initial_nodes, boolean in_order)
+	{
+		this.head = null;
+		if (in_order)
+			for (Pair p : initial_nodes)
+				this.push(p);
+		else
+			for (int i = initial_nodes.length - 1; i >= 0; i--)
+				this.push(initial_nodes[i]);
+	}//END: Stack() constructor
+
+	public Stack(ArrayList<Pair> initial_nodes, boolean in_order)
+	{
+		this.head = null;
+		if (in_order)
+			for (Pair p : initial_nodes)
+				this.push(p);
+		else
+			for (int i = initial_nodes.size() - 1; i >= 0; i--)
+				this.push(initial_nodes.get(i));
 	}//END: Stack() constructor
 
 	/**
@@ -64,7 +89,7 @@ public class Stack
 	public Stack(Stack that)
 	{
 		this.head = null;
-		copy_constructor(that.head);
+		this.copy_constructor(that.head);
 	}//END: Stack() copy constructor
 
 	/**
@@ -74,9 +99,13 @@ public class Stack
 	private void copy_constructor(StackNode current)
 	{
 		if (current == null)
-			return;   // NOTE: Exit recursion loop here.
-		copy_constructor(current.next);   // NOTE: The is the only recursive call.
+			// NOTE: Exit recursion loop here.
+			return;
 
+		// NOTE: the is the only recursive call within this function
+		this.copy_constructor(current.next);
+
+		// NOTE: work is done post-order
 		this.push(current.data);
 	}//END: copy_constructor() recursive method
 
@@ -91,9 +120,9 @@ public class Stack
 	{
 		if (this.head == null)
 			return null;
-		Pair data = this.head.data;
+		Pair rtn = this.head.data;
 		this.head = this.head.next;
-		return data;
+		return rtn;
 	}//END: pop() method
 
 	public Pair peek()
@@ -105,9 +134,9 @@ public class Stack
 
 	public boolean are_next_four_equal()
 	{
-		final int FOUR = 4;
 		if (this.head == null)
 			return false;
+		final int FOUR = 4;
 		StackNode current = this.head;
 		for (int i = 1; i <= (FOUR - 1); i++)
 		{
@@ -127,26 +156,9 @@ public class Stack
 
 	public void clear()
 	{
-		while (!this.is_empty())
+		while (! this.is_empty())
 			this.pop();
 	}//END: clear() method
-
-/*	@Override
-	public String toString()
-	{
-		Stack tmp = new Stack(this);
-
-		String s = "";
-		Pair p;
-		while (! tmp.is_empty())
-		{
-			p = tmp.pop();
-			s.concat(p.toString());
-		}
-
-		return s;
-	}//END: toString() method
-*/
 
 	/**
 	 * This is the wrapper function for the toString() recursive method.
@@ -155,9 +167,7 @@ public class Stack
 	@Override
 	public String toString()
 	{
-		String s = "";
-		to_string_rec(s, this.head);
-		return s;
+		return to_string_rec("", this.head);
 	}
 
 	/**
@@ -168,7 +178,7 @@ public class Stack
 	@Override
 	public boolean equals(Object obj)
 	{
-		if (!(obj instanceof Stack))
+		if (! (obj instanceof Stack))
 			return false;
 
 		return equals_rec(this.head, ((Stack) obj).head);
@@ -184,18 +194,21 @@ public class Stack
 	{
 		// if both Stacks are empty, or both Stacks have the same number of StackNodes
 		if (this_current == null && that_current == null)
-			return true;   // NOTE: recursive loop exit
+			// NOTE: recursive loop exit
+			return true;
 
 		// if both Stack's size are not equal
-		if ((this_current == null) ^ (that_current == null))   // X-OR logic operator
-			return false;   // NOTE: recursive loop exit
+		if ((this_current == null) ^ (that_current == null)) // '^' X-OR logic operator
+			// NOTE: recursive loop exit
+			return false;
 
 		// if at any point, both StackNode's data is not equal
-		if (!this_current.data.equals(that_current.data))
-			return false;   // NOTE: recursive loop exit
+		if (! this_current.data.equals(that_current.data))
+			// NOTE: recursive loop exit
+			return false;
 
-		return equals_rec(this_current.next, that_current.next);   // NOTE: this is the single recursive
-		//                                                                  within this function
+		// NOTE: this is the single recursive within this function
+		return equals_rec(this_current.next, that_current.next);
 	}
 
 	/**
@@ -203,14 +216,16 @@ public class Stack
 	 * @param s
 	 * @param current
 	 */
-	private void to_string_rec(String s, StackNode current)
+	private static String to_string_rec(String s, StackNode current)
 	{
 		if (current == null)
-			return;   // NOTE: we exit recursion loop here
+			// NOTE: we exit recursion loop here
+			return s;
 
-		s.concat(current.data.toString() + "\n");
+		s += current.data.toString() + "\n";
 
-		to_string_rec(s, current.next);   // NOTE: this is the single recursive call within this function
+		// NOTE: this is the single recursive call within this function
+		return to_string_rec(s, current.next);
 	}//END: to_string() recursive method
 
 	/**
@@ -227,10 +242,12 @@ public class Stack
 	 * @param current
 	 * @return
 	 */
-	private int size_rec(StackNode current)
+	private static int size_rec(StackNode current)
 	{
 		if (current == null)
+			// NOTE: recursive loop exit
 			return 0;
+		// NOTE: this is the single recursive call within this function
 		return 1 + size_rec(current.next);
 	}
 }//END: Stack class

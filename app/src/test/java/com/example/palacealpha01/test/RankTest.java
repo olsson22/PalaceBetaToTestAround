@@ -44,27 +44,27 @@ public class RankTest
 	@Test
 	public void get_int_value()
 	{
-		assertEquals(3, THREE.get_int_value());
-		assertEquals(4, FOUR.get_int_value());
-		assertEquals(5, FIVE.get_int_value());
-		assertEquals(6, SIX.get_int_value());
-		assertEquals(7, SEVEN.get_int_value());
-		assertEquals(8, EIGHT.get_int_value());
-		assertEquals(9, NINE.get_int_value());
-		assertEquals(10, JACK.get_int_value());
+		assertEquals(3,  THREE.get_int_value());
+		assertEquals(4,  FOUR .get_int_value());
+		assertEquals(5,  FIVE .get_int_value());
+		assertEquals(6,  SIX  .get_int_value());
+		assertEquals(7,  SEVEN.get_int_value());
+		assertEquals(8,  EIGHT.get_int_value());
+		assertEquals(9,  NINE .get_int_value());
+		assertEquals(10, JACK .get_int_value());
 		assertEquals(11, QUEEN.get_int_value());
-		assertEquals(12, KING.get_int_value());
-		assertEquals(13, ACE.get_int_value());
-		assertEquals(14, TWO.get_int_value());
-		assertEquals(15, TEN.get_int_value());
+		assertEquals(12, KING .get_int_value());
+		assertEquals(13, ACE  .get_int_value());
+		assertEquals(14, TWO  .get_int_value());
+		assertEquals(15, TEN  .get_int_value());
 
-		assertEquals(3, THREE_INT);
-		assertEquals(4, FOUR_INT);
-		assertEquals(5, FIVE_INT);
-		assertEquals(6, SIX_INT);
-		assertEquals(7, SEVEN_INT);
-		assertEquals(8, EIGHT_INT);
-		assertEquals(9, NINE_INT);
+		assertEquals(3,  THREE_INT);
+		assertEquals(4,  FOUR_INT);
+		assertEquals(5,  FIVE_INT);
+		assertEquals(6,  SIX_INT);
+		assertEquals(7,  SEVEN_INT);
+		assertEquals(8,  EIGHT_INT);
+		assertEquals(9,  NINE_INT);
 		assertEquals(10, JACK_INT);
 		assertEquals(11, QUEEN_INT);
 		assertEquals(12, KING_INT);
@@ -77,26 +77,26 @@ public class RankTest
 	public void int_to_rank()
 	{
 		assertEquals(THREE, Rank.int_to_rank(3));
-		assertEquals(FOUR, Rank.int_to_rank(4));
-		assertEquals(FIVE, Rank.int_to_rank(5));
-		assertEquals(SIX, Rank.int_to_rank(6));
+		assertEquals(FOUR,  Rank.int_to_rank(4));
+		assertEquals(FIVE,  Rank.int_to_rank(5));
+		assertEquals(SIX,   Rank.int_to_rank(6));
 		assertEquals(SEVEN, Rank.int_to_rank(7));
 		assertEquals(EIGHT, Rank.int_to_rank(8));
-		assertEquals(NINE, Rank.int_to_rank(9));
-		assertEquals(JACK, Rank.int_to_rank(10));
+		assertEquals(NINE,  Rank.int_to_rank(9));
+		assertEquals(JACK,  Rank.int_to_rank(10));
 		assertEquals(QUEEN, Rank.int_to_rank(11));
-		assertEquals(KING, Rank.int_to_rank(12));
-		assertEquals(ACE, Rank.int_to_rank(13));
-		assertEquals(TWO, Rank.int_to_rank(14));
-		assertEquals(TEN, Rank.int_to_rank(15));
+		assertEquals(KING,  Rank.int_to_rank(12));
+		assertEquals(ACE,   Rank.int_to_rank(13));
+		assertEquals(TWO,   Rank.int_to_rank(14));
+		assertEquals(TEN,   Rank.int_to_rank(15));
 
-		assertEquals(3, THREE_INT);
-		assertEquals(4, FOUR_INT);
-		assertEquals(5, FIVE_INT);
-		assertEquals(6, SIX_INT);
-		assertEquals(7, SEVEN_INT);
-		assertEquals(8, EIGHT_INT);
-		assertEquals(9, NINE_INT);
+		assertEquals(3,  THREE_INT);
+		assertEquals(4,  FOUR_INT);
+		assertEquals(5,  FIVE_INT);
+		assertEquals(6,  SIX_INT);
+		assertEquals(7,  SEVEN_INT);
+		assertEquals(8,  EIGHT_INT);
+		assertEquals(9,  NINE_INT);
 		assertEquals(10, JACK_INT);
 		assertEquals(11, QUEEN_INT);
 		assertEquals(12, KING_INT);

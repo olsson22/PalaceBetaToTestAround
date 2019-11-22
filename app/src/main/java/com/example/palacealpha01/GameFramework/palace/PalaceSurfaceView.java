@@ -64,6 +64,7 @@ public class PalaceSurfaceView extends SurfaceView
 	{
 		super(context);
 
+
 	}//PalaceSurfaceView
 
 	/**
@@ -115,7 +116,7 @@ public class PalaceSurfaceView extends SurfaceView
 	/**
 	 * setGame method:
 	 * sets the game for displaying it on the GUI
- 	 * @param g
+	 * @param g
 	 */
 	public void setGame(Game g)
 	{
@@ -146,30 +147,20 @@ public class PalaceSurfaceView extends SurfaceView
 		{
 			return;
 		}
-		drawPlayerOnePalaces(canvas); //done
 
-		drawHands(canvas);//done
-		//used for seeing if discard pile fills up
+		//TODO with the help of Nux I tried to change the draw methods so they can differentiate between computerplayer
+		//TODO and the humanplayer, for this we need a reference to the human's and computerplayer's playernum but I can't get it to work...
+		drawPlayerOnePalaces(canvas, /*second parameter needs to be a reference to the playernum of the humanplayer*/); //done
+
+		drawHands(canvas, /*second parameter needs to be a reference to the playernum of the humanplayer, the third parameter needs to be to the computerplayer*/);//done
+
 		Paint discardPaint = new Paint();
 		//used for seeing if discard pile fills up
 		discardPaint.setColor(Color.BLUE);
 
 
-		drawPlayerTwoPalaces(canvas);//done
-		//used for seeing if discard pile fills up
+		drawPlayerTwoPalaces(canvas, /*second parameter needs to be a reference to the playernum of the computerplayer*/);//done
 
-/*        int counter = 0;
-        for(int i = pgs.the_deck.size()-1;i>=0;i--)
-        {
-            canvas.drawText("cards in discard pile: " + counter, 200, 10*counter,discardPaint );
-            if(pgs.the_deck.get(i).get_location()==Location.DISCARD_PILE)
-            {
-                canvas.drawBitmap(pictures.get(pgs.the_deck.get(i).get_card().toString()), getWidth() / 2, getHeight() / 2 - 3 * cardHeight / 4, bitmapPaint);
-
-            counter++;
-            }
-        }
-*/
 		if (pgs.discardPile.peek() != null) {
 			int discardX = getWidth() / 2;
 			int discardY = getHeight() / 2 - 3 * cardHeight / 4;
@@ -188,8 +179,11 @@ public class PalaceSurfaceView extends SurfaceView
 	 * draws player 2's palace
 	 * @param canvas
 	 */
-	private void drawPlayerTwoPalaces(Canvas canvas)
+	//TODO added the playernum parameter to be able to differentiate between computerplayer and humanplayer
+	private void drawPlayerTwoPalaces(Canvas canvas, int playerNum)
 	{
+		Location upLoc = (playerNum == 0)? Location.PLAYER_ONE_UPPER_PALACE : Location.PLAYER_TWO_UPPER_PALACE;
+		Location lowLoc = (playerNum == 0)? Location.PLAYER_ONE_LOWER_PALACE : Location.PLAYER_TWO_LOWER_PALACE;
 
 		int xP2LP = getWidth() / 2 - 3 * (cardWidth) / 2;
 		int xP2UP = getWidth() / 2 - 3 * (cardWidth) / 2;
@@ -199,7 +193,7 @@ public class PalaceSurfaceView extends SurfaceView
 
 		for (Pair p : pgs.the_deck)
 		{
-			if (p.get_location() == Location.PLAYER_TWO_LOWER_PALACE)
+			if (p.get_location() == upLoc)
 			{
 				if (pgs.getSelectedCards().contains(p))
 				{
@@ -215,7 +209,7 @@ public class PalaceSurfaceView extends SurfaceView
 
 		for (Pair p : pgs.the_deck)
 		{
-			if (p.get_location() == Location.PLAYER_TWO_UPPER_PALACE)
+			if (p.get_location() == lowLoc)
 			{
 				if (pgs.getSelectedCards().contains(p))
 				{
@@ -234,8 +228,18 @@ public class PalaceSurfaceView extends SurfaceView
 	 * draws the cards in the and tells which card is selected
 	 * @param canvas
 	 */
-	private void drawHands(Canvas canvas)
+	//TODO added the playernum parameters to be able to differentiate between computerplayer and humanplayer
+	private void drawHands(Canvas canvas, int humanPlayerNum, int computerPlayerNum)
 	{
+
+
+		Location humanHandLoc = (humanPlayerNum == 0)? Location.PLAYER_ONE_HAND : Location.PLAYER_TWO_HAND;
+		Location humanUpLoc = (humanPlayerNum == 0)? Location.PLAYER_ONE_UPPER_PALACE : Location.PLAYER_TWO_UPPER_PALACE;
+		Location humanLowLoc = (humanPlayerNum == 0)? Location.PLAYER_ONE_LOWER_PALACE : Location.PLAYER_TWO_LOWER_PALACE;
+
+		Location computerHandLoc = (computerPlayerNum == 0)? Location.PLAYER_ONE_HAND : Location.PLAYER_TWO_HAND;
+		Location computerUpLoc = (computerPlayerNum == 0)? Location.PLAYER_ONE_UPPER_PALACE : Location.PLAYER_TWO_UPPER_PALACE;
+		Location computerLowLoc = (computerPlayerNum == 0)? Location.PLAYER_ONE_LOWER_PALACE : Location.PLAYER_TWO_LOWER_PALACE;
 
 		Paint recPaint = new Paint();
 		recPaint.setColor(Color.RED);
@@ -247,9 +251,9 @@ public class PalaceSurfaceView extends SurfaceView
 
 		for (Pair p : pgs.the_deck)
 		{
-			if (p.get_location() == Location.PLAYER_ONE_HAND && pgs.getSelectedCards().contains(p) ||
-					p.get_location() == Location.PLAYER_ONE_UPPER_PALACE && pgs.getSelectedCards().contains(p) ||
-					p.get_location() == Location.PLAYER_ONE_LOWER_PALACE && pgs.getSelectedCards().contains(p))
+			if (p.get_location() == humanHandLoc && pgs.getSelectedCards().contains(p) ||
+					p.get_location() == humanUpLoc && pgs.getSelectedCards().contains(p) ||
+					p.get_location() == humanLowLoc && pgs.getSelectedCards().contains(p))
 			{
 				canvas.drawText("card " + p.toString() + "is selected", 100, 100, recPaint);
 			}
@@ -259,10 +263,10 @@ public class PalaceSurfaceView extends SurfaceView
 		playerTwoHand.clear();
 
 		for (Pair p : pgs.the_deck) {
-			if (p.get_location() == Location.PLAYER_ONE_HAND) {
+			if (p.get_location() == humanHandLoc) {
 				playerOneHand.add(p);
 			}
-			else if (p.get_location() == Location.PLAYER_TWO_HAND) {
+			else if (p.get_location() == computerHandLoc) {
 				playerTwoHand.add(p);
 			}
 		}
@@ -300,41 +304,13 @@ public class PalaceSurfaceView extends SurfaceView
 			{
 				drawSelectionBox(canvas, xP2H, yP2H);
 			}
-			canvas.drawBitmap(cardBack, xP2H, yP2H, bitmapPaint);
+			//canvas.drawBitmap(cardBack, xP2H, yP2H, bitmapPaint);
+			canvas.drawBitmap(pictures.get(p.get_card().toString()), xP2H, yP2H, bitmapPaint);
 			p.setX(xP2H);
 			p.setY(yP2H);
 			xP2H += cardWidth + 5;
 		}
-		/*for (Pair p : pgs.the_deck)
-		{
-			if (p.get_location() == Location.PLAYER_ONE_HAND)
-			{
-				if (pgs.getSelectedCards().contains(p))
-				{
-					drawSelectionBox(canvas, xP1H, yP1H);
-				}
-				canvas.drawBitmap(pictures.get(p.get_card().toString()), xP1H, yP1H, bitmapPaint);
-				p.setX(xP1H);
-				p.setY(yP1H);
-				xP1H += cardWidth + 5;
-			}
-		}
 
-		for (Pair p : pgs.the_deck)
-		{
-			if (p.get_location() == Location.PLAYER_TWO_HAND)
-			{
-				if (pgs.getSelectedCards().contains(p))
-				{
-					drawSelectionBox(canvas, xP2H, yP2H);
-				}
-				canvas.drawBitmap(cardBack, xP2H, yP2H, bitmapPaint);
-				p.setX(xP2H);
-				p.setY(yP2H);
-				//canvas.drawBitmap(pictures.get(p.get_card().toString()), xP2H, yP2H, bitmapPaint);
-				xP2H += cardWidth + 5;
-			}
-		}*/
 
 	}
 
@@ -350,8 +326,12 @@ public class PalaceSurfaceView extends SurfaceView
 	 * draws the cards that are within player one's palace
 	 * @param canvas
 	 */
-	private void drawPlayerOnePalaces(Canvas canvas)
+	//TODO added the playernum parameter to be able to differentiate between computerplayer and humanplayer
+	private void drawPlayerOnePalaces(Canvas canvas, int playerNum)
 	{
+		Location handLoc = (playerNum == 0)? Location.PLAYER_ONE_HAND : Location.PLAYER_TWO_HAND;
+		Location upLoc = (playerNum == 0)? Location.PLAYER_ONE_UPPER_PALACE : Location.PLAYER_TWO_UPPER_PALACE;
+		Location lowLoc = (playerNum == 0)? Location.PLAYER_ONE_LOWER_PALACE : Location.PLAYER_TWO_LOWER_PALACE;
 
 		int xP1LP = getWidth() / 2 - 3 * (cardWidth) / 2;
 		int xP1UP = getWidth() / 2 - 3 * (cardWidth) / 2;
@@ -362,7 +342,7 @@ public class PalaceSurfaceView extends SurfaceView
 		for (Pair p : pgs.the_deck)
 		{
 
-			if (p.get_location() == Location.PLAYER_ONE_LOWER_PALACE)
+			if (p.get_location() == lowLoc)
 			{
 
 				if (pgs.getSelectedCards().contains(p))
@@ -380,7 +360,7 @@ public class PalaceSurfaceView extends SurfaceView
 
 		for (Pair p : pgs.the_deck)
 		{
-			if (p.get_location() == Location.PLAYER_ONE_UPPER_PALACE)
+			if (p.get_location() == upLoc)
 			{
 				if (pgs.getSelectedCards().contains(p))
 				{

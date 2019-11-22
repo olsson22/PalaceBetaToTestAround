@@ -341,7 +341,7 @@ public class PalaceHumanPlayer extends GameHumanPlayer implements View.OnClickLi
                     game.sendAction(new PalaceSelectCardAction(this, tappedCard));
                 }
             } else if (tappedCard.get_location() == Location.PLAYER_ONE_LOWER_PALACE) {
-                game.sendAction(new PalaceSelectCardAction(this, tappedCard));
+                game.sendAction(new PalacePlayLowerPalaceCardAction(this, tappedCard));
             } else if (tappedCard.get_location() == Location.DISCARD_PILE) {
                 game.sendAction(new PalaceTakeDiscardPileAction(this));
             }

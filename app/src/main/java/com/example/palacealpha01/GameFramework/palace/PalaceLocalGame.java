@@ -198,7 +198,7 @@ public class PalaceLocalGame extends LocalGame
 		//if action is a playCardAction, perform this move
 		else if (action instanceof PalacePlayCardAction)
 		{
-			if (canMove(playerNum))
+			if (canMove(playerNum) && pgs.getSelectedCards().size() > 0)
 			{
 
 				if (pgs.getTurn() == 0)

@@ -30,7 +30,7 @@ public class PairTest
 	 * a test written within CardTest.java, before testing Pair.java's get_card() method.
 	 */
 	@Test
-	public void get_card()
+	public void get_card_test()
 	{
 		Card king_clubs_one = new Card(KING, CLUBS);
 		Card king_clubs_two = new Card(KING, CLUBS);
@@ -57,7 +57,7 @@ public class PairTest
 	}
 
 	@Test
-	public void get_location()
+	public void get_location_test()
 	{
 		Pair test_pair_one   = new Pair(new Card(EIGHT, CLUBS),  PLAYER_ONE_HAND);
 		Pair test_pair_two   = new Pair(new Card(ACE,   CLUBS),  PLAYER_TWO_HAND);
@@ -78,7 +78,7 @@ public class PairTest
 	 * which has a test written within this source file, before testing Pair.java's get_card() method.
 	 */
 	@Test
-	public void set_location()
+	public void set_location_test()
 	{
 		Pair player_one_hand = new Pair(new Card(KING, CLUBS), PLAYER_ONE_HAND);
 
@@ -110,25 +110,25 @@ public class PairTest
 	}
 
 	@Test
-	public void getX()
+	public void getX_test()
 	{
 		// TODO: write a test here
 	}
 
 	@Test
-	public void getY()
+	public void getY_test()
 	{
 		// TODO: write a test here
 	}
 
 	@Test
-	public void setX()
+	public void setX_test()
 	{
 		// TODO: write a test here
 	}
 
 	@Test
-	public void setY()
+	public void setY_test()
 	{
 		// TODO: write a test here
 	}
@@ -154,19 +154,21 @@ public class PairTest
 	{
 		Pair test_pair_one_a   = new Pair(new Card(ACE,   CLUBS),  PLAYER_ONE_HAND);
 		Pair test_pair_one_b   = new Pair(new Card(ACE,   CLUBS),  PLAYER_ONE_HAND);
-		Pair test_pair_two_a   = new Pair(new Card(ACE,   SPADES), PLAYER_TWO_HAND);
-		Pair test_pair_two_b   = new Pair(new Card(ACE,   SPADES), PLAYER_TWO_HAND);
+		Pair test_pair_two_a   = new Pair(new Card(ACE,   SPADES), PLAYER_ONE_HAND);
+		Pair test_pair_two_b   = new Pair(new Card(ACE,   SPADES), PLAYER_ONE_HAND);
 		Pair test_pair_three_a = new Pair(new Card(EIGHT, CLUBS),  PLAYER_ONE_LOWER_PALACE);
 		Pair test_pair_three_b = new Pair(new Card(EIGHT, CLUBS),  PLAYER_ONE_LOWER_PALACE);
 		Pair test_pair_four_a  = new Pair(new Card(EIGHT, CLUBS),  PLAYER_TWO_LOWER_PALACE);
 		Pair test_pair_four_b  = new Pair(new Card(EIGHT, CLUBS),  PLAYER_TWO_LOWER_PALACE);
-		Pair test_pair_five_a  = new Pair(new Card(QUEEN, HEARTS), PLAYER_TWO_UPPER_PALACE);
-		Pair test_pair_five_b  = new Pair(new Card(QUEEN, HEARTS), PLAYER_TWO_UPPER_PALACE);
+		Pair test_pair_five_a  = new Pair(new Card(ACE,   CLUBS),  PLAYER_TWO_HAND);
+		Pair test_pair_five_b  = new Pair(new Card(ACE,   CLUBS),  PLAYER_TWO_HAND);
 
-		assertEquals(true, test_pair_one_a  .equals(test_pair_one_b));
-		assertEquals(true, test_pair_two_a  .equals(test_pair_two_b));
-		assertEquals(true, test_pair_three_a.equals(test_pair_three_b));
-		assertEquals(true, test_pair_four_a .equals(test_pair_four_b));
-		assertEquals(true, test_pair_five_a .equals(test_pair_five_b));
+		assertEquals(true,  test_pair_one_a  .equals(test_pair_one_b));
+		assertEquals(true,  test_pair_two_a  .equals(test_pair_two_b));
+		assertEquals(true,  test_pair_three_a.equals(test_pair_three_b));
+		assertEquals(true,  test_pair_four_a .equals(test_pair_four_b));
+		assertEquals(true,  test_pair_five_a .equals(test_pair_five_b));
+		assertEquals(false, test_pair_one_a  .equals(test_pair_five_a));
+		assertEquals(false, test_pair_one_a  .equals(test_pair_two_a));
 	}
 }

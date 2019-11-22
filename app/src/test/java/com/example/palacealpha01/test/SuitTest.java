@@ -24,7 +24,7 @@ public class SuitTest
 {
 
 	@Test
-	public void get_suit_num()
+	public void get_suit_num_test()
 	{
 		assertEquals(1, SPADES  .get_suit_num());
 		assertEquals(2, CLUBS   .get_suit_num());
@@ -38,7 +38,7 @@ public class SuitTest
 	}
 
 	@Test
-	public void int_to_suit()
+	public void int_to_suit_test()
 	{
 		assertEquals(SPADES,   Suit.int_to_suit(1));
 		assertEquals(CLUBS,    Suit.int_to_suit(2));

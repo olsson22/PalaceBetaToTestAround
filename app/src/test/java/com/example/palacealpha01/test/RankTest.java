@@ -42,7 +42,7 @@ public class RankTest
 {
 
 	@Test
-	public void get_int_value()
+	public void get_int_value_test()
 	{
 		assertEquals(3,  THREE.get_int_value());
 		assertEquals(4,  FOUR .get_int_value());
@@ -74,7 +74,7 @@ public class RankTest
 	}
 
 	@Test
-	public void int_to_rank()
+	public void int_to_rank_test()
 	{
 		assertEquals(THREE, Rank.int_to_rank(3));
 		assertEquals(FOUR,  Rank.int_to_rank(4));

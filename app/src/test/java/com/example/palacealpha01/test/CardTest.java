@@ -33,7 +33,7 @@ public class CardTest
 	 * has a test written within this source file, before testing Card.java's copy constructor.
 	 */
 	@Test
-	public void copy_constructor()
+	public void copy_constructor_test()
 	{
 		Card king_clubs_one = new Card(KING, CLUBS);
 		Card king_clubs_two = new Card(KING, CLUBS);
@@ -82,7 +82,7 @@ public class CardTest
 	}
 
 	@Test
-	public void get_rank()
+	public void get_rank_test()
 	{
 		Card ace_spades   = new Card(ACE,   SPADES);
 		Card ace_clubs    = new Card(ACE,   CLUBS);

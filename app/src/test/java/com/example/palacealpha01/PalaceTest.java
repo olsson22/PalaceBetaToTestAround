@@ -106,8 +106,10 @@ public class PalaceTest
 
         pgs.playCards(2);
 
-        for (Pair p : pgs.the_deck) {
-            if ((p.get_location() == Location.DISCARD_PILE  || p.get_location() == Location.DEAD_PILE) && p.equals(temp)) {
+        for (Pair p : pgs.the_deck)
+        {
+            if ((p.get_location() == Location.DISCARD_PILE  || p.get_location() == Location.DEAD_PILE) && p.equals(temp))
+            {
                 assertEquals(p, temp);
             }
 
@@ -125,8 +127,10 @@ public class PalaceTest
         PalaceGameState pgs = new PalaceGameState();
         Pair[] palaceCards = new Pair[3];
         int counter = 0;
-        for (Pair p : pgs.the_deck) {
-            if (p.get_location() == Location.PLAYER_TWO_UPPER_PALACE) {
+        for (Pair p : pgs.the_deck)
+        {
+            if (p.get_location() == Location.PLAYER_TWO_UPPER_PALACE)
+            {
                 palaceCards[counter] = p;
                 counter++;
             }
@@ -134,8 +138,10 @@ public class PalaceTest
         }
         pgs.changePalace(1);
         int counter2 = 0;
-        for (int i = 0; i < palaceCards.length; i++) {
-            if (palaceCards[i].get_location() == Location.PLAYER_TWO_HAND) {
+        for (int i = 0; i < palaceCards.length; i++)
+        {
+            if (palaceCards[i].get_location() == Location.PLAYER_TWO_HAND)
+            {
                 counter2++;
             }
         }
@@ -208,11 +214,25 @@ public class PalaceTest
     }//dealTheDeckTest
 
     /**
-     * @author
+     * tests to see if the discardpile is bombed with the bombDiscardPile() method is called
+     * @author Meredith Marcinko
      */
     @Test
     public void bombDiscardPileTest()
     {
+        PalaceGameState pgs = new PalaceGameState();
+        Pair temp = new Pair(new Card(Rank.int_to_rank(4), Suit.int_to_suit(1)), Location.DRAW_PILE);
+        for (Pair p : pgs.the_deck)
+        {
+            /*if (p.get_card() == (p.get_card().get_rank() == Rank.TEN))
+            {
+                pgs.bombDiscardPile();
+                temp = p;
+                break;
+            }*/
+        }
+
+        assertEquals(pgs.discardPile.size(), 0);
 
     }//bombDiscardPileTest
 
@@ -233,13 +253,31 @@ public class PalaceTest
     }//isDrawPileEmptyTest
 
     /**
-     * @author
+     * Checks to see if the Lower palace card that was selected was play and put in the discard pile
+     * @author Meredith Marcinko
      */
     @Test
     public void playLowerPalaceCardTest()
     {
-
-        
+        PalaceGameState pgs = new PalaceGameState();
+        Pair temp = new Pair(new Card(Rank.int_to_rank(4), Suit.int_to_suit(1)), Location.DRAW_PILE);
+        for (Pair p : pgs.the_deck)
+        {
+            if (p.get_location() == Location.PLAYER_TWO_LOWER_PALACE)
+            {
+                pgs.selectCards(2, p);
+                temp = p;
+                break;
+            }
+        }
+        pgs.playLowerPalaceCard(2, temp);
+        for (Pair p : pgs.the_deck)
+        {
+            if ((p.get_location() == Location.DISCARD_PILE  || p.get_location() == Location.DEAD_PILE) && p.equals(temp))
+            {
+                assertEquals(p, temp);
+            }
+        }
     }//playLowerPalaceCardTest
 
 

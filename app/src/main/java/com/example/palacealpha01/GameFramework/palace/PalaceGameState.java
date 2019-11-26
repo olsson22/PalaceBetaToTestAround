@@ -662,7 +662,7 @@ public class PalaceGameState extends GameState
 	 * bombDiscardPile method:
 	 * Removes the discardPile from play by moving it to the dead pile.
 	 */
-	private void bombDiscardPile()
+	public void bombDiscardPile()
 	{//TODO make it clear to the user that the discardPile is getting bombed, instead of just having it disappear
 		discardPile.clear();
 		for (Pair p : the_deck)

@@ -150,16 +150,16 @@ public class PalaceSurfaceView extends SurfaceView
 
 		//TODO with the help of Nux I tried to change the draw methods so they can differentiate between computerplayer
 		//TODO and the humanplayer, for this we need a reference to the human's and computerplayer's playernum but I can't get it to work...
-		drawPlayerOnePalaces(canvas, /*second parameter needs to be a reference to the playernum of the humanplayer*/); //done
+		//drawPlayerOnePalaces(canvas, /*second parameter needs to be a reference to the playernum of the humanplayer*/); //done
 
-		drawHands(canvas, /*second parameter needs to be a reference to the playernum of the humanplayer, the third parameter needs to be to the computerplayer*/);//done
+		//drawHands(canvas, /*second parameter needs to be a reference to the playernum of the humanplayer, the third parameter needs to be to the computerplayer*/);//done
 
 		Paint discardPaint = new Paint();
 		//used for seeing if discard pile fills up
 		discardPaint.setColor(Color.BLUE);
 
 
-		drawPlayerTwoPalaces(canvas, /*second parameter needs to be a reference to the playernum of the computerplayer*/);//done
+		//drawPlayerTwoPalaces(canvas, /*second parameter needs to be a reference to the playernum of the computerplayer*/);//done
 
 		if (pgs.discardPile.peek() != null) {
 			int discardX = getWidth() / 2;

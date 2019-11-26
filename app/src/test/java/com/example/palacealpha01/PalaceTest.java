@@ -35,7 +35,7 @@ public class PalaceTest
         pgs.shuffleTheDeck();
 
         assertNotEquals(pgs.toString(), pgs2.toString());
-    }
+    }//shuffleTheDeckTest
 
     /**
      * @author Andres Giesemann
@@ -46,7 +46,7 @@ public class PalaceTest
         PalaceGameState pgs2 = new PalaceGameState(pgs);
 
         assertEquals(pgs.toString(), pgs2.toString());
-    }
+    }//copyConstructor
 
     /**
      * @author Fredrik Olsson
@@ -67,13 +67,15 @@ public class PalaceTest
         }
 
         assertTrue(pgs.getSelectedCards().contains(temp));
-    }
+    }//selectCardsTest
+
 
     @Test
     public void selectPalaceCardsTest()
     {
 
-    }
+    }//selectPalaceCardsTest
+
 
     /**
      * tests playCard method from PalaceGameState
@@ -107,7 +109,7 @@ public class PalaceTest
             }
 
         }
-    }
+    }//playCardsTest
 
     /**
      * tests changePalace method from PalaceGameState by checking to see that upper palace cards
@@ -135,13 +137,13 @@ public class PalaceTest
             }
         }
         assertEquals(counter2, palaceCards.length);
-    }
+    }//changePalaceTest
 
     @Test
     public void confirmPalaceTest()
     {
 
-    }
+    }//confirmPalaceTest
 
     /**
      * tests takeDiscardPile method from PalaceGameState by checking
@@ -170,36 +172,60 @@ public class PalaceTest
         pgs.takeDiscardPile(1);
 
         assertEquals(temp.get_location(), Location.PLAYER_TWO_HAND);
-    }
+    }//takeDiscardPileTest
 
+    @Test
+    public void takeFromDrawPileTest()
+    {
+
+    }//takeFromDrawPileTest
+
+    /**
+     * Tests to see if the deck dealt the right amount of cards
+     * to each location
+     * @author Meredith Marcinko
+     */
     @Test
     public void dealTheDeckTest()
     {
+        PalaceGameState pgs = new PalaceGameState();
+        pgs.dealTheDeck();
+        assertEquals(pgs.getPlayerOneHandSize(), 5);
+        assertEquals(pgs.getPlayerTwoHandSize(), 5);
+        assertEquals(pgs.getPlayerOneUpperPalaceSize(), 3);
+        assertEquals(pgs.getPlayerTwoUpperPalaceSize(), 3);
 
-    }
+
+    }//dealTheDeckTest
 
     @Test
     public void bombDiscardPileTest()
     {
 
-    }
+    }//bombDiscardPileTest
 
+    /**
+     * checks to see if the draw pile is empty
+     * @author Meredith Marcinko
+     */
     @Test
     public void isDrawPileEmptyTest()
     {
 	    PalaceGameState testpgs = new PalaceGameState();
 
-	    //testpgs.the_deck.clear();
 	    testpgs.isDrawPileEmpty();
 	    int after = testpgs.discardPile.size();
 
 	    assertEquals(0, after);
 
-    }
+    }//isDrawPileEmptyTest
 
     @Test
-    public void playLowerPalaceCardTest() {
+    public void playLowerPalaceCardTest()
+    {
         PalaceGameState pgs = new PalaceGameState();
+        Pair temp = new Pair(new Card(Rank.int_to_rank(4), Suit.int_to_suit(1)), Location.DRAW_PILE);
+
         
-    }
+    }//playLowerPalaceCardTest
 }

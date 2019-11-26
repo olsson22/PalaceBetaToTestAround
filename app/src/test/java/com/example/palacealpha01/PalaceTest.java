@@ -23,10 +23,11 @@ import static org.junit.Assert.assertTrue;
 public class PalaceTest
 {
 
-	//testing the shuffleDeck function
-	//Meredith Marcinko
-    //Andres: updated the shuffleTheDeck test method so that it at least ensures that the deck is changing.
-    @Test
+	/**
+     * testing the shuffleDeck method so that it at least ensures that the deck is changing.
+     * @author Meredith Marcinko, Andres
+     */
+     @Test
     public void shuffleTheDeckTest()
     {
         PalaceGameState pgs = new PalaceGameState();
@@ -69,7 +70,9 @@ public class PalaceTest
         assertTrue(pgs.getSelectedCards().contains(temp));
     }//selectCardsTest
 
-
+    /**
+     * @author
+     */
     @Test
     public void selectPalaceCardsTest()
     {
@@ -139,6 +142,9 @@ public class PalaceTest
         assertEquals(counter2, palaceCards.length);
     }//changePalaceTest
 
+    /**
+     * @author
+     */
     @Test
     public void confirmPalaceTest()
     {
@@ -174,6 +180,9 @@ public class PalaceTest
         assertEquals(temp.get_location(), Location.PLAYER_TWO_HAND);
     }//takeDiscardPileTest
 
+    /**
+     * @author
+     */
     @Test
     public void takeFromDrawPileTest()
     {
@@ -182,7 +191,7 @@ public class PalaceTest
 
     /**
      * Tests to see if the deck dealt the right amount of cards
-     * to each location
+     * to each location, including players' hands and the players' upper palace
      * @author Meredith Marcinko
      */
     @Test
@@ -198,6 +207,9 @@ public class PalaceTest
 
     }//dealTheDeckTest
 
+    /**
+     * @author
+     */
     @Test
     public void bombDiscardPileTest()
     {
@@ -220,12 +232,15 @@ public class PalaceTest
 
     }//isDrawPileEmptyTest
 
+    /**
+     * @author
+     */
     @Test
     public void playLowerPalaceCardTest()
     {
-        PalaceGameState pgs = new PalaceGameState();
-        Pair temp = new Pair(new Card(Rank.int_to_rank(4), Suit.int_to_suit(1)), Location.DRAW_PILE);
 
         
     }//playLowerPalaceCardTest
-}
+
+
+}//PalaceTest

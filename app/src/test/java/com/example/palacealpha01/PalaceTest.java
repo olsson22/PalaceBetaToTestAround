@@ -71,11 +71,24 @@ public class PalaceTest
     }//selectCardsTest
 
     /**
-     * @author
+     * @author Meredith Marcinko
      */
     @Test
     public void selectPalaceCardsTest()
     {
+        PalaceGameState pgs = new PalaceGameState();
+        Pair temp = new Pair(new Card(Rank.int_to_rank(4), Suit.int_to_suit(1)), Location.DRAW_PILE);
+        for (Pair p : pgs.the_deck)
+        {
+            if (p.get_location() == Location.PLAYER_ONE_UPPER_PALACE)
+            {
+                pgs.selectPalaceCards(1, p);
+                temp = p;
+                break;
+             }
+        }
+
+        assertTrue(pgs.getSelectedCards().contains(temp));
 
     }//selectPalaceCardsTest
 
@@ -149,12 +162,33 @@ public class PalaceTest
     }//changePalaceTest
 
     /**
-     * @author
+     * @author Meredith Marcinko
      */
     @Test
     public void confirmPalaceTest()
     {
+        PalaceGameState pgs = new PalaceGameState();
+        Pair temp = new Pair(new Card(Rank.int_to_rank(4), Suit.int_to_suit(1)), Location.DRAW_PILE);
+        for (Pair p : pgs.the_deck)
+        {
+            if (p.get_location() == Location.PLAYER_ONE_UPPER_PALACE)
+            {
+                pgs.selectPalaceCards(1, p);
+                temp = p;
+                break;
+            }
+        }
 
+        pgs.confirmPalace(1);
+
+        for (Pair p : pgs.the_deck)
+        {
+            if (p.get_location() == Location.PLAYER_ONE_UPPER_PALACE  && p.equals(temp))
+            {
+                assertEquals(p, temp);
+            }
+
+        }
     }//confirmPalaceTest
 
     /**

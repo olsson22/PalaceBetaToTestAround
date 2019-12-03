@@ -1,17 +1,10 @@
 package com.example.palacealpha01.GameFramework.palace;
 
 import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.util.Log;
-
 import com.example.palacealpha01.GameFramework.infoMessage.GameState;
-//import com.example.palacealpha01.R;
-
 import java.util.ArrayList;
 import java.util.Collections;
-
-import static android.os.SystemClock.sleep;
 import static com.example.palacealpha01.GameFramework.palace.PalaceSurfaceView.cardHeight;
 import static com.example.palacealpha01.GameFramework.palace.PalaceSurfaceView.cardWidth;
 
@@ -273,14 +266,6 @@ public class PalaceGameState extends GameState
 			}
 
 			takeFromDrawPile(playerID);
-		/*	if (discardPile.size() >= 4)
-			{
-				if (discardPile.get(discardPile.size() - 1).get_card().get_rank() == discardPile.get(discardPile.size() - 2).get_card().get_rank() && discardPile.get(discardPile.size() - 1).get_card().get_rank() == discardPile.get(discardPile.size() - 3).get_card().get_rank() && discardPile.get(discardPile.size() - 1).get_card().get_rank() == discardPile.get(discardPile.size() - 4).get_card().get_rank() || discardPile.get(discardPile.size() - 1).get_card().get_rank() == Rank.TEN)
-				{
-					bombDiscardPile();
-				}
-			}*/
-
 
 			if (playerID == 0)
 			{
@@ -627,11 +612,13 @@ public class PalaceGameState extends GameState
 		{
 			return false;
 		}
-		if (selectedCard.get_location() == Location.PLAYER_ONE_LOWER_PALACE && (getPlayerOneHandSize() > 0 || getPlayerOneUpperPalaceSize() > 0))
+		if (selectedCard.get_location() == Location.PLAYER_ONE_LOWER_PALACE && (getPlayerOneHandSize() > 0
+				|| getPlayerOneUpperPalaceSize() > 0))
 		{
 			return false;
 		}
-		if (selectedCard.get_location() == Location.PLAYER_TWO_LOWER_PALACE && (getPlayerTwoHandSize() > 0 || getPlayerTwoUpperPalaceSize() > 0))
+		if (selectedCard.get_location() == Location.PLAYER_TWO_LOWER_PALACE && (getPlayerTwoHandSize() > 0
+				|| getPlayerTwoUpperPalaceSize() > 0))
 		{
 			return false;
 		}
@@ -640,17 +627,22 @@ public class PalaceGameState extends GameState
 			return true;
 		}
 		//playing a two or a ten or playing on a two is always legal
-		else if (discardPile.peek().get_card().get_rank() == Rank.TWO || selectedCard.get_card().get_rank() == Rank.TWO || selectedCard.get_card().get_rank() == Rank.TEN)
+		else if (discardPile.peek().get_card().get_rank() == Rank.TWO
+				|| selectedCard.get_card().get_rank() == Rank.TWO
+				|| selectedCard.get_card().get_rank() == Rank.TEN)
 		{
 			return true;
 		}
 		//cards of equal or lower rank are allowed on top of sevens
-		else if (discardPile.peek().get_card().get_rank() == Rank.SEVEN && (selectedCard.get_card().get_rank().get_int_value() <= Rank.SEVEN_INT))
+		else if (discardPile.peek().get_card().get_rank() == Rank.SEVEN
+				&& (selectedCard.get_card().get_rank().get_int_value() <= Rank.SEVEN_INT))
 		{
 			return true;
 		}
 		//otherwise, a card is only legal if its rank is higher than the top card of the discard pile
-		else if (discardPile.peek().get_card().get_rank() != Rank.SEVEN && discardPile.peek().get_card().get_rank().get_int_value() <= selectedCard.get_card().get_rank().get_int_value())
+		else if (discardPile.peek().get_card().get_rank() != Rank.SEVEN
+				&& discardPile.peek().get_card().get_rank().get_int_value()
+				<= selectedCard.get_card().get_rank().get_int_value())
 		{
 			return true;
 		}
@@ -741,11 +733,6 @@ public class PalaceGameState extends GameState
 
 		gameStateString += discardPile.toString();
 
-/*		for (Pair p : discardPile)
-		{
-			gameStateString += p.toString() + "\n";
-		}
-*/
 		gameStateString += "Selected cards contains:\n";
 
 		for (Pair p : selectedCards)
@@ -787,7 +774,8 @@ public class PalaceGameState extends GameState
 		}
 
 		Pair discardTop = discardPile.peek();
-		if (discardTop != null && x > discardTop.getX() && x < discardTop.getX() + cardWidth && y > discardTop.getY() && y < discardTop.getY() + cardHeight)
+		if (discardTop != null && x > discardTop.getX() && x < discardTop.getX() + cardWidth && y
+				> discardTop.getY() && y < discardTop.getY() + cardHeight)
 		{
 			return discardTop;
 		}

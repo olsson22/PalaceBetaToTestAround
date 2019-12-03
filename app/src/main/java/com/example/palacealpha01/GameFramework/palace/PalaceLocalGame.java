@@ -73,73 +73,34 @@ public class PalaceLocalGame extends LocalGame
 	{
 		boolean playerOneWin = true;
 		boolean playerTwoWin = true;
-		for (Pair p : pgs.the_deck) {
-			if (p.get_location() == Location.PLAYER_ONE_HAND || p.get_location() == Location.PLAYER_ONE_UPPER_PALACE || p.get_location() == Location.PLAYER_ONE_LOWER_PALACE) {
+		for (Pair p : pgs.the_deck)
+		{
+			if (p.get_location() == Location.PLAYER_ONE_HAND || p.get_location()
+					== Location.PLAYER_ONE_UPPER_PALACE || p.get_location()
+					== Location.PLAYER_ONE_LOWER_PALACE)
+			{
 				playerOneWin = false;
 			}
-			else if (p.get_location() == Location.PLAYER_TWO_HAND || p.get_location() == Location.PLAYER_TWO_UPPER_PALACE || p.get_location() == Location.PLAYER_TWO_LOWER_PALACE) {
+			else if (p.get_location() == Location.PLAYER_TWO_HAND || p.get_location()
+					== Location.PLAYER_TWO_UPPER_PALACE || p.get_location()
+					== Location.PLAYER_TWO_LOWER_PALACE)
+			{
 				playerTwoWin = false;
 			}
 		}
 
-		if (playerOneWin) {
+		if (playerOneWin)
+		{
 			return playerNames[0] + " is the winner ";
 		}
 
-		if (playerTwoWin) {
+		if (playerTwoWin)
+		{
 			return playerNames[1] + " is the winner ";
 		}
 
 		return null;
-		/*int p0counter = 0;
-		int p1counter = 0;
 
-		for (Pair p : pgs.the_deck)
-		{
-			if (p.get_location() == Location.PLAYER_ONE_LOWER_PALACE)
-			{
-				p0counter++;
-			}
-		}
-
-
-		for (Pair p : pgs.the_deck)
-		{
-			if (p.get_location() == Location.PLAYER_TWO_LOWER_PALACE)
-			{
-				p1counter++;
-			}
-		}
-
-		for (Pair p : pgs.the_deck)
-		{
-			if (p.get_location() == Location.PLAYER_ONE_HAND)
-			{
-				p0counter++;
-			}
-		}
-
-		for (Pair p : pgs.the_deck)
-		{
-			if (p.get_location() == Location.PLAYER_TWO_HAND)
-			{
-				p1counter++;
-			}
-		}
-
-		if (p0counter == 0)
-		{
-			return playerNames[0] + " is the winner ";
-		}
-		else if (p1counter == 0)
-		{
-			return playerNames[1] + " is the winner ";
-		}
-		else
-		{
-
-			return null;
-		} */
 	}//checkIfGameOver
 
 	/**
